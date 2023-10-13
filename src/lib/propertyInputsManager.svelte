@@ -10,7 +10,7 @@
 	}
 
 	function removeProperty(p: PropertyInput) {
-		properties.splice(properties.indexOf(p));
+		properties.splice(properties.indexOf(p), 1);
 		properties = properties;
 	}
 </script>
