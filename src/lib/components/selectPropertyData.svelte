@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { nanoid } from 'nanoid';
-	import { propertyDataOptions, type Property } from '../types.js';
+	import { propertyDataOptions, type PropertyData } from '../types.js';
 
-	export let value: Property = propertyDataOptions['string'];
+	export let value: PropertyData = propertyDataOptions['string'];
 
-	export let id = nanoid();
-	export let name = `propertyData-${id}`;
+	export let id = `property-data-${nanoid()}`;
+	const name = id;
 </script>
 
 <select {name} {id} bind:value required>

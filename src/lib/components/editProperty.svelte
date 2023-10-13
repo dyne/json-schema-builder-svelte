@@ -5,7 +5,7 @@
 
 	export let property: Property = createEmptyProperty();
 
-	export let id = nanoid();
+	export let id = nanoid(5);
 
 	const nameId = `property-name-${id}`;
 	const requiredId = `property-required-${id}`;

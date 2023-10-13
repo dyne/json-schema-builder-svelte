@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { createEmptyProperty, type Property } from '$lib/types.js';
+	import { nanoid } from 'nanoid';
 	import EditProperty from './editProperty.svelte';
 
 	export let properties: Property[] = [createEmptyProperty()];
@@ -15,12 +16,14 @@
 </script>
 
 <div>
-	<button on:click={addProperty}>+ Add property</button>
+	<button id="property-add" on:click={addProperty}>+ Add property</button>
 </div>
 {#each properties as p (p)}
+	{@const id = nanoid()}
 	<div class="flex space-x-3">
-		<EditProperty bind:property={p} />
+		<EditProperty bind:property={p} {id} />
 		<button
+			id={`property-remove-${id}`}
 			on:click={() => {
 				removeProperty(p);
 			}}>-</button
