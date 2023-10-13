@@ -43,5 +43,3 @@ function handleCreateSchema() {
 		<button type="submit">Create schema</button>
 	</div>
 </form>
-
-<pre>{JSON.stringify(schemaInput, null, 2)}</pre>
