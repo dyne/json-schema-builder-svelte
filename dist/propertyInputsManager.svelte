@@ -6,7 +6,7 @@ function addProperty() {
   properties = [...properties, createEmptyPropertyInput()];
 }
 function removeProperty(p) {
-  properties.splice(properties.indexOf(p));
+  properties.splice(properties.indexOf(p), 1);
   properties = properties;
 }
 </script>
