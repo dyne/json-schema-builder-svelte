@@ -1,0 +1,30 @@
+<script lang="ts">
+	import PropertySelect from './propertySelect.svelte';
+	import { createEmptyPropertyInput, type PropertyInput } from './inputDefinitions.js';
+	import { nanoid } from 'nanoid';
+
+	export let property: PropertyInput = createEmptyPropertyInput();
+
+	export let id = nanoid(5);
+
+	const nameId = `property-name-${id}`;
+	const requiredId = `property-required-${id}`;
+	const selectId = `property-data-${id}`;
+</script>
+
+<input
+	class="grow basis-2/3"
+	name={nameId}
+	id={nameId}
+	type="text"
+	bind:value={property.name}
+	placeholder="Property name"
+	required
+/>
+<div class="flex grow basis-1/3">
+	<PropertySelect id={selectId} bind:value={property.data} />
+</div>
+<label for={requiredId} class="flex items-center space-x-0.5">
+	<input id={requiredId} name={requiredId} type="checkbox" bind:checked={property.required} />
+	<span class="text-sm">Required</span>
+</label>

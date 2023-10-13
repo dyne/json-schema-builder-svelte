@@ -1,5 +1,9 @@
 <script lang="ts">
-	import EditProperties from '$lib/components/editProperties.svelte';
+	import JSONSchemaBuilder from '$lib/JSONSchemaBuilder.svelte';
 </script>
 
-<EditProperties />
+<JSONSchemaBuilder
+	on:create={(s) => {
+		console.log(s);
+	}}
+/>
