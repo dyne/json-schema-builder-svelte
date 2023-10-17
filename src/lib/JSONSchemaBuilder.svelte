@@ -7,6 +7,7 @@
 	} from './inputDefinitions.js';
 	import PropertyInputsManager from './propertyInputsManager.svelte';
 	import type { JSONSchema } from './JSONSchemaDefinitions.js';
+	import { componentsStore } from './componentsStore.js';
 
 	export let schemaInput: JSONSchemaInput = createEmptyJSONSchemaInput();
 
@@ -19,8 +20,9 @@
 
 <form class="space-y-6" on:submit|preventDefault={handleCreateSchema}>
 	<div class="flex flex-col space-y-1">
-		<label for="$id">ID</label>
-		<input
+		<svelte:component this={$componentsStore.label} for="$id">ID</svelte:component>
+		<svelte:component
+			this={$componentsStore.input}
 			name="$id"
 			bind:value={schemaInput.$id}
 			placeholder="A URI that will be used to refer to the schema"
@@ -28,11 +30,11 @@
 		/>
 	</div>
 	<div class="flex flex-col space-y-1">
-		<label for="title">Title</label>
+		<svelte:component this={$componentsStore.label} for="title">Title</svelte:component>
 		<input name="title" type="text" bind:value={schemaInput.title} placeholder="My schema" />
 	</div>
 	<div class="flex flex-col space-y-1">
-		<label for="description">Description</label>
+		<svelte:component this={$componentsStore.label} for="description">Description</svelte:component>
 		<textarea
 			class="font-sans"
 			rows="3"
@@ -46,6 +48,6 @@
 		<PropertyInputsManager bind:properties={schemaInput.properties} />
 	</div>
 	<div class="flex justify-end">
-		<button type="submit">Create schema</button>
+		<svelte:component this={$componentsStore.button} type="submit">Create schema</svelte:component>
 	</div>
 </form>
