@@ -27,6 +27,12 @@ const selectId = `property-data-${id}`;
 	for={requiredId}
 	class="flex items-center space-x-0.5"
 >
-	<input id={requiredId} name={requiredId} type="checkbox" bind:checked={property.required} />
+	<input
+		class="x-checkbox"
+		id={requiredId}
+		name={requiredId}
+		type="checkbox"
+		bind:checked={property.required}
+	/>
 	<span class="text-sm">Required</span>
 </svelte:component>

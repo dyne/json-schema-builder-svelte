@@ -25,12 +25,20 @@ function handleCreateSchema() {
 	</div>
 	<div class="flex flex-col space-y-1 x-field-container">
 		<svelte:component this={$componentsStore.label} for="title">Title</svelte:component>
-		<input name="title" type="text" bind:value={schemaInput.title} placeholder="My schema" />
+		<svelte:component
+			this={$componentsStore.input}
+			name="title"
+			type="text"
+			bind:value={schemaInput.title}
+			placeholder="My schema"
+			class="x-input"
+		/>
 	</div>
 	<div class="flex flex-col space-y-1 x-field-container">
 		<svelte:component this={$componentsStore.label} for="description">Description</svelte:component>
+		<!-- TODO – Make proxy component -->
 		<textarea
-			class="font-sans"
+			class="x-textarea font-sans"
 			rows="3"
 			name="description"
 			bind:value={schemaInput.description}
