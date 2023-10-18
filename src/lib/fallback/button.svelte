@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let id = '';
-	export let type: HTMLButtonElement['type'] = 'button';
+	export let type: string | undefined = 'button';
 </script>
 
 <button {type} {id} on:click><slot /></button>

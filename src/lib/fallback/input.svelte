@@ -1,13 +1,12 @@
-<script lang="ts" generics="T">
+<script lang="ts">
 	import type { Action } from 'svelte/action';
 
-	export let value: T;
-
+	export let value: any = undefined;
 	export let type: HTMLInputElement['type'] = 'text';
 	export let id = '';
 	export let name = '';
 	export let placeholder = '';
-	export let required: boolean;
+	export let required = false;
 
 	let className = '';
 	export { className as class };

@@ -1,5 +1,5 @@
-<script lang="ts" generics="T">
-	export let value: T;
+<script lang="ts">
+	export let value: any = undefined;
 	export let name = '';
 	export let id = '';
 	export let placeholder = '';
