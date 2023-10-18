@@ -2,6 +2,7 @@
 	import PropertySelect from './propertySelect.svelte';
 	import { createEmptyPropertyInput, type PropertyInput } from './inputDefinitions.js';
 	import { nanoid } from 'nanoid';
+	import { componentsStore } from './componentsStore.js';
 
 	export let property: PropertyInput = createEmptyPropertyInput();
 
@@ -12,7 +13,8 @@
 	const selectId = `property-data-${id}`;
 </script>
 
-<input
+<svelte:component
+	this={$componentsStore.input}
 	class="grow basis-2/3"
 	name={nameId}
 	id={nameId}
@@ -24,7 +26,11 @@
 <div class="flex grow basis-1/3">
 	<PropertySelect id={selectId} bind:value={property.data} />
 </div>
-<label for={requiredId} class="flex items-center space-x-0.5">
+<svelte:component
+	this={$componentsStore.label}
+	for={requiredId}
+	class="flex items-center space-x-0.5"
+>
 	<input id={requiredId} name={requiredId} type="checkbox" bind:checked={property.required} />
 	<span class="text-sm">Required</span>
-</label>
+</svelte:component>
