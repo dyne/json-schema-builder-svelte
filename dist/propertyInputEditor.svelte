@@ -19,7 +19,7 @@ const selectId = `property-data-${id}`;
 	placeholder="Property name"
 	required
 />
-<div class="flex grow basis-1/3">
+<div class="flex flex-col grow basis-1/3">
 	<PropertySelect id={selectId} bind:value={property.data} />
 </div>
 <svelte:component

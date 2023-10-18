@@ -5,12 +5,12 @@
 	export let placeholder = '';
 	export let required = false;
 
-	let classname = 'grow';
+	let className = '';
 	export { classname as class };
 
-	classname = `x-select ${classname}`;
+	className = `x-select ${className}`;
 </script>
 
-<select {name} {id} {value} {required} {placeholder} class={classname}>
+<select {name} {id} {value} {required} {placeholder} class={className}>
 	<slot />
 </select>

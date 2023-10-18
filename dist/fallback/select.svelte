@@ -3,11 +3,11 @@ export let name = "";
 export let id = "";
 export let placeholder = "";
 export let required = false;
-let classname = "grow";
-export { classname as class };
-classname = `x-select ${classname}`;
+let className = "";
+export {};
+className = `x-select ${className}`;
 </script>
 
-<select {name} {id} {value} {required} {placeholder} class={classname}>
+<select {name} {id} {value} {required} {placeholder} class={className}>
 	<slot />
 </select>

@@ -13,7 +13,6 @@
 <svelte:component
 	this={$componentsStore.select}
 	placeholder="Select a type"
-	class="grow"
 	{name}
 	{id}
 	bind:value

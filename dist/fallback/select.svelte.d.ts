@@ -6,7 +6,7 @@ declare const __propDef: {
         id?: string | undefined;
         placeholder?: string | undefined;
         required?: boolean | undefined;
-        class?: string | undefined;
+        class?: any;
     };
     events: {
         [evt: string]: CustomEvent<any>;
