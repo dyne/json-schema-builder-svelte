@@ -25,7 +25,7 @@ const selectId = `property-data-${id}`;
 <svelte:component
 	this={$componentsStore.label}
 	for={requiredId}
-	class="flex items-center space-x-0.5"
+	class="flex items-center space-x-0.5 flex-nowrap"
 >
 	<input
 		class="x-checkbox"
@@ -34,5 +34,5 @@ const selectId = `property-data-${id}`;
 		type="checkbox"
 		bind:checked={property.required}
 	/>
-	<span class="text-sm">Required</span>
+	<span class="x-label text-sm">Required</span>
 </svelte:component>

@@ -12,7 +12,7 @@ function handleCreateSchema() {
 }
 </script>
 
-<form class="space-y-6" on:submit|preventDefault={handleCreateSchema}>
+<form class="space-y-8" on:submit|preventDefault={handleCreateSchema}>
 	<div class="flex flex-col space-y-1 x-field-container">
 		<svelte:component this={$componentsStore.label} for="$id">ID</svelte:component>
 		<svelte:component
