@@ -7,6 +7,8 @@
 
 	let classname = 'grow';
 	export { classname as class };
+
+	classname = `x-select ${classname}`;
 </script>
 
 <select {name} {id} {value} {required} {placeholder} class={classname}>

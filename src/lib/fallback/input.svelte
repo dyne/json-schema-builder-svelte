@@ -11,6 +11,8 @@
 	let className = '';
 	export { className as class };
 
+	className = `x-input ${className}`;
+
 	const typeAction: Action<HTMLInputElement, { type: string }> = (node, { type }) => {
 		node.type = type;
 		return {

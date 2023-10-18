@@ -2,7 +2,9 @@
 	import { createEmptyPropertyInput, type PropertyInput } from './inputDefinitions.js';
 	import { nanoid } from 'nanoid';
 	import PropertyInputEditor from './propertyInputEditor.svelte';
-	import { componentsStore } from './componentsStore.js';
+	import { componentsSettings, componentsStore } from './componentsStore.js';
+	import XMark from 'svelte-heros-v2/XMark.svelte';
+	import Plus from 'svelte-heros-v2/Plus.svelte';
 
 	export let properties: PropertyInput[] = [createEmptyPropertyInput()];
 
@@ -19,7 +21,7 @@
 <div class="space-y-3 flex flex-col">
 	{#each properties as p (p)}
 		{@const id = nanoid()}
-		<div class="flex space-x-4">
+		<div class="flex space-x-4 items-center">
 			<PropertyInputEditor bind:property={p} {id} />
 			<svelte:component
 				this={$componentsStore.button}
@@ -27,8 +29,9 @@
 				on:click={() => {
 					removeProperty(p);
 				}}
+				class="p-1 shrink-0 flex items-center justify-center"
 			>
-				x
+				<XMark size={$componentsSettings.iconSize} />
 			</svelte:component>
 		</div>
 	{/each}
@@ -37,7 +40,8 @@
 		type="button"
 		id="property-add"
 		on:click={addProperty}
+		class="flex items-center justify-center p-1"
 	>
-		+ Add property
+		<Plus size={$componentsSettings.iconSize} /><span class="ml-1">Add property</span>
 	</svelte:component>
 </div>

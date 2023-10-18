@@ -1,6 +1,6 @@
 {
 	"name": "json-schema-builder-svelte",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -40,8 +40,6 @@
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte": "^2.30.0",
-		"flowbite": "^1.8.1",
-		"flowbite-svelte": "^0.44.18",
 		"postcss": "^8.4.24",
 		"postcss-load-config": "^4.0.1",
 		"prettier": "^2.8.0",
@@ -59,6 +57,7 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
-		"nanoid": "^5.0.1"
+		"nanoid": "^5.0.1",
+		"svelte-heros-v2": "^0.10.12"
 	}
 }
