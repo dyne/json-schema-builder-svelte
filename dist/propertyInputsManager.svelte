@@ -25,7 +25,7 @@ function removeProperty(p) {
 				on:click={() => {
 					removeProperty(p);
 				}}
-				class="p-1 shrink-0 flex items-center justify-center"
+				class="x-button-square"
 			>
 				<XMark size={$componentsSettings.iconSize} />
 			</svelte:component>

@@ -46,7 +46,7 @@ function handleCreateSchema() {
 		/>
 	</div>
 	<div class="flex flex-col space-y-1 x-field-container">
-		<p class="m-0">Properties</p>
+		<p class="x-label m-0">Properties</p>
 		<PropertyInputsManager bind:properties={schemaInput.properties} />
 	</div>
 	<div class="flex justify-end">
