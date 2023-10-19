@@ -23,6 +23,7 @@
 		<label class="x-label" for="$id">ID</label>
 		<input
 			class="x-input"
+			id="$id"
 			name="$id"
 			bind:value={schemaInput.$id}
 			placeholder="A URI that will be used to refer to the schema"
@@ -33,6 +34,7 @@
 		<label class="x-label" for="title">Title</label>
 		<input
 			class="x-input"
+			id="title"
 			name="title"
 			type="text"
 			bind:value={schemaInput.title}
@@ -44,6 +46,7 @@
 		<textarea
 			class="x-textarea font-sans"
 			rows="3"
+			id="description"
 			name="description"
 			bind:value={schemaInput.description}
 			placeholder="Short description"
