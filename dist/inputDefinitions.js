@@ -19,19 +19,21 @@ export const propertyOptions = {
         format: 'date-time'
     }
 };
-export function createEmptyPropertyInput() {
+export function createPropertyInput(data = {}) {
     return {
         name: '',
         data: propertyOptions['string'],
-        required: false
+        required: false,
+        ...data
     };
 }
-export function createEmptyJSONSchemaInput() {
+export function createJSONSchemaInput(data = {}) {
     return {
         $id: '',
         title: '',
         description: '',
-        properties: [createEmptyPropertyInput()]
+        properties: [createPropertyInput()],
+        ...data
     };
 }
 //

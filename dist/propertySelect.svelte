@@ -1,20 +1,13 @@
 <script>import { nanoid } from "nanoid";
 import { propertyOptions } from "./inputDefinitions.js";
-import { componentsStore } from "./componentsStore.js";
-export let value;
-export let id = `property-data-${nanoid()}`;
+export let property;
+export let id = `property-data-${nanoid(5)}`;
 const name = id;
 </script>
 
-<svelte:component
-	this={$componentsStore.select}
-	placeholder="Select a type"
-	{name}
-	{id}
-	bind:value
-	required
->
+<select class="x-select" placeholder="Select a type" {name} {id} bind:value={property} required>
 	{#each Object.entries(propertyOptions) as [label, property]}
-		<svelte:component this={$componentsStore.option} value={property}>{label}</svelte:component>
+		<option class="x-option" value={property}>{label}</option>
 	{/each}
-</svelte:component>
+	<option value={undefined} disabled />
+</select>

@@ -5,9 +5,9 @@ export type PropertyInput = {
     data: Property;
     required: boolean;
 };
-export declare function createEmptyPropertyInput(): PropertyInput;
+export declare function createPropertyInput(data?: Partial<PropertyInput>): PropertyInput;
 export type JSONSchemaInput = Pick<JSONSchema, '$id' | 'description' | 'title'> & {
     properties: PropertyInput[];
 };
-export declare function createEmptyJSONSchemaInput(): JSONSchemaInput;
+export declare function createJSONSchemaInput(data?: Partial<JSONSchemaInput>): JSONSchemaInput;
 export declare function createJSONSchema(input: JSONSchemaInput): JSONSchema;

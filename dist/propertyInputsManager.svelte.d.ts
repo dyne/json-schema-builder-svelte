@@ -2,7 +2,7 @@ import { SvelteComponent } from "svelte";
 import { type PropertyInput } from './inputDefinitions.js';
 declare const __propDef: {
     props: {
-        properties?: PropertyInput[] | undefined;
+        properties: PropertyInput[];
     };
     events: {
         [evt: string]: CustomEvent<any>;

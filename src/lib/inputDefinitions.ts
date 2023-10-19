@@ -28,11 +28,12 @@ export type PropertyInput = {
 	required: boolean;
 };
 
-export function createEmptyPropertyInput(): PropertyInput {
+export function createPropertyInput(data: Partial<PropertyInput> = {}): PropertyInput {
 	return {
 		name: '',
 		data: propertyOptions['string'],
-		required: false
+		required: false,
+		...data
 	};
 }
 
@@ -42,12 +43,13 @@ export type JSONSchemaInput = Pick<JSONSchema, '$id' | 'description' | 'title'> 
 	properties: PropertyInput[];
 };
 
-export function createEmptyJSONSchemaInput(): JSONSchemaInput {
+export function createJSONSchemaInput(data: Partial<JSONSchemaInput> = {}): JSONSchemaInput {
 	return {
 		$id: '',
 		title: '',
 		description: '',
-		properties: [createEmptyPropertyInput()]
+		properties: [createPropertyInput()],
+		...data
 	};
 }
 
