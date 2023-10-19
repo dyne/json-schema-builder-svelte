@@ -13,5 +13,5 @@
 	{#each Object.entries(propertyOptions) as [label, property]}
 		<option class="x-option" value={property}>{label}</option>
 	{/each}
-	<option value={undefined} disabled />
+	<option value={undefined} disabled>Select a type</option>
 </select>
