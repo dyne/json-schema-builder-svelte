@@ -3,7 +3,7 @@ import { type JSONSchemaInput } from './inputDefinitions.js';
 import type { JSONSchema } from './JSONSchemaDefinitions.js';
 declare const __propDef: {
     props: {
-        schemaInput?: JSONSchemaInput | undefined;
+        schemaInput: JSONSchemaInput;
     };
     events: {
         create: CustomEvent<{

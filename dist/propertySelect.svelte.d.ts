@@ -2,7 +2,7 @@ import { SvelteComponent } from "svelte";
 import type { Property } from './JSONSchemaDefinitions.js';
 declare const __propDef: {
     props: {
-        value: Property;
+        property: Property;
         id?: string | undefined;
     };
     events: {

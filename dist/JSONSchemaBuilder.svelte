@@ -1,22 +1,22 @@
 <script>import { createEventDispatcher } from "svelte";
 import {
-  createEmptyJSONSchemaInput,
-  createJSONSchema
+  createJSONSchema,
+  createJSONSchemaInput
 } from "./inputDefinitions.js";
 import PropertyInputsManager from "./propertyInputsManager.svelte";
-import { componentsStore } from "./componentsStore.js";
-export let schemaInput = createEmptyJSONSchemaInput();
+export let schemaInput;
 const dispatch = createEventDispatcher();
 function handleCreateSchema() {
+  console.log(schemaInput);
   dispatch("create", { schema: createJSONSchema(schemaInput) });
 }
 </script>
 
 <form class="space-y-8" on:submit|preventDefault={handleCreateSchema}>
 	<div class="flex flex-col space-y-1 x-field-container">
-		<svelte:component this={$componentsStore.label} for="$id">ID</svelte:component>
-		<svelte:component
-			this={$componentsStore.input}
+		<label class="x-label" for="$id">ID</label>
+		<input
+			class="x-input"
 			name="$id"
 			bind:value={schemaInput.$id}
 			placeholder="A URI that will be used to refer to the schema"
@@ -24,19 +24,17 @@ function handleCreateSchema() {
 		/>
 	</div>
 	<div class="flex flex-col space-y-1 x-field-container">
-		<svelte:component this={$componentsStore.label} for="title">Title</svelte:component>
-		<svelte:component
-			this={$componentsStore.input}
+		<label class="x-label" for="title">Title</label>
+		<input
+			class="x-input"
 			name="title"
 			type="text"
 			bind:value={schemaInput.title}
 			placeholder="My schema"
-			class="x-input"
 		/>
 	</div>
 	<div class="flex flex-col space-y-1 x-field-container">
-		<svelte:component this={$componentsStore.label} for="description">Description</svelte:component>
-		<!-- TODO – Make proxy component -->
+		<label class="x-label" for="description">Description</label>
 		<textarea
 			class="x-textarea font-sans"
 			rows="3"
@@ -50,8 +48,6 @@ function handleCreateSchema() {
 		<PropertyInputsManager bind:properties={schemaInput.properties} />
 	</div>
 	<div class="flex justify-end">
-		<svelte:component this={$componentsStore.button} type="submit" class="x-button-submit">
-			Create schema
-		</svelte:component>
+		<button class="x-button-submit" type="submit"> Create schema </button>
 	</div>
 </form>

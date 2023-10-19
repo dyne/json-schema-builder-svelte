@@ -2,6 +2,8 @@ import { SvelteComponent } from "svelte";
 declare const __propDef: {
     props: {
         value: any;
+        disabled?: boolean | undefined;
+        placeholder?: string | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;
