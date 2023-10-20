@@ -1,9 +1,10 @@
 import Ajv from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 export const SCHEMA_VERSION = 'https://json-schema.org/draft/2020-12/schema';
-const ajv = new Ajv.default();
-addFormats.default(ajv);
 export function validateJSONSchema(schema) {
+    const ajv = new Ajv.default();
+    addFormats.default(ajv);
+    // Ajv is initialized every time to avoid conflicts between stored schemas
     try {
         ajv.compile(JSON.parse(schema));
         return {
