@@ -1,8 +1,15 @@
 import { PropertyType, type Property, type JSONSchema } from './JSONSchemaDefinitions.js';
+import { SCHEMA_VERSION } from './validateJSONSchema.js';
 
 //
-
-export const propertyOptions: Record<string, Property> = {
+export enum PropertyName {
+	STRING = 'string',
+	INTEGER = 'integer',
+	FLOAT = 'float',
+	DATE = 'date',
+	DATETIME = 'datetime'
+}
+export const propertyOptions: Record<PropertyName, Property> = {
 	string: {
 		type: PropertyType.STRING
 	},
@@ -64,7 +71,7 @@ export function createJSONSchema(input: JSONSchemaInput): JSONSchema {
 	}
 
 	const schema: JSONSchema = {
-		$schema: 'https://json-schema.org/draft/2020-12/schema',
+		$schema: SCHEMA_VERSION,
 		$id,
 		type: PropertyType.OBJECT,
 		properties
@@ -77,4 +84,28 @@ export function createJSONSchema(input: JSONSchemaInput): JSONSchema {
 	if (required.length) schema['required'] = required;
 
 	return schema;
+}
+
+//
+
+export function JSONSchemaToInput(schema: JSONSchema): JSONSchemaInput {
+	const { $id, title, description, properties, required } = schema;
+
+	const propertyInputs: PropertyInput[] = Object.entries(properties).map(([key, property]) => {
+		const normalizedPropertyInput = Object.values(propertyOptions).find(
+			(p) => p.format == property.format && p.type == property.type
+		);
+		return {
+			name: key,
+			data: normalizedPropertyInput ?? propertyOptions.string,
+			required: required?.includes(key) ?? false
+		};
+	});
+
+	return {
+		$id,
+		title,
+		description,
+		properties: propertyInputs
+	};
 }
