@@ -8,6 +8,6 @@ export {};
 className = `x-select ${className}`;
 </script>
 
-<select {name} {id} {value} {required} {placeholder} class={className}>
+<select {name} {id} {required} {placeholder} class={className} bind:value>
 	<slot />
 </select>

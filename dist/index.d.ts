@@ -1,4 +1,6 @@
-export { JSONSchemaBuilder };
 export * from "./inputDefinitions.js";
 export * from "./JSONSchemaDefinitions.js";
-import JSONSchemaBuilder from './JSONSchemaBuilder.svelte';
+export * from "./validateJSONSchema.js";
+import JSONSchemaEditor from './JSONSchemaEditor.svelte';
+import JSONSchemaField from './JSONSchemaField.svelte';
+export { JSONSchemaEditor, JSONSchemaField };

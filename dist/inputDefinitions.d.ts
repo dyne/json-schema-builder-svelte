@@ -1,5 +1,12 @@
 import { type Property, type JSONSchema } from './JSONSchemaDefinitions.js';
-export declare const propertyOptions: Record<string, Property>;
+export declare enum PropertyName {
+    STRING = "string",
+    INTEGER = "integer",
+    FLOAT = "float",
+    DATE = "date",
+    DATETIME = "datetime"
+}
+export declare const propertyOptions: Record<PropertyName, Property>;
 export type PropertyInput = {
     name: string;
     data: Property;
@@ -11,3 +18,4 @@ export type JSONSchemaInput = Pick<JSONSchema, '$id' | 'description' | 'title'> 
 };
 export declare function createJSONSchemaInput(data?: Partial<JSONSchemaInput>): JSONSchemaInput;
 export declare function createJSONSchema(input: JSONSchemaInput): JSONSchema;
+export declare function JSONSchemaToInput(schema: JSONSchema): JSONSchemaInput;
