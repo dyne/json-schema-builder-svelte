@@ -2,7 +2,7 @@ import { SvelteComponent } from "svelte";
 declare const __propDef: {
     props: {
         schema?: string | undefined;
-        hide?: ("description" | "title")[] | undefined;
+        hide?: ("description" | "title" | "id")[] | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

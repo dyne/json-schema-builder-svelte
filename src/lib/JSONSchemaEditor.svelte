@@ -9,7 +9,7 @@
 	import { validateJSONSchema } from './validateJSONSchema.js';
 
 	export let schema = '';
-	export let hide: Array<'title' | 'description'> = [];
+	export let hide: Array<'title' | 'description' | 'id'> = [];
 
 	let schemaInput: JSONSchemaInput | undefined = undefined;
 	let validation = validateJSONSchema(schema);
@@ -38,17 +38,19 @@
 </script>
 
 {#if !showWarning && schemaInput}
-	<div class="flex flex-col space-y-1 x-field-container">
-		<label class="x-label" for="$id">ID</label>
-		<input
-			class="x-input"
-			id="$id"
-			name="$id"
-			bind:value={schemaInput.$id}
-			placeholder="A URI that will be used to refer to the schema"
-			required
-		/>
-	</div>
+	{#if !hide.includes('id')}
+		<div class="flex flex-col space-y-1 x-field-container">
+			<label class="x-label" for="$id">ID</label>
+			<input
+				class="x-input"
+				id="$id"
+				name="$id"
+				bind:value={schemaInput.$id}
+				placeholder="A URI that will be used to refer to the schema"
+				required
+			/>
+		</div>
+	{/if}
 	{#if !hide.includes('title')}
 		<div class="flex flex-col space-y-1 x-field-container">
 			<label class="x-label" for="title">Title</label>
