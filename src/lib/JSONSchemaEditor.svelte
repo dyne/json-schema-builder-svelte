@@ -10,13 +10,14 @@
 
 	export let schema = '';
 	export let hide: Array<'title' | 'description' | 'id'> = [];
+	export let initialSchemaInput: Partial<JSONSchemaInput> = {};
 
 	let schemaInput: JSONSchemaInput | undefined = undefined;
 	let validation = validateJSONSchema(schema);
 	let showWarning = false;
 
 	if (!Boolean(schema)) {
-		schemaInput = createJSONSchemaInput();
+		schemaInput = createJSONSchemaInput(initialSchemaInput);
 	} else if (validation.result === true) {
 		schemaInput = JSONSchemaToInput(JSON.parse(schema));
 	} else {
@@ -24,7 +25,7 @@
 	}
 
 	function resetSchemaInput() {
-		schemaInput = createJSONSchemaInput();
+		schemaInput = createJSONSchemaInput(initialSchemaInput);
 		showWarning = false;
 	}
 

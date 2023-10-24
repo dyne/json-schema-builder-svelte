@@ -7,18 +7,19 @@ import PropertyInputsManager from "./propertyInputsManager.svelte";
 import { validateJSONSchema } from "./validateJSONSchema.js";
 export let schema = "";
 export let hide = [];
+export let initialSchemaInput = {};
 let schemaInput = void 0;
 let validation = validateJSONSchema(schema);
 let showWarning = false;
 if (!Boolean(schema)) {
-  schemaInput = createJSONSchemaInput();
+  schemaInput = createJSONSchemaInput(initialSchemaInput);
 } else if (validation.result === true) {
   schemaInput = JSONSchemaToInput(JSON.parse(schema));
 } else {
   showWarning = true;
 }
 function resetSchemaInput() {
-  schemaInput = createJSONSchemaInput();
+  schemaInput = createJSONSchemaInput(initialSchemaInput);
   showWarning = false;
 }
 $:

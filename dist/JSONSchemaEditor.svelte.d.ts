@@ -1,8 +1,10 @@
 import { SvelteComponent } from "svelte";
+import { type JSONSchemaInput } from './inputDefinitions.js';
 declare const __propDef: {
     props: {
         schema?: string | undefined;
         hide?: ("description" | "title" | "id")[] | undefined;
+        initialSchemaInput?: Partial<JSONSchemaInput> | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;
