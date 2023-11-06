@@ -13,7 +13,7 @@
 	}}>toggle</button
 >
 {#if editorMode}
-	<JSONSchemaEditor bind:schema initialSchemaInput={{ $id: 'ciao' }} />
+	<JSONSchemaEditor bind:schema initialSchemaInput={{ $id: 'ciao' }} hide={['id']} />
 {:else}
 	<JSONSchemaField bind:schema />
 {/if}
