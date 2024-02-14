@@ -51,9 +51,9 @@ export type JSONSchemaInput = Pick<JSONSchema, '$id' | 'description' | 'title'> 
 
 export function createJSONSchemaInput(data: Partial<JSONSchemaInput> = {}): JSONSchemaInput {
 	return {
-		$id: '',
-		title: '',
-		description: '',
+		// $id: '',
+		// title: '',
+		// description: '',
 		properties: [createPropertyInput()],
 		...data
 	};
