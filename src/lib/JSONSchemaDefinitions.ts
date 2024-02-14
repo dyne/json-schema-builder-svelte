@@ -15,7 +15,7 @@ export type Property = {
 
 // reference: https://json-schema.org/learn/getting-started-step-by-step#create-a-schema-definition
 export type JSONSchema = {
-	$id: string;
+	$id?: string;
 	title?: string;
 	description?: string;
 	type: PropertyType.OBJECT;
