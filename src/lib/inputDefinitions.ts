@@ -70,11 +70,11 @@ export function createJSONSchema(input: JSONSchemaInput): JSONSchema {
 	}
 
 	const schema: JSONSchema = {
-		$id,
 		type: PropertyType.OBJECT,
 		properties
 	};
 
+	if ($id) schema['$id'] = $id;
 	if (title) schema['title'] = title;
 	if (description) schema['description'] = description;
 
