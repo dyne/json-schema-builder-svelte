@@ -7,7 +7,8 @@ export enum PropertyName {
 	FLOAT = 'float',
 	DATE = 'date',
 	DATETIME = 'datetime',
-	BOOLEAN = 'boolean'
+	BOOLEAN = 'boolean',
+	LIST = 'list'
 }
 export const propertyOptions: Record<PropertyName, Property> = {
 	string: {
@@ -29,6 +30,10 @@ export const propertyOptions: Record<PropertyName, Property> = {
 	},
 	boolean: {
 		type: PropertyType.BOOLEAN
+	},
+	list: {
+		type: PropertyType.STRING,
+		enum: []
 	}
 };
 
@@ -94,12 +99,16 @@ export function JSONSchemaToInput(schema: JSONSchema): JSONSchemaInput {
 	const { $id, title, description, properties, required } = schema;
 
 	const propertyInputs: PropertyInput[] = Object.entries(properties).map(([key, property]) => {
-		const normalizedPropertyInput = Object.values(propertyOptions).find(
-			(p) => p.format == property.format && p.type == property.type
-		);
+		const normalizedPropertyInput =
+			Object.values(propertyOptions).find(
+				(p) => p.format == property.format && p.type == property.type
+			) ?? propertyOptions.string;
+
+		if (property.enum) normalizedPropertyInput.enum = property.enum;
+
 		return {
 			name: key,
-			data: normalizedPropertyInput ?? propertyOptions.string,
+			data: normalizedPropertyInput,
 			required: required?.includes(key) ?? false
 		};
 	});

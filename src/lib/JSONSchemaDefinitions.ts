@@ -8,9 +8,10 @@ export enum PropertyType {
 	STRING = 'string'
 }
 
-export type Property = {
+export type Property<T = unknown> = {
 	type: PropertyType;
 	format?: string; // reference: https://json-schema.org/understanding-json-schema/reference/string#format
+	enum?: T[];
 };
 
 // reference: https://json-schema.org/learn/getting-started-step-by-step#create-a-schema-definition
