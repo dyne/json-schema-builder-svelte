@@ -10,10 +10,15 @@
 <button
 	on:click={() => {
 		editorMode = !editorMode;
-	}}>toggle</button
+	}}
 >
+	toggle
+</button>
+
 {#if editorMode}
-	<JSONSchemaEditor bind:schema initialSchemaInput={{ $id: 'ciao' }} hide={['id']} />
+	<JSONSchemaEditor bind:schema hide={['id', 'title', 'description']} />
 {:else}
 	<JSONSchemaField bind:schema />
 {/if}
+
+<pre>{schema}</pre>
