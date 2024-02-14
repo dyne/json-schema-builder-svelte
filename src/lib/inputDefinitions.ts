@@ -6,7 +6,8 @@ export enum PropertyName {
 	INTEGER = 'integer',
 	FLOAT = 'float',
 	DATE = 'date',
-	DATETIME = 'datetime'
+	DATETIME = 'datetime',
+	BOOLEAN = 'boolean'
 }
 export const propertyOptions: Record<PropertyName, Property> = {
 	string: {
@@ -25,6 +26,9 @@ export const propertyOptions: Record<PropertyName, Property> = {
 	datetime: {
 		type: PropertyType.STRING,
 		format: 'date-time'
+	},
+	boolean: {
+		type: PropertyType.BOOLEAN
 	}
 };
 
