@@ -1,5 +1,4 @@
 import { PropertyType, type Property, type JSONSchema } from './JSONSchemaDefinitions.js';
-import { SCHEMA_VERSION } from './validateJSONSchema.js';
 
 //
 export enum PropertyName {
@@ -71,7 +70,6 @@ export function createJSONSchema(input: JSONSchemaInput): JSONSchema {
 	}
 
 	const schema: JSONSchema = {
-		$schema: SCHEMA_VERSION,
 		$id,
 		type: PropertyType.OBJECT,
 		properties

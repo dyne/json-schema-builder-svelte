@@ -15,7 +15,6 @@ export type Property = {
 
 // reference: https://json-schema.org/learn/getting-started-step-by-step#create-a-schema-definition
 export type JSONSchema = {
-	$schema: 'https://json-schema.org/draft/2020-12/schema';
 	$id: string;
 	title?: string;
 	description?: string;
