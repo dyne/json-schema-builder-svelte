@@ -1,26 +1,12 @@
-<script>import { nanoid } from "nanoid";
-import { componentsSettings } from "./componentsStore.js";
-import { validateJSONSchema } from "./validateJSONSchema.js";
-import XMark from "svelte-heros-v2/XMark.svelte";
-export let schema = "";
-export let name = `json-schema-${nanoid(5)}`;
-let tempSchema = schema;
-$:
-  updateSchema(tempSchema);
-function updateSchema(tempSchema2) {
-  const validation = validateJSONSchema(tempSchema2);
-  if (validation.result === false)
-    error = validation.message;
-  else
-    schema = tempSchema2;
-}
-let error = "";
-function clearError() {
-  error = "";
-}
+<script>export let schema = {
+  type: "object",
+  properties: {}
+};
 </script>
 
-<div class="flex flex-col space-y-2">
+<pre>{JSON.stringify(schema, null, 2)}</pre>
+
+<!-- <div class="flex flex-col space-y-2">
 	<textarea class="x-textarea" rows="20" {name} id={name} bind:value={tempSchema} />
 	{#if error}
 		<div class="flex justify-between x-banner x-banner-error">
@@ -30,4 +16,4 @@ function clearError() {
 			</button>
 		</div>
 	{/if}
-</div>
+</div> -->

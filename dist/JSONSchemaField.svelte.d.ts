@@ -1,8 +1,8 @@
 import { SvelteComponent } from "svelte";
+import type { JSONObjectSchema } from './logic/types.js';
 declare const __propDef: {
     props: {
-        schema?: string | undefined;
-        name?: string | undefined;
+        schema?: JSONObjectSchema | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

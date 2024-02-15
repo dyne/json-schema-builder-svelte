@@ -1,13 +1,17 @@
 <script lang="ts">
-	import PropertySelect from './propertySelect.svelte';
-	import type { PropertyInput } from './inputDefinitions.js';
-	import { nanoid } from 'nanoid';
-	import { componentsStore } from './componentsStore.js';
+	import type { Property } from '$lib/logic/types.js';
 	import ListEditor from './listEditor.svelte';
+	import PropertyTypeSelect from './propertyTypeSelect.svelte';
 
-	export let property: PropertyInput;
+	import { nanoid } from 'nanoid';
+	import { componentsStore } from '$lib/ui/componentsStore.js';
 
+	//
+
+	export let property: Property;
 	export let id = nanoid(5);
+
+	//
 
 	const nameId = `property-name-${id}`;
 	const requiredId = `property-required-${id}`;
@@ -15,9 +19,8 @@
 	const enumID = `property-enum-${id}`;
 </script>
 
-<svelte:component
-	this={$componentsStore.input}
-	class="grow basis-2/3"
+<input
+	class="x-input grow basis-2/3"
 	name={nameId}
 	id={nameId}
 	type="text"
@@ -25,12 +28,13 @@
 	placeholder="Property name"
 	required
 />
-<div class="flex flex-col grow basis-1/3">
-	<PropertySelect id={selectId} bind:property={property.data} />
-</div>
-{#if property.data.enum}
-	<ListEditor id={enumID} bind:list={property.data.enum} />
+
+<PropertyTypeSelect id={selectId} bind:property />
+
+{#if property.definition.enum}
+	<ListEditor id={enumID} bind:list={property.definition.enum} />
 {/if}
+
 <svelte:component
 	this={$componentsStore.label}
 	for={requiredId}

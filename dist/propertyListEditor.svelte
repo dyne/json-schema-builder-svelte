@@ -1,25 +1,26 @@
-<script>import { createPropertyInput } from "./inputDefinitions.js";
+<script>import { createStringProperty } from "./logic/utils.js";
+import PropertyEditor from "./propertyEditor.svelte";
 import { nanoid } from "nanoid";
-import PropertyInputEditor from "./propertyInputEditor.svelte";
 import { componentsSettings } from "./componentsStore.js";
-import XMark from "svelte-heros-v2/XMark.svelte";
+import Button from "./components/fallback/button.svelte";
 import Plus from "svelte-heros-v2/Plus.svelte";
-import Button from "./fallback/button.svelte";
-export let properties;
+import XMark from "svelte-heros-v2/XMark.svelte";
+export let propertyList;
 function addProperty() {
-  properties = [...properties, createPropertyInput()];
+  propertyList = [...propertyList, createStringProperty()];
 }
 function removeProperty(p) {
-  properties.splice(properties.indexOf(p), 1);
-  properties = properties;
+  propertyList.splice(propertyList.indexOf(p), 1);
+  propertyList = propertyList;
 }
 </script>
 
 <div class="space-y-3 flex flex-col">
-	{#each properties as p (p)}
+	{#each propertyList as p (p)}
 		{@const id = nanoid(5)}
 		<div class="flex space-x-4 items-center">
-			<PropertyInputEditor bind:property={p} {id} />
+			<PropertyEditor bind:property={p} {id} />
+
 			<Button
 				id={`property-remove-${id}`}
 				on:click={() => {
@@ -31,6 +32,7 @@ function removeProperty(p) {
 			</Button>
 		</div>
 	{/each}
+
 	<Button
 		type="button"
 		id="property-add"

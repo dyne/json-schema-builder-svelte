@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { nanoid } from 'nanoid';
-	import { componentsStore } from './componentsStore.js';
+	import { componentsStore } from '$lib/ui/componentsStore.js';
 
 	//
 

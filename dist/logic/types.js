@@ -1,0 +1,12 @@
+//
+/* Copied from 'json-schema' L560 */
+export var JSONSchemaType;
+(function (JSONSchemaType) {
+    JSONSchemaType["string"] = "string";
+    JSONSchemaType["number"] = "number";
+    JSONSchemaType["integer"] = "integer";
+    JSONSchemaType["boolean"] = "boolean";
+    JSONSchemaType["object"] = "object";
+    JSONSchemaType["array"] = "array";
+    JSONSchemaType["null"] = "null";
+})(JSONSchemaType || (JSONSchemaType = {}));

@@ -1,44 +1,25 @@
-<script lang="ts">
-	import {
-		type JSONSchemaInput,
-		createJSONSchema,
-		createJSONSchemaInput,
-		JSONSchemaToInput
-	} from './inputDefinitions.js';
-	import PropertyInputsManager from './propertyInputsManager.svelte';
-	import { validateJSONSchema } from './validateJSONSchema.js';
-
-	export let schema = '';
-	export let hide: Array<'title' | 'description' | 'id'> = [];
-	export let initialSchemaInput: Partial<JSONSchemaInput> = {};
-
-	let schemaInput: JSONSchemaInput | undefined = undefined;
-	let validation = validateJSONSchema(schema);
-	let showWarning = false;
-
-	if (!Boolean(schema)) {
-		schemaInput = createJSONSchemaInput(initialSchemaInput);
-	} else if (validation.result === true) {
-		schemaInput = JSONSchemaToInput(JSON.parse(schema));
-	} else {
-		showWarning = true;
-	}
-
-	function resetSchemaInput() {
-		schemaInput = createJSONSchemaInput(initialSchemaInput);
-		showWarning = false;
-	}
-
-	//
-
-	$: if (schemaInput) schema = formatSchema(schemaInput);
-
-	function formatSchema(input: JSONSchemaInput) {
-		return JSON.stringify(createJSONSchema(input), null, 2);
-	}
+<script>import { isValidPropertyList } from "./logic/validate.js";
+import {
+  JSONObjectSchemaToPropertyList,
+  propertyListToJSONObjectSchema
+} from "./logic/conversion.js";
+import PropertyListEditor from "./propertyListEditor.svelte";
+export let schema;
+let propertyList = JSONObjectSchemaToPropertyList(schema);
+$:
+  updateJSONObjectSchema(propertyList);
+function updateJSONObjectSchema(propertyList2) {
+  console.log(propertyList2);
+  console.log(isValidPropertyList(propertyList2));
+  if (isValidPropertyList(propertyList2)) {
+    schema = propertyListToJSONObjectSchema(propertyList2);
+  }
+}
 </script>
 
-{#if !showWarning && schemaInput}
+<PropertyListEditor bind:propertyList />
+
+<!-- {#if !showWarning && schemaInput}
 	{#if !hide.includes('id')}
 		<div class="flex flex-col space-y-1 x-field-container">
 			<label class="x-label" for="$id">ID</label>
@@ -80,7 +61,7 @@
 	{/if}
 	<div class="flex flex-col space-y-1 x-field-container">
 		<p class="x-label m-0">Properties</p>
-		<PropertyInputsManager bind:properties={schemaInput.properties} />
+		
 	</div>
 {:else}
 	<div class="x-banner x-warning">
@@ -93,4 +74,4 @@
 			<button class="x-button" on:click={resetSchemaInput}>Continue</button>
 		</div>
 	</div>
-{/if}
+{/if} -->
