@@ -2,7 +2,7 @@ import { SvelteComponent } from "svelte";
 declare const __propDef: {
     props: {
         id?: string | undefined;
-        type?: string | undefined;
+        type?: "submit" | "reset" | "button" | undefined;
         class?: string | undefined;
     };
     events: {
