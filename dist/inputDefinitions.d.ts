@@ -4,7 +4,9 @@ export declare enum PropertyName {
     INTEGER = "integer",
     FLOAT = "float",
     DATE = "date",
-    DATETIME = "datetime"
+    DATETIME = "datetime",
+    BOOLEAN = "boolean",
+    LIST = "list"
 }
 export declare const propertyOptions: Record<PropertyName, Property>;
 export type PropertyInput = {

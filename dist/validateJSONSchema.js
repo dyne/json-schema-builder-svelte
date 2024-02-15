@@ -1,6 +1,5 @@
-import Ajv from 'ajv/dist/2020.js';
+import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
-export const SCHEMA_VERSION = 'https://json-schema.org/draft/2020-12/schema';
 export function validateJSONSchema(schema) {
     const ajv = new Ajv.default();
     addFormats.default(ajv);

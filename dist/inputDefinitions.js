@@ -1,5 +1,4 @@
 import { PropertyType } from './JSONSchemaDefinitions.js';
-import { SCHEMA_VERSION } from './validateJSONSchema.js';
 //
 export var PropertyName;
 (function (PropertyName) {
@@ -8,6 +7,8 @@ export var PropertyName;
     PropertyName["FLOAT"] = "float";
     PropertyName["DATE"] = "date";
     PropertyName["DATETIME"] = "datetime";
+    PropertyName["BOOLEAN"] = "boolean";
+    PropertyName["LIST"] = "list";
 })(PropertyName || (PropertyName = {}));
 export const propertyOptions = {
     string: {
@@ -26,6 +27,13 @@ export const propertyOptions = {
     datetime: {
         type: PropertyType.STRING,
         format: 'date-time'
+    },
+    boolean: {
+        type: PropertyType.BOOLEAN
+    },
+    list: {
+        type: PropertyType.STRING,
+        enum: []
     }
 };
 export function createPropertyInput(data = {}) {
@@ -38,9 +46,9 @@ export function createPropertyInput(data = {}) {
 }
 export function createJSONSchemaInput(data = {}) {
     return {
-        $id: '',
-        title: '',
-        description: '',
+        // $id: '',
+        // title: '',
+        // description: '',
         properties: [createPropertyInput()],
         ...data
     };
@@ -53,11 +61,11 @@ export function createJSONSchema(input) {
         properties[p.name] = p.data;
     }
     const schema = {
-        $schema: SCHEMA_VERSION,
-        $id,
         type: PropertyType.OBJECT,
         properties
     };
+    if ($id)
+        schema['$id'] = $id;
     if (title)
         schema['title'] = title;
     if (description)
@@ -71,10 +79,12 @@ export function createJSONSchema(input) {
 export function JSONSchemaToInput(schema) {
     const { $id, title, description, properties, required } = schema;
     const propertyInputs = Object.entries(properties).map(([key, property]) => {
-        const normalizedPropertyInput = Object.values(propertyOptions).find((p) => p.format == property.format && p.type == property.type);
+        const normalizedPropertyInput = Object.values(propertyOptions).find((p) => p.format == property.format && p.type == property.type) ?? propertyOptions.string;
+        if (property.enum)
+            normalizedPropertyInput.enum = property.enum;
         return {
             name: key,
-            data: normalizedPropertyInput ?? propertyOptions.string,
+            data: normalizedPropertyInput,
             required: required?.includes(key) ?? false
         };
     });

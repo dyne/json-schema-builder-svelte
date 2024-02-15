@@ -6,13 +6,13 @@ export declare enum PropertyType {
     OBJECT = "object",
     STRING = "string"
 }
-export type Property = {
+export type Property<T = unknown> = {
     type: PropertyType;
     format?: string;
+    enum?: T[];
 };
 export type JSONSchema = {
-    $schema: 'https://json-schema.org/draft/2020-12/schema';
-    $id: string;
+    $id?: string;
     title?: string;
     description?: string;
     type: PropertyType.OBJECT;
