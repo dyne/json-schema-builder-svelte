@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { nanoid } from 'nanoid';
-	import { componentsStore } from '$lib/ui/componentsStore.js';
 
 	//
 
@@ -18,9 +17,8 @@
 		.filter((s) => s);
 </script>
 
-<svelte:component
-	this={$componentsStore.input}
-	class="grow basis-2/3"
+<input
+	class="x-input grow"
 	name={id}
 	{id}
 	type="text"

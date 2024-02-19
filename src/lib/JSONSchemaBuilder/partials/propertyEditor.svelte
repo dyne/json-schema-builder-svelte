@@ -4,7 +4,6 @@
 	import PropertyTypeSelect from './propertyTypeSelect.svelte';
 
 	import { nanoid } from 'nanoid';
-	import { componentsStore } from '$lib/ui/componentsStore.js';
 
 	//
 
@@ -20,7 +19,7 @@
 </script>
 
 <input
-	class="x-input grow basis-2/3"
+	class="x-input grow"
 	name={nameId}
 	id={nameId}
 	type="text"
@@ -35,11 +34,7 @@
 	<ListEditor id={enumID} bind:list={property.definition.enum} />
 {/if}
 
-<svelte:component
-	this={$componentsStore.label}
-	for={requiredId}
-	class="flex items-center space-x-0.5 flex-nowrap"
->
+<label for={requiredId}>
 	<input
 		class="x-checkbox"
 		id={requiredId}
@@ -48,4 +43,4 @@
 		bind:checked={property.required}
 	/>
 	<span class="x-label text-sm">Required</span>
-</svelte:component>
+</label>

@@ -21,7 +21,6 @@
 
 	import PropertyListEditor from '$lib/JSONSchemaBuilder/partials/propertyListEditor.svelte';
 	import ErrorBanner from '$lib/ui/errorBanner.svelte';
-	import Button from '$lib/ui/button.svelte';
 
 	//
 
@@ -93,6 +92,6 @@
 <ErrorBanner {error} />
 {#if error}
 	<div class="flex justify-end">
-		<Button on:click={resetSchema}>Reset schema</Button>
+		<button class="x-button" type="button" on:click={resetSchema}>Reset schema</button>
 	</div>
 {/if}
