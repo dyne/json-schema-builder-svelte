@@ -1,10 +1,8 @@
 <script lang="ts">
 	import type { Property } from '$lib/logic/types.js';
 	import { createStringProperty } from '$lib/logic/utils.js';
-	// import { createPropertyInput, type PropertyInput } from '$lib/logic/inputDefinitions.js';
-	// import PropertyInputEditor from '$lib/propertyInputEditor.svelte';
 
-	import PropertyEditor from '$lib/partials/propertyEditor.svelte';
+	import PropertyEditor from '$lib/JSONSchemaBuilder/partials/propertyEditor.svelte';
 
 	import { nanoid } from 'nanoid';
 	import { componentsSettings } from '$lib/ui/componentsStore.js';

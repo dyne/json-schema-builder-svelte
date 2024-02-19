@@ -32,3 +32,14 @@ export function createAjv(): Ajv.default {
 	addFormats.default(ajv);
 	return ajv;
 }
+
+export function stringify(data: unknown): string {
+	return JSON.stringify(data, null, 2);
+}
+
+//
+
+export abstract class BaseError<T = unknown> {
+	abstract readonly _tag: string;
+	constructor(public readonly detail?: T) {}
+}

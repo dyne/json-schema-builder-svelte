@@ -1,4 +1,4 @@
-import JSONSchemaBuilder from './JSONSchemaBuilder.svelte';
-import JSONSchemaField from './JSONSchemaField.svelte';
+import JSONSchemaBuilder from './JSONSchemaBuilder/JSONSchemaBuilder.svelte';
+import JSONSchemaField from './JSONSchemaField/JSONSchemaField.svelte';
 
 export { JSONSchemaBuilder, JSONSchemaField };

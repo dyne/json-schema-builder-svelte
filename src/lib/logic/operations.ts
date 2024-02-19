@@ -1,23 +1,27 @@
 import { Effect } from 'effect';
+import { pipe } from 'effect/Function';
 
 import { Type as T } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
-import { JSONSchemaType, type JSONObjectSchema, type JSONSchema } from './types.js';
-import { createAjv } from './utils.js';
 
-import { pipe } from 'effect/Function';
+import {
+	JSONSchemaType,
+	type JSONObjectSchema,
+	type JSONSchema,
+	type Property
+} from '$lib/logic/types.js';
+import { BaseError, createAjv } from '$lib/logic/utils.js';
 
 //
 
 export const parseJSON = (string: string) =>
 	Effect.try({
 		try: () => JSON.parse(string),
-		catch: (e) => new InvalidJSONError(e)
+		catch: (e) => new InvalidJSONError((e as Error).message)
 	});
 
-class InvalidJSONError {
+class InvalidJSONError extends BaseError<string> {
 	readonly _tag = 'InvalidJSONError';
-	constructor(public detail?: unknown) {}
 }
 
 //
@@ -25,16 +29,15 @@ class InvalidJSONError {
 export const parseObject = (data: unknown) =>
 	Effect.try({
 		try: () => {
-			const isObject = Value.Check(T.Object({}), data);
-			if (isObject) return data as object;
+			const errors = Value.Errors(T.Object({}), data);
+			if (errors) return data as object;
 			else throw new Error();
 		},
 		catch: () => new NotObjectError()
 	});
 
-class NotObjectError {
+class NotObjectError extends BaseError {
 	readonly _tag = 'NotObjectError';
-	constructor(public detail?: unknown) {}
 }
 
 //
@@ -46,12 +49,11 @@ export const parseJSONSchema = (object: object) =>
 			ajv.compile(object);
 			return object as JSONSchema;
 		},
-		catch: (e) => new InvalidJSONSchemaError(e)
+		catch: (e) => new InvalidJSONSchemaError((e as Error).message)
 	});
 
-class InvalidJSONSchemaError {
+class InvalidJSONSchemaError extends BaseError {
 	readonly _tag = 'InvalidJSONSchemaError';
-	constructor(public detail?: unknown) {}
 }
 
 //
@@ -63,12 +65,11 @@ export const parseJSONObjectSchema = (schema: JSONSchema) =>
 			if (isJSONObjectSchema) return schema as JSONObjectSchema;
 			else throw new Error();
 		},
-		catch: () => new InvalidJSONObjectSchemaError()
+		catch: (e) => new InvalidJSONObjectSchemaError(e)
 	});
 
-class InvalidJSONObjectSchemaError {
+class InvalidJSONObjectSchemaError extends BaseError {
 	readonly _tag = 'InvalidJSONObjectSchemaError';
-	constructor(public detail?: unknown) {}
 }
 
 const JSONObjectSchemaSchema = T.Object({
@@ -86,3 +87,23 @@ export const parseJSONObjectSchemaFromString = (string: string) =>
 		Effect.flatMap(parseJSONSchema),
 		Effect.flatMap(parseJSONObjectSchema)
 	);
+
+export const validateJSONObjectSchema = (schema: object) =>
+	pipe(schema, parseJSONSchema, Effect.flatMap(parseJSONObjectSchema));
+
+//
+
+export const validatePropertyListKeys = (propertyList: Property[]) =>
+	Effect.try({
+		try: () => {
+			const uniquePropertyNameList = new Set(propertyList.map((p) => p.name));
+			const areKeysUnique = uniquePropertyNameList.size == propertyList.length;
+			if (areKeysUnique) return propertyList;
+			else throw new Error();
+		},
+		catch: () => new DuplicateKeysError()
+	});
+
+class DuplicateKeysError extends BaseError {
+	readonly _tag = 'DuplicateKeysError';
+}

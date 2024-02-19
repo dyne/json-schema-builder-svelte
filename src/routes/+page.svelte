@@ -1,6 +1,6 @@
 <script lang="ts">
-	import JSONSchemaBuilder from '$lib/JSONSchemaBuilder.svelte';
-	import JSONSchemaField from '$lib/JSONSchemaField.svelte';
+	import JSONSchemaBuilder from '$lib/JSONSchemaBuilder/JSONSchemaBuilder.svelte';
+	import JSONSchemaField from '$lib/JSONSchemaField/JSONSchemaField.svelte';
 	import type { JSONObjectSchema } from '$lib/logic/types.js';
 
 	let schema: JSONObjectSchema;

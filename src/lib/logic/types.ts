@@ -3,7 +3,7 @@ import type { WithChanged, WithRequired } from './utils.js';
 
 //
 
-/* Copied from 'json-schema' L560 */
+/* Copied from 'json-schema/index.d.ts' L560 */
 export enum JSONSchemaType {
 	string = 'string',
 	number = 'number',
