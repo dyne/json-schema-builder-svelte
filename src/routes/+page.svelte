@@ -1,9 +1,9 @@
 <script lang="ts">
-	import JSONSchemaEditor from '$lib/JSONSchemaEditor.svelte';
-	import JSONSchemaField from '$lib/JSONSchemaField.svelte';
+	import JSONSchemaBuilder from '$lib/JSONSchemaBuilder/JSONSchemaBuilder.svelte';
+	import JSONSchemaField from '$lib/JSONSchemaField/JSONSchemaField.svelte';
+	import type { JSONObjectSchema } from '$lib/logic/types.js';
 
-	export let schema = ``;
-
+	let schema: JSONObjectSchema;
 	let editorMode = true;
 </script>
 
@@ -16,9 +16,9 @@
 </button>
 
 {#if editorMode}
-	<JSONSchemaEditor bind:schema hide={['id', 'title', 'description']} />
+	<JSONSchemaBuilder bind:schema />
 {:else}
 	<JSONSchemaField bind:schema />
 {/if}
 
-<pre>{schema}</pre>
+<pre>{JSON.stringify(schema, null, 2)}</pre>
