@@ -2,7 +2,7 @@
 	import JSONSchemaBuilder from '$lib/JSONSchemaBuilder/JSONSchemaBuilder.svelte';
 	import JSONSchemaField from '$lib/JSONSchemaField/JSONSchemaField.svelte';
 
-	let schema = 'dslkfslòajk';
+	let schema = '';
 	let editorMode = true;
 </script>
 
