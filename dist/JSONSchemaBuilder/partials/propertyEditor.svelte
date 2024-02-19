@@ -1,7 +1,7 @@
 <script>import ListEditor from "./listEditor.svelte";
 import PropertyTypeSelect from "./propertyTypeSelect.svelte";
 import { nanoid } from "nanoid";
-import { componentsStore } from "./componentsStore.js";
+import { componentsStore } from "../../ui/componentsStore.js";
 export let property;
 export let id = nanoid(5);
 const nameId = `property-name-${id}`;

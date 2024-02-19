@@ -8,6 +8,13 @@ import type { JSONObjectSchema, Property } from './types.js';
 export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 export type WithChanged<T, K extends Partial<T>> = T & K;
 
+/* Classes */
+
+export abstract class BaseError<T = unknown> {
+	abstract readonly _tag: string;
+	constructor(public readonly detail?: T) {}
+}
+
 /* Functions */
 
 export function createStringProperty(): Property {
@@ -35,11 +42,4 @@ export function createAjv(): Ajv.default {
 
 export function stringify(data: unknown): string {
 	return JSON.stringify(data, null, 2);
-}
-
-//
-
-export abstract class BaseError<T = unknown> {
-	abstract readonly _tag: string;
-	constructor(public readonly detail?: T) {}
 }

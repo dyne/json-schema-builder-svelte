@@ -4,12 +4,7 @@ import { pipe } from 'effect/Function';
 import { Type as T } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
 
-import {
-	JSONSchemaType,
-	type JSONObjectSchema,
-	type JSONSchema,
-	type Property
-} from '$lib/logic/types.js';
+import { JSONSchemaType, type JSONObjectSchema, type JSONSchema } from '$lib/logic/types.js';
 import { BaseError, createAjv } from '$lib/logic/utils.js';
 
 //
@@ -87,23 +82,3 @@ export const parseJSONObjectSchemaFromString = (string: string) =>
 		Effect.flatMap(parseJSONSchema),
 		Effect.flatMap(parseJSONObjectSchema)
 	);
-
-export const validateJSONObjectSchema = (schema: object) =>
-	pipe(schema, parseJSONSchema, Effect.flatMap(parseJSONObjectSchema));
-
-//
-
-export const validatePropertyListKeys = (propertyList: Property[]) =>
-	Effect.try({
-		try: () => {
-			const uniquePropertyNameList = new Set(propertyList.map((p) => p.name));
-			const areKeysUnique = uniquePropertyNameList.size == propertyList.length;
-			if (areKeysUnique) return propertyList;
-			else throw new Error();
-		},
-		catch: () => new DuplicateKeysError()
-	});
-
-class DuplicateKeysError extends BaseError {
-	readonly _tag = 'DuplicateKeysError';
-}

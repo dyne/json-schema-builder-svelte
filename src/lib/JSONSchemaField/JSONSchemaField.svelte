@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Effect, pipe } from 'effect';
 
-	import { parseJSONObjectSchemaFromString } from '$lib/logic/operations.js';
+	import { parseJSONObjectSchemaFromString } from '$lib/logic/parsing.js';
 	import { stringify, type BaseError, createJSONObjectSchema } from '$lib/logic/utils.js';
 
 	import { nanoid } from 'nanoid';

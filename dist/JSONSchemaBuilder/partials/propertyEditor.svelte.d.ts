@@ -1,5 +1,5 @@
 import { SvelteComponent } from "svelte";
-import type { Property } from './logic/types.js';
+import type { Property } from '../../logic/types.js';
 declare const __propDef: {
     props: {
         property: Property;

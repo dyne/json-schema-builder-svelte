@@ -1,9 +1,9 @@
-import Button from './components/fallback/button.svelte';
-import Input from './components/fallback/input.svelte';
-import Option from './components/fallback/option.svelte';
-import Select from './components/fallback/select.svelte';
-import Label from './components/fallback/label.svelte';
 import type { ComponentType } from 'svelte';
+import Button from './button.svelte';
+import Input from './input.svelte';
+import Option from './option.svelte';
+import Select from './select.svelte';
+import Label from './label.svelte';
 type ComponentsStore = {
     input: ComponentType<Input>;
     button: ComponentType<Button>;

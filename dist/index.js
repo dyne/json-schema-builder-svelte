@@ -1,7 +1,4 @@
-// import JSONSchemaEditor from './JSONSchemaBuilder.svelte';
-// import JSONSchemaField from './JSONSchemaField.svelte';
+import JSONSchemaBuilder from './JSONSchemaBuilder/JSONSchemaBuilder.svelte';
+import JSONSchemaField from './JSONSchemaField/JSONSchemaField.svelte';
 
-// export { JSONSchemaEditor, JSONSchemaField };
-
-// // export * from './logic/inputDefinitions.js';
-// export * from './logic/validate.js';
+export { JSONSchemaBuilder, JSONSchemaField };

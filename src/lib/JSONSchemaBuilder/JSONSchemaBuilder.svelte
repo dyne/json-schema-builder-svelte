@@ -6,12 +6,9 @@
 		propertyListToJSONObjectSchema
 	} from '$lib/logic/conversion.js';
 	import type { Property } from '$lib/logic/types.js';
-	import { BaseError, createJSONObjectSchema } from '../logic/utils.js';
-	import {
-		parseJSONObjectSchema,
-		parseJSONSchema,
-		validatePropertyListKeys
-	} from '$lib/logic/operations.js';
+	import { BaseError, createJSONObjectSchema } from '$lib/logic/utils.js';
+	import { parseJSONObjectSchema, parseJSONSchema } from '$lib/logic/parsing.js';
+	import { validatePropertyListKeys } from '$lib/logic/validation.js';
 
 	import PropertyListEditor from '$lib/JSONSchemaBuilder/partials/propertyListEditor.svelte';
 	import ErrorBanner from '$lib/ui/errorBanner.svelte';

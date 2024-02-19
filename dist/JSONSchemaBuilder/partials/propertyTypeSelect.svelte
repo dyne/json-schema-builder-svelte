@@ -26,7 +26,7 @@ function getUIPropertyType(property) {
 </script>
 
 <script>import { nanoid } from "nanoid";
-import { JSONSchemaType } from "./logic/types.js";
+import { JSONSchemaType } from "../../logic/types.js";
 export let id = `property-data-${nanoid(5)}`;
 export let property;
 let UIPropertyType = getUIPropertyType(property);

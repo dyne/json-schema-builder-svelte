@@ -1,5 +1,5 @@
 //
-/* Copied from 'json-schema' L560 */
+/* Copied from 'json-schema/index.d.ts' L560 */
 export var JSONSchemaType;
 (function (JSONSchemaType) {
     JSONSchemaType["string"] = "string";

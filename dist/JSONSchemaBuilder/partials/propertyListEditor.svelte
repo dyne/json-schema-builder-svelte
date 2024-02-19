@@ -1,8 +1,8 @@
-<script>import { createStringProperty } from "./logic/utils.js";
+<script>import { createStringProperty } from "../../logic/utils.js";
 import PropertyEditor from "./propertyEditor.svelte";
 import { nanoid } from "nanoid";
-import { componentsSettings } from "./componentsStore.js";
-import Button from "./components/fallback/button.svelte";
+import { componentsSettings } from "../../ui/componentsStore.js";
+import Button from "../../ui/button.svelte";
 import Plus from "svelte-heros-v2/Plus.svelte";
 import XMark from "svelte-heros-v2/XMark.svelte";
 export let propertyList;
@@ -18,7 +18,7 @@ function removeProperty(p) {
 <div class="space-y-3 flex flex-col">
 	{#each propertyList as p (p)}
 		{@const id = nanoid(5)}
-		<div class="flex space-x-4 items-center">
+		<div class="flex flex-wrap gap-4 items-center">
 			<PropertyEditor bind:property={p} {id} />
 
 			<Button
