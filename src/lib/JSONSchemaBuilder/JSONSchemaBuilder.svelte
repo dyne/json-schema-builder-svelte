@@ -6,16 +6,26 @@
 		propertyListToJSONObjectSchema
 	} from '$lib/logic/conversion.js';
 	import type { Property } from '$lib/logic/types.js';
-	import { BaseError, createJSONObjectSchema } from '$lib/logic/utils.js';
-	import { parseJSONObjectSchema, parseJSONSchema } from '$lib/logic/parsing.js';
+	import {
+		BaseError,
+		convertEmptyStringToObjectSchema,
+		createJSONObjectSchema,
+		stringify
+	} from '$lib/logic/utils.js';
+	import {
+		parseJSONObjectSchema,
+		parseJSONObjectSchemaFromString,
+		parseJSONSchema
+	} from '$lib/logic/parsing.js';
 	import { validatePropertyListKeys } from '$lib/logic/validation.js';
 
 	import PropertyListEditor from '$lib/JSONSchemaBuilder/partials/propertyListEditor.svelte';
 	import ErrorBanner from '$lib/ui/errorBanner.svelte';
+	import Button from '$lib/ui/button.svelte';
 
 	//
 
-	export let schema: object = createJSONObjectSchema();
+	export let schema: string = stringify(createJSONObjectSchema());
 
 	//
 
@@ -31,13 +41,13 @@
 	$: if (propertyList) updateSchema(propertyList);
 
 	// TODO - Make it more "effecty"
-	function schemaToPropertyList(schema: object): Property[] | undefined {
+	function schemaToPropertyList(schema: string): Property[] | undefined {
 		return Effect.runSync(
 			Effect.match(
 				pipe(
 					schema,
-					parseJSONSchema,
-					Effect.flatMap(parseJSONObjectSchema),
+					convertEmptyStringToObjectSchema,
+					parseJSONObjectSchemaFromString,
 					Effect.map(JSONObjectSchemaToPropertyList)
 				),
 				{
@@ -64,11 +74,16 @@
 					Effect.flatMap(parseJSONObjectSchema)
 				),
 				{
-					onSuccess: (newSchema) => (schema = newSchema),
+					onSuccess: (newSchema) => (schema = stringify(newSchema)),
 					onFailure: (cause) => (error = cause)
 				}
 			)
 		);
+	}
+
+	function resetSchema() {
+		schema = stringify(createJSONObjectSchema());
+		propertyList = schemaToPropertyList(schema);
 	}
 </script>
 
@@ -76,3 +91,8 @@
 	<PropertyListEditor bind:propertyList />
 {/if}
 <ErrorBanner {error} />
+{#if error}
+	<div class="flex justify-end">
+		<Button on:click={resetSchema}>Reset schema</Button>
+	</div>
+{/if}

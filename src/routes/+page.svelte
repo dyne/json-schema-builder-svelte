@@ -1,9 +1,8 @@
 <script lang="ts">
 	import JSONSchemaBuilder from '$lib/JSONSchemaBuilder/JSONSchemaBuilder.svelte';
 	import JSONSchemaField from '$lib/JSONSchemaField/JSONSchemaField.svelte';
-	import type { JSONObjectSchema } from '$lib/logic/types.js';
 
-	let schema: JSONObjectSchema;
+	let schema = 'dslkfslòajk';
 	let editorMode = true;
 </script>
 
@@ -21,4 +20,4 @@
 	<JSONSchemaField bind:schema />
 {/if}
 
-<pre>{JSON.stringify(schema, null, 2)}</pre>
+<pre>{schema}</pre>

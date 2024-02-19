@@ -43,3 +43,8 @@ export function createAjv(): Ajv.default {
 export function stringify(data: unknown): string {
 	return JSON.stringify(data, null, 2);
 }
+
+export function convertEmptyStringToObjectSchema(string: string): string {
+	if (string.trim() === '') return stringify(createJSONObjectSchema());
+	else return string;
+}
