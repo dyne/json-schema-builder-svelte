@@ -30,19 +30,22 @@
 	/>
 
 	<PropertyTypeSelect id={selectId} bind:property />
+
+	<label for={requiredId} class="x-input !flex !items-center !gap-2 !w-fit">
+		<input
+			type="checkbox"
+			class="x-checkbox"
+			id={requiredId}
+			name={requiredId}
+			bind:checked={property.required}
+		/>
+		<span class="x-label">Required</span>
+	</label>
 </div>
 
 {#if property.definition.enum}
-	<ListEditor id={enumID} bind:list={property.definition.enum} />
+	<div class="flex items-center gap-3">
+		<label for={enumID} class="x-label whitespace-nowrap">List values</label>
+		<ListEditor id={enumID} bind:list={property.definition.enum} />
+	</div>
 {/if}
-
-<label for={requiredId} class="flex items-center gap-2">
-	<input
-		type="checkbox"
-		class="x-checkbox"
-		id={requiredId}
-		name={requiredId}
-		bind:checked={property.required}
-	/>
-	<span class="x-label">Required</span>
-</label>

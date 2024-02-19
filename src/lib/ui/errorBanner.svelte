@@ -5,11 +5,11 @@
 </script>
 
 {#if error}
-	<div class="x-banner-error">
+	<div class="x-banner x-banner-error">
 		<div>
-			<p class="x-banner-error-title">{error._tag}</p>
+			<p class="font-bold">{error._tag}</p>
 			{#if error.detail}
-				<p class="x-banner-error-message">{JSON.stringify(error.detail, null, 2)}</p>
+				<p>{JSON.stringify(error.detail, null, 2)}</p>
 			{/if}
 		</div>
 

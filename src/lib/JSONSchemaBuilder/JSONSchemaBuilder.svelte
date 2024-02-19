@@ -93,7 +93,7 @@
 {/if}
 <ErrorBanner {error} />
 {#if error}
-	<div class="x-banner-warning flex justify-between">
+	<div class="x-banner x-banner-warning flex justify-between">
 		<p>The schema seems to be invalid. Would you like to reset it?</p>
 		<button class="x-button" type="button" on:click={resetSchema}>Reset schema</button>
 	</div>

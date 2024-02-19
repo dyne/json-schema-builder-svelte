@@ -25,7 +25,7 @@
 	}
 </script>
 
-<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-8">
 	{#each propertyList as p (p)}
 		{@const id = nanoid(5)}
 		<div class="flex gap-6 items-start">
@@ -44,8 +44,6 @@
 				<XMark size={iconSize} />
 			</button>
 		</div>
-
-		<hr />
 	{/each}
 
 	<button
