@@ -25,11 +25,13 @@
 	}
 </script>
 
-<div class="space-y-3 flex flex-col">
+<div class="flex flex-col gap-7">
 	{#each propertyList as p (p)}
 		{@const id = nanoid(5)}
-		<div class="flex flex-wrap gap-4 items-center">
-			<PropertyEditor bind:property={p} {id} />
+		<div class="flex gap-4 items-start">
+			<div class="grow flex flex-col items-stretch gap-3">
+				<PropertyEditor bind:property={p} {id} />
+			</div>
 
 			<button
 				type="button"
@@ -42,13 +44,15 @@
 				<XMark size={iconSize} />
 			</button>
 		</div>
+
+		<hr />
 	{/each}
 
 	<button
 		type="button"
 		id="property-add"
 		on:click={addProperty}
-		class="flex items-center justify-center p-1"
+		class="x-button flex items-center justify-center"
 	>
 		<Plus size={iconSize} /><span class="ml-1">Add property</span>
 	</button>

@@ -18,28 +18,30 @@
 	const enumID = `property-enum-${id}`;
 </script>
 
-<input
-	class="x-input grow"
-	name={nameId}
-	id={nameId}
-	type="text"
-	bind:value={property.name}
-	placeholder="Property name"
-	required
-/>
+<div class="flex gap-3">
+	<input
+		class="x-input grow"
+		name={nameId}
+		id={nameId}
+		type="text"
+		bind:value={property.name}
+		placeholder="Property name"
+		required
+	/>
 
-<PropertyTypeSelect id={selectId} bind:property />
+	<PropertyTypeSelect id={selectId} bind:property />
+</div>
 
 {#if property.definition.enum}
 	<ListEditor id={enumID} bind:list={property.definition.enum} />
 {/if}
 
-<label for={requiredId}>
+<label for={requiredId} class="flex items-center gap-2">
 	<input
+		type="checkbox"
 		class="x-checkbox"
 		id={requiredId}
 		name={requiredId}
-		type="checkbox"
 		bind:checked={property.required}
 	/>
 	<span class="x-label text-sm">Required</span>

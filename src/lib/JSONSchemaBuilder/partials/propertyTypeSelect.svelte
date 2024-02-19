@@ -74,6 +74,6 @@
 <select class="x-select" {placeholder} {name} {id} bind:value={UIPropertyType} required>
 	<option value={undefined} disabled>{placeholder}</option>
 	{#each typeValues as property, i (property)}
-		<option class="x-option" value={property}>{typeLabels[i]}</option>
+		<option value={property}>{typeLabels[i]}</option>
 	{/each}
 </select>

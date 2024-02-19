@@ -6,18 +6,22 @@
 	let editorMode = true;
 </script>
 
-<button
-	on:click={() => {
-		editorMode = !editorMode;
-	}}
->
-	toggle
-</button>
+<div class="space-y-4 p-4">
+	<button
+		type="button"
+		class="x-button"
+		on:click={() => {
+			editorMode = !editorMode;
+		}}
+	>
+		toggle
+	</button>
 
-{#if editorMode}
-	<JSONSchemaBuilder bind:schema />
-{:else}
-	<JSONSchemaField bind:schema />
-{/if}
+	{#if editorMode}
+		<JSONSchemaBuilder bind:schema />
+	{:else}
+		<JSONSchemaField bind:schema />
+	{/if}
 
-<pre>{schema}</pre>
+	<pre>{schema}</pre>
+</div>
