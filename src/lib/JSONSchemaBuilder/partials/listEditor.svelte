@@ -18,7 +18,7 @@
 </script>
 
 <input
-	class="x-input grow"
+	class="x-input"
 	name={id}
 	{id}
 	type="text"

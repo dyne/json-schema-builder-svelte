@@ -44,5 +44,5 @@
 		name={requiredId}
 		bind:checked={property.required}
 	/>
-	<span class="x-label text-sm">Required</span>
+	<span class="x-label">Required</span>
 </label>

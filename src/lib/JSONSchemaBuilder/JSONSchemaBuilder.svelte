@@ -10,6 +10,7 @@
 		BaseError,
 		convertEmptyStringToObjectSchema,
 		createJSONObjectSchema,
+		createStringProperty,
 		stringify
 	} from '$lib/logic/utils.js';
 	import {
@@ -83,6 +84,7 @@
 	function resetSchema() {
 		schema = stringify(createJSONObjectSchema());
 		propertyList = schemaToPropertyList(schema);
+		propertyList = [...propertyList!, createStringProperty()];
 	}
 </script>
 
@@ -91,7 +93,8 @@
 {/if}
 <ErrorBanner {error} />
 {#if error}
-	<div class="flex justify-end">
+	<div class="x-banner-warning flex justify-between">
+		<p>The schema seems to be invalid. Would you like to reset it?</p>
 		<button class="x-button" type="button" on:click={resetSchema}>Reset schema</button>
 	</div>
 {/if}

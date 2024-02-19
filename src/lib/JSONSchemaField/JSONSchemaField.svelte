@@ -36,7 +36,5 @@
 	}
 </script>
 
-<div class="flex flex-col gap-2">
-	<textarea class="x-textarea font-mono" rows="20" {id} name={id} bind:value={tempSchema} />
-	<ErrorBanner bind:error />
-</div>
+<textarea class="x-textarea font-mono" rows="20" {id} name={id} bind:value={tempSchema} />
+<ErrorBanner bind:error />

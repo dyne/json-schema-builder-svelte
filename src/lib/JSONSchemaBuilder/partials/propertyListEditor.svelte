@@ -25,21 +25,21 @@
 	}
 </script>
 
-<div class="flex flex-col gap-7">
+<div class="flex flex-col gap-6">
 	{#each propertyList as p (p)}
 		{@const id = nanoid(5)}
-		<div class="flex gap-4 items-start">
+		<div class="flex gap-6 items-start">
 			<div class="grow flex flex-col items-stretch gap-3">
 				<PropertyEditor bind:property={p} {id} />
 			</div>
 
 			<button
 				type="button"
+				class="x-button x-button-square"
 				id={`property-remove-${id}`}
 				on:click={() => {
 					removeProperty(p);
 				}}
-				class="x-button x-button-square"
 			>
 				<XMark size={iconSize} />
 			</button>
@@ -50,9 +50,9 @@
 
 	<button
 		type="button"
+		class="x-button flex items-center justify-center"
 		id="property-add"
 		on:click={addProperty}
-		class="x-button flex items-center justify-center"
 	>
 		<Plus size={iconSize} /><span class="ml-1">Add property</span>
 	</button>
