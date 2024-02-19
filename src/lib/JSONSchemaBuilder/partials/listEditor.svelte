@@ -4,12 +4,12 @@
 
 	//
 
-	const SEPARATOR = ',';
+	export let list: unknown[] = [];
+	export let id = nanoid(5);
 
 	//
 
-	export let list: unknown[] = [];
-	export let id = nanoid(5);
+	const SEPARATOR = ',';
 
 	let stringValue = list.join(`${SEPARATOR} `);
 	$: list = stringValue

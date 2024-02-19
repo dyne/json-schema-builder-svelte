@@ -30,7 +30,7 @@
 <div class="space-y-3 flex flex-col">
 	{#each propertyList as p (p)}
 		{@const id = nanoid(5)}
-		<div class="flex space-x-4 items-center">
+		<div class="flex flex-wrap gap-4 items-center">
 			<PropertyEditor bind:property={p} {id} />
 
 			<Button
