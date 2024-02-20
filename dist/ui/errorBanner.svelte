@@ -1,12 +1,23 @@
-<script>export let error = void 0;
+<script>import { ErrorCode } from "../logic/errors.js";
+import { stringsStore } from "./strings.js";
+export let error = void 0;
 </script>
 
 {#if error}
-	<div class="x-banner-error">
+	{@const detail = error.detail}
+	{@const tag = error._tag}
+	<div class="x-banner x-banner-error">
 		<div>
-			<p class="x-banner-error-title">{error._tag}</p>
-			{#if error.detail}
-				<p class="x-banner-error-message">{JSON.stringify(error.detail, null, 2)}</p>
+			<p class="font-bold">{$stringsStore[tag] ?? tag}</p>
+
+			{#if tag == ErrorCode.DuplicateKeysError}
+				<p>Changing editor mode will remove the duplicate properties.</p>
+			{/if}
+
+			{#if typeof detail == 'string'}
+				<p>{detail}</p>
+			{:else if detail}
+				<p>{JSON.stringify(detail, null, 2)}</p>
 			{/if}
 		</div>
 

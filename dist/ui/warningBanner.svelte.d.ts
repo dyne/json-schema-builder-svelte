@@ -11,9 +11,9 @@ declare const __propDef: {
         right: {};
     };
 };
-export type ErrorBannerProps = typeof __propDef.props;
-export type ErrorBannerEvents = typeof __propDef.events;
-export type ErrorBannerSlots = typeof __propDef.slots;
-export default class ErrorBanner extends SvelteComponent<ErrorBannerProps, ErrorBannerEvents, ErrorBannerSlots> {
+export type WarningBannerProps = typeof __propDef.props;
+export type WarningBannerEvents = typeof __propDef.events;
+export type WarningBannerSlots = typeof __propDef.slots;
+export default class WarningBanner extends SvelteComponent<WarningBannerProps, WarningBannerEvents, WarningBannerSlots> {
 }
 export {};

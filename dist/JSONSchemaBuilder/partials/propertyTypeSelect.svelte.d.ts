@@ -1,4 +1,13 @@
 import { SvelteComponent } from "svelte";
+export declare enum UIPropertyTypeOption {
+    string = "string",
+    integer = "integer",
+    float = "float",
+    boolean = "boolean",
+    list = "list",
+    datetime = "datetime",
+    date = "date"
+}
 import { type Property } from '../../logic/types.js';
 declare const __propDef: {
     props: {

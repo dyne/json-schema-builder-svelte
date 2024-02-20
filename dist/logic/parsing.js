@@ -1,16 +1,17 @@
 import { Effect } from 'effect';
 import { pipe } from 'effect/Function';
+import { ErrorCode, BaseError } from './errors.js';
 import { Type as T } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
 import { JSONSchemaType } from './types.js';
-import { BaseError, createAjv } from './utils.js';
+import { createAjv } from './utils.js';
 //
 export const parseJSON = (string) => Effect.try({
     try: () => JSON.parse(string),
     catch: (e) => new InvalidJSONError(e.message)
 });
-class InvalidJSONError extends BaseError {
-    _tag = 'InvalidJSONError';
+export class InvalidJSONError extends BaseError {
+    _tag = ErrorCode.InvalidJSONError;
 }
 //
 export const parseObject = (data) => Effect.try({
@@ -23,8 +24,8 @@ export const parseObject = (data) => Effect.try({
     },
     catch: () => new NotObjectError()
 });
-class NotObjectError extends BaseError {
-    _tag = 'NotObjectError';
+export class NotObjectError extends BaseError {
+    _tag = ErrorCode.NotObjectError;
 }
 //
 export const parseJSONSchema = (object) => Effect.try({
@@ -35,8 +36,8 @@ export const parseJSONSchema = (object) => Effect.try({
     },
     catch: (e) => new InvalidJSONSchemaError(e.message)
 });
-class InvalidJSONSchemaError extends BaseError {
-    _tag = 'InvalidJSONSchemaError';
+export class InvalidJSONSchemaError extends BaseError {
+    _tag = ErrorCode.InvalidJSONSchemaError;
 }
 //
 export const parseJSONObjectSchema = (schema) => Effect.try({
@@ -49,8 +50,8 @@ export const parseJSONObjectSchema = (schema) => Effect.try({
     },
     catch: (e) => new InvalidJSONObjectSchemaError(e)
 });
-class InvalidJSONObjectSchemaError extends BaseError {
-    _tag = 'InvalidJSONObjectSchemaError';
+export class InvalidJSONObjectSchemaError extends BaseError {
+    _tag = ErrorCode.InvalidJSONObjectSchemaError;
 }
 const JSONObjectSchemaSchema = T.Object({
     properties: T.Record(T.String(), T.Unknown()),

@@ -1,7 +1,9 @@
 import { SvelteComponent } from "svelte";
+import type { BaseError } from '../logic/errors.js';
 declare const __propDef: {
     props: {
-        schema?: object | undefined;
+        schema?: string | undefined;
+        error?: BaseError | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

@@ -1,10 +1,10 @@
 <script>import { createStringProperty } from "../../logic/utils.js";
 import PropertyEditor from "./propertyEditor.svelte";
 import { nanoid } from "nanoid";
-import { componentsSettings } from "../../ui/componentsStore.js";
-import Button from "../../ui/button.svelte";
 import Plus from "svelte-heros-v2/Plus.svelte";
 import XMark from "svelte-heros-v2/XMark.svelte";
+import { iconSize } from "../../ui/settings.js";
+import { stringsStore } from "../../ui/strings.js";
 export let propertyList;
 function addProperty() {
   propertyList = [...propertyList, createStringProperty()];
@@ -15,30 +15,31 @@ function removeProperty(p) {
 }
 </script>
 
-<div class="space-y-3 flex flex-col">
-	{#each propertyList as p (p)}
-		{@const id = nanoid(5)}
-		<div class="flex flex-wrap gap-4 items-center">
+{#each propertyList as p (p)}
+	{@const id = nanoid(5)}
+	<div class="flex gap-6 items-start">
+		<div class="grow flex flex-col items-stretch gap-3">
 			<PropertyEditor bind:property={p} {id} />
-
-			<Button
-				id={`property-remove-${id}`}
-				on:click={() => {
-					removeProperty(p);
-				}}
-				class="x-button-square"
-			>
-				<XMark size={$componentsSettings.iconSize} />
-			</Button>
 		</div>
-	{/each}
 
-	<Button
-		type="button"
-		id="property-add"
-		on:click={addProperty}
-		class="flex items-center justify-center p-1"
-	>
-		<Plus size={$componentsSettings.iconSize} /><span class="ml-1">Add property</span>
-	</Button>
-</div>
+		<button
+			type="button"
+			class="x-button x-button-square"
+			id={`property-remove-${id}`}
+			on:click={() => {
+				removeProperty(p);
+			}}
+		>
+			<XMark size={iconSize} />
+		</button>
+	</div>
+{/each}
+
+<button
+	type="button"
+	class="x-button flex items-center justify-center w-full"
+	id="property-add"
+	on:click={addProperty}
+>
+	<Plus size={iconSize} /><span class="ml-1">{$stringsStore.add_property}</span>
+</button>

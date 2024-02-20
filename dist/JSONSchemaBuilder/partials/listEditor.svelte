@@ -1,5 +1,5 @@
-<script>import { nanoid } from "nanoid";
-import { componentsStore } from "../../ui/componentsStore.js";
+<script>import { stringsStore } from "../../ui/strings.js";
+import { nanoid } from "nanoid";
 export let list = [];
 export let id = nanoid(5);
 const SEPARATOR = ",";
@@ -8,13 +8,12 @@ $:
   list = stringValue.split(SEPARATOR).map((s) => s.trim()).filter((s) => s);
 </script>
 
-<svelte:component
-	this={$componentsStore.input}
-	class="grow basis-2/3"
+<input
+	class="x-input"
 	name={id}
 	{id}
 	type="text"
 	bind:value={stringValue}
-	placeholder="Separate values by comma"
+	placeholder={$stringsStore.separate_values_by_comma}
 	required
 />

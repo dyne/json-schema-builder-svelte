@@ -1,33 +1,26 @@
 <script>import { Effect, pipe } from "effect";
 import { parseJSONObjectSchemaFromString } from "../logic/parsing.js";
-import { stringify, createJSONObjectSchema } from "../logic/utils.js";
+import {
+  stringify,
+  createJSONObjectSchema,
+  convertEmptyStringToObjectSchema
+} from "../logic/utils.js";
 import { nanoid } from "nanoid";
-import ErrorBanner from "../ui/errorBanner.svelte";
-export let schema = createJSONObjectSchema();
+export let schema = stringify(createJSONObjectSchema());
+export let error = void 0;
 export let id = `json-schema-${nanoid(5)}`;
-let error = void 0;
-let schemaString = stringify(schema);
+let tempSchema = convertEmptyStringToObjectSchema(schema);
 $:
-  updateSchema(schemaString);
-function updateSchema(schemaString2) {
+  updateSchema(tempSchema);
+function updateSchema(schemaString) {
   error = void 0;
   Effect.runSync(
-    Effect.match(pipe(schemaString2, parseJSONObjectSchemaFromString), {
-      onSuccess: (newSchema) => schema = newSchema,
+    Effect.match(pipe(schemaString, parseJSONObjectSchemaFromString), {
+      onSuccess: (newSchema) => schema = stringify(newSchema),
       onFailure: (cause) => error = cause
     })
   );
 }
-function resetSchemaString() {
-  schemaString = stringify(schema);
-}
 </script>
 
-<div class="flex flex-col gap-2">
-	<textarea class="x-textarea" rows="20" {id} name={id} bind:value={schemaString} />
-	<ErrorBanner bind:error>
-		<button class="x-button" slot="right" on:click={resetSchemaString}>
-			Restore previous state
-		</button>
-	</ErrorBanner>
-</div>
+<textarea class="x-textarea font-mono" rows="20" {id} name={id} bind:value={tempSchema} />

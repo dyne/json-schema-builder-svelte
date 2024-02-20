@@ -1,12 +1,5 @@
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
-/* Classes */
-export class BaseError {
-    detail;
-    constructor(detail) {
-        this.detail = detail;
-    }
-}
 /* Functions */
 export function createStringProperty() {
     return {
@@ -20,7 +13,11 @@ export function createStringProperty() {
 export function createJSONObjectSchema() {
     return {
         type: 'object',
-        properties: {}
+        properties: {
+            '': {
+                type: 'string'
+            }
+        }
     };
 }
 export function createAjv() {
@@ -30,4 +27,10 @@ export function createAjv() {
 }
 export function stringify(data) {
     return JSON.stringify(data, null, 2);
+}
+export function convertEmptyStringToObjectSchema(string) {
+    if (string.trim() === '')
+        return stringify(createJSONObjectSchema());
+    else
+        return string;
 }

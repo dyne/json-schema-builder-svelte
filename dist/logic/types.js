@@ -10,3 +10,8 @@ export var JSONSchemaType;
     JSONSchemaType["array"] = "array";
     JSONSchemaType["null"] = "null";
 })(JSONSchemaType || (JSONSchemaType = {}));
+export var JSONSchemaFormat;
+(function (JSONSchemaFormat) {
+    JSONSchemaFormat["date"] = "date";
+    JSONSchemaFormat["datetime"] = "date-time";
+})(JSONSchemaFormat || (JSONSchemaFormat = {}));
