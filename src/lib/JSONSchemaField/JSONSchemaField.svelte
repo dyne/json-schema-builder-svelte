@@ -13,7 +13,7 @@
 
 	//
 
-	export let schema: string = stringify(createJSONObjectSchema());
+	export let schema: string | undefined | null = stringify(createJSONObjectSchema());
 	export let error: BaseError | undefined = undefined;
 
 	export let id = `json-schema-${nanoid(5)}`;

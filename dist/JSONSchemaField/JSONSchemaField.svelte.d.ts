@@ -2,7 +2,7 @@ import { SvelteComponent } from "svelte";
 import type { BaseError } from '../logic/errors.js';
 declare const __propDef: {
     props: {
-        schema?: string | undefined;
+        schema?: string | undefined | null;
         error?: BaseError | undefined;
         id?: string | undefined;
     };

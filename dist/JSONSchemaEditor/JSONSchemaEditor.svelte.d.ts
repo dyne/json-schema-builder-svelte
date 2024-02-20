@@ -1,7 +1,7 @@
 import { SvelteComponent } from "svelte";
 declare const __propDef: {
     props: {
-        schema: string;
+        schema?: string | undefined | null;
         mode?: ("field" | "builder") | undefined;
         label?: string | undefined;
     };

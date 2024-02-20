@@ -41,7 +41,7 @@ export function stringify(data: unknown): string {
 	return JSON.stringify(data, null, 2);
 }
 
-export function convertEmptyStringToObjectSchema(string: string): string {
-	if (string.trim() === '') return stringify(createJSONObjectSchema());
+export function convertEmptyStringToObjectSchema(string: string | null | undefined): string {
+	if (!string || string.trim() === '') return stringify(createJSONObjectSchema());
 	else return string;
 }

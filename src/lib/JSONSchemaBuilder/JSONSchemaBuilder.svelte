@@ -23,7 +23,7 @@
 
 	//
 
-	export let schema: string = stringify(createJSONObjectSchema());
+	export let schema: string | undefined | null = stringify(createJSONObjectSchema());
 	export let error: BaseError | undefined = undefined;
 
 	//
@@ -31,7 +31,7 @@
 	let propertyList = schemaToPropertyList(schema);
 	$: if (propertyList) updateSchema(propertyList);
 
-	function schemaToPropertyList(schema: string): Property[] | undefined {
+	function schemaToPropertyList(schema: string | null | undefined): Property[] | undefined {
 		return Effect.runSync(
 			Effect.match(
 				pipe(

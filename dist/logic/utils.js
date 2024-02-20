@@ -29,7 +29,7 @@ export function stringify(data) {
     return JSON.stringify(data, null, 2);
 }
 export function convertEmptyStringToObjectSchema(string) {
-    if (string.trim() === '')
+    if (!string || string.trim() === '')
         return stringify(createJSONObjectSchema());
     else
         return string;

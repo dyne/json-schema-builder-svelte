@@ -10,12 +10,10 @@
 
 	//
 
-	export let schema: string;
+	export let schema: string | undefined | null = undefined;
 	export let mode: EditorMode = 'builder';
 
 	export let label: string | undefined = undefined;
-
-	let error: BaseError | undefined = undefined;
 
 	//
 
@@ -28,6 +26,10 @@
 	function getOtherMode(mode: EditorMode) {
 		return mode == 'field' ? 'builder' : 'field';
 	}
+
+	//
+
+	let error: BaseError | undefined = undefined;
 </script>
 
 <div class="space-y-8">
