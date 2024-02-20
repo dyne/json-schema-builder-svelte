@@ -8,7 +8,7 @@
 {#if error}
 	<div class="x-banner x-banner-error">
 		<div>
-			<p class="font-bold">{strings[error._tag]}</p>
+			<p class="font-bold">{$stringsStore[error._tag]}</p>
 			{#if error.detail}
 				<p>{JSON.stringify(error.detail, null, 2)}</p>
 			{/if}

@@ -39,7 +39,7 @@
 		</p>
 		<button class="x-button flex items-center" type="button" on:click={changeMode}>
 			<ArrowRight size={iconSize} />
-			<span class="ml-1">{strings[getOtherMode(mode)]}</span>
+			<span class="ml-1">{$stringsStore[getOtherMode(mode)]}</span>
 		</button>
 	</div>
 

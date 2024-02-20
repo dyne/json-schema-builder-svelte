@@ -95,6 +95,6 @@
 <select class="x-select" {placeholder} {name} {id} bind:value={UIPropertyType} required>
 	<option value={undefined} disabled>{placeholder}</option>
 	{#each typeValues as property}
-		<option value={property}>{strings[property]}</option>
+		<option value={property}>{$stringsStore[property]}</option>
 	{/each}
 </select>
