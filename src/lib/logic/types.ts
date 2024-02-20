@@ -34,3 +34,8 @@ export type JSONObjectSchema = WithChanged<
 >;
 
 export type SchemaOption = keyof Partial<JSONSchema>;
+
+//
+
+export type SchemaProp = string | object | undefined | null;
+export type ReturnType = 'string' | 'object';

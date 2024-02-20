@@ -1,7 +1,7 @@
 import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 
-import type { JSONObjectSchema, Property } from './types.js';
+import type { JSONObjectSchema, Property, ReturnType } from './types.js';
 
 /* Types */
 
@@ -41,7 +41,10 @@ export function stringify(data: unknown): string {
 	return JSON.stringify(data, null, 2);
 }
 
-export function convertEmptyStringToObjectSchema(string: string | null | undefined): string {
-	if (!string || string.trim() === '') return stringify(createJSONObjectSchema());
-	else return string;
+export function returnSchema(schema: JSONObjectSchema, returnType: ReturnType = 'object') {
+	return returnType == 'object' ? schema : stringify(schema);
+}
+
+export function debugSchema(schema: string | object): string {
+	return typeof schema === 'object' ? stringify(schema) : schema;
 }

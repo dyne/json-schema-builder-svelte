@@ -4,39 +4,38 @@
 	import type { BaseError } from '$lib/logic/errors.js';
 	import {
 		JSONObjectSchemaToPropertyList,
-		propertyListToJSONObjectSchema
+		propertyListToJSONObjectSchema,
+		schemaPropToString
 	} from '$lib/logic/conversion.js';
 	import { validatePropertyList, validatePropertyListKeys } from '$lib/logic/validation.js';
-	import type { Property } from '$lib/logic/types.js';
+	import type { Property, ReturnType } from '$lib/logic/types.js';
 	import {
 		parseJSONObjectSchema,
 		parseJSONObjectSchemaFromString,
 		parseJSONSchema
 	} from '$lib/logic/parsing.js';
-	import {
-		convertEmptyStringToObjectSchema,
-		createJSONObjectSchema,
-		stringify
-	} from '$lib/logic/utils.js';
+	import { createJSONObjectSchema, returnSchema, stringify } from '$lib/logic/utils.js';
 
 	import PropertyListEditor from '$lib/JSONSchemaBuilder/partials/propertyListEditor.svelte';
+	import type { SchemaProp } from '$lib/logic/types.js';
 
 	//
 
-	export let schema: string | undefined | null = stringify(createJSONObjectSchema());
+	export let schema: SchemaProp = createJSONObjectSchema();
 	export let error: BaseError | undefined = undefined;
+	export let returnType: ReturnType = 'object';
 
 	//
 
-	let propertyList = schemaToPropertyList(schema);
+	let propertyList = schemaPropToPropertyList(schema);
 	$: if (propertyList) updateSchema(propertyList);
 
-	function schemaToPropertyList(schema: string | null | undefined): Property[] | undefined {
+	function schemaPropToPropertyList(schemaProp: SchemaProp): Property[] | undefined {
 		return Effect.runSync(
 			Effect.match(
 				pipe(
-					schema,
-					convertEmptyStringToObjectSchema,
+					schemaProp,
+					schemaPropToString,
 					parseJSONObjectSchemaFromString,
 					Effect.map(JSONObjectSchemaToPropertyList),
 					Effect.flatMap(validatePropertyList)
@@ -65,7 +64,7 @@
 					Effect.flatMap(parseJSONObjectSchema)
 				),
 				{
-					onSuccess: (newSchema) => (schema = stringify(newSchema)),
+					onSuccess: (newSchema) => (schema = returnSchema(newSchema, returnType)),
 					onFailure: (cause) => (error = cause)
 				}
 			)

@@ -1,4 +1,7 @@
-import type { JSONObjectSchema, Property } from './types.js';
+import type { JSONObjectSchema, Property, SchemaProp } from './types.js';
+import { createJSONObjectSchema, stringify } from './utils.js';
+
+//
 
 export function JSONObjectSchemaToPropertyList(schema: JSONObjectSchema): Array<Property> {
 	const { properties, required: requiredProperties = [] } = schema;
@@ -29,4 +32,13 @@ export function propertyListToJSONObjectSchema(propertyList: Array<Property>): J
 	}
 
 	return schema;
+}
+
+//
+
+export function schemaPropToString(schemaProp: SchemaProp): string {
+	if (!schemaProp) return stringify(createJSONObjectSchema());
+	else if (typeof schemaProp === 'object') return stringify(schemaProp);
+	else if (schemaProp.trim() === '') return stringify(createJSONObjectSchema());
+	else return schemaProp;
 }
