@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { BaseError } from '$lib/logic/errors.js';
-	import { strings } from '$lib/ui/strings.js';
+	import { stringsStore } from '$lib/ui/strings.js';
 
 	export let error: BaseError | undefined = undefined;
 </script>
@@ -8,7 +8,7 @@
 {#if error}
 	<div class="x-banner x-banner-warning justify-between">
 		<p>
-			{strings.the_schema_seems_to_be_invalid}
+			{$stringsStore.the_schema_seems_to_be_invalid}
 		</p>
 
 		<slot name="right" />

@@ -36,7 +36,7 @@
 		JSONSchemaType as Type,
 		JSONSchemaFormat as Format
 	} from '$lib/logic/types.js';
-	import { strings } from '$lib/ui/strings.js';
+	import { stringsStore } from '$lib/ui/strings.js';
 
 	//
 
@@ -89,7 +89,7 @@
 	const typeValues = Object.values(UIPropertyTypeOption);
 
 	const name = id;
-	const placeholder = strings.select_a_type;
+	const placeholder = $stringsStore.select_a_type;
 </script>
 
 <select class="x-select" {placeholder} {name} {id} bind:value={UIPropertyType} required>

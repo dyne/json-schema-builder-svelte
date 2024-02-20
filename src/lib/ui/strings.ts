@@ -1,5 +1,8 @@
 import { ErrorCode } from '$lib/logic/errors.js';
 import { UIPropertyTypeOption } from '$lib/JSONSchemaBuilder/partials/propertyTypeSelect.svelte';
+import { writable } from 'svelte/store';
+
+//
 
 export const strings = {
 	property_name: 'Property name',
@@ -37,3 +40,9 @@ export const strings = {
 };
 
 export type StringResources = typeof strings;
+
+export const stringsStore = writable<StringResources>(strings);
+
+export function setStrings(newStrings: Partial<StringResources>) {
+	stringsStore.update((strings) => ({ ...strings, ...newStrings }));
+}

@@ -4,7 +4,7 @@
 	import type { BaseError } from '$lib/logic/errors.js';
 	import ErrorBanner from '$lib/ui/errorBanner.svelte';
 	import { iconSize } from '$lib/ui/settings.js';
-	import { strings } from '$lib/ui/strings.js';
+	import { stringsStore } from '$lib/ui/strings.js';
 	import WarningBanner from '$lib/ui/warningBanner.svelte';
 	import ArrowRight from 'svelte-heros-v2/ArrowRight.svelte';
 
@@ -58,7 +58,7 @@
 			<WarningBanner {error}>
 				<svelte:fragment slot="right">
 					<button class="underline" on:click={changeMode}>
-						{strings.view_in_plain_text}
+						{$stringsStore.view_in_plain_text}
 					</button>
 				</svelte:fragment>
 			</WarningBanner>

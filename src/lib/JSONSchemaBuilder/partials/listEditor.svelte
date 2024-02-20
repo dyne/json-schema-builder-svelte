@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { strings } from '$lib/ui/strings.js';
+	import { stringsStore } from '$lib/ui/strings.js';
 	import { nanoid } from 'nanoid';
 
 	//
@@ -24,6 +24,6 @@
 	{id}
 	type="text"
 	bind:value={stringValue}
-	placeholder={strings.separate_values_by_comma}
+	placeholder={$stringsStore.separate_values_by_comma}
 	required
 />

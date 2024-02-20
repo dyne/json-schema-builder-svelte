@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { BaseError } from '$lib/logic/errors.js';
-	import { strings } from '$lib/ui/strings.js';
+	import { stringsStore } from '$lib/ui/strings.js';
 
 	export let error: BaseError | undefined = undefined;
 </script>
