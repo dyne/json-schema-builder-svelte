@@ -30,12 +30,10 @@ export const strings = {
 	[ErrorCode.NotObjectError]: 'Data is not an Object',
 	[ErrorCode.InvalidJSONSchemaError]: 'Invalid JSON Schema',
 	[ErrorCode.DuplicateKeysError]: 'Your schema contains duplicate property names',
+	[ErrorCode.InvalidSchemaError]: 'Invalid schema or properties',
 
-	the_schema_seems_to_be_invalid: 'The schema seems to be invalid.',
-	reset_schema: 'Reset schema',
-	restore_last_valid_state: 'Restore last valid state',
+	the_schema_cannot_be_opened_in_the_gui: 'The schema cannot be opened in the visual editor.',
 	view_in_plain_text: 'View it in the plain text editor',
-
 	separate_values_by_comma: 'Separate values by comma'
 };
 
