@@ -23,7 +23,11 @@ export function createStringProperty(): Property {
 export function createJSONObjectSchema(): JSONObjectSchema {
 	return {
 		type: 'object',
-		properties: {}
+		properties: {
+			'': {
+				type: 'string'
+			}
+		}
 	};
 }
 

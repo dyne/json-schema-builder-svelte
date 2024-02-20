@@ -85,7 +85,6 @@
 	function resetSchema() {
 		schema = stringify(createJSONObjectSchema());
 		propertyList = schemaToPropertyList(schema);
-		propertyList = [...propertyList!, createStringProperty()];
 	}
 </script>
 
