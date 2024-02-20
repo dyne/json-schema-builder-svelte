@@ -17,4 +17,4 @@ export declare const parseJSONObjectSchema: (schema: JSONSchema) => Effect.Effec
 export declare class InvalidJSONObjectSchemaError extends BaseError {
     readonly _tag = ErrorCode.InvalidJSONObjectSchemaError;
 }
-export declare const parseJSONObjectSchemaFromString: (string: string) => Effect.Effect<JSONObjectSchema, InvalidJSONError | NotObjectError | InvalidJSONSchemaError | InvalidJSONObjectSchemaError, never>;
+export declare const parseJSONObjectSchemaFromString: (schemaString: string) => Effect.Effect<JSONObjectSchema, InvalidJSONError | NotObjectError | InvalidJSONSchemaError | InvalidJSONObjectSchemaError, never>;

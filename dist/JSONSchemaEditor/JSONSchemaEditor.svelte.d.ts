@@ -1,7 +1,9 @@
 import { SvelteComponent } from "svelte";
+import type { SchemaProp, ReturnType } from '../logic/types.js';
 declare const __propDef: {
     props: {
-        schema?: string | undefined | null;
+        schema?: SchemaProp;
+        returnType?: ReturnType | undefined;
         mode?: ("field" | "builder") | undefined;
         label?: string | undefined;
     };

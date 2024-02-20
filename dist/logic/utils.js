@@ -28,9 +28,9 @@ export function createAjv() {
 export function stringify(data) {
     return JSON.stringify(data, null, 2);
 }
-export function convertEmptyStringToObjectSchema(string) {
-    if (!string || string.trim() === '')
-        return stringify(createJSONObjectSchema());
-    else
-        return string;
+export function returnSchema(schema, returnType = 'object') {
+    return returnType == 'object' ? schema : stringify(schema);
+}
+export function debugSchema(schema) {
+    return typeof schema === 'object' ? stringify(schema) : schema;
 }

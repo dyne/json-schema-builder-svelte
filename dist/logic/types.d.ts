@@ -24,3 +24,5 @@ export type JSONObjectSchema = WithChanged<WithRequired<JSONSchema, 'properties'
     type: 'object';
 }>;
 export type SchemaOption = keyof Partial<JSONSchema>;
+export type SchemaProp = string | object | undefined | null;
+export type ReturnType = 'string' | 'object';

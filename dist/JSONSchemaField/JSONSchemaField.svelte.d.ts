@@ -1,9 +1,11 @@
 import { SvelteComponent } from "svelte";
 import type { BaseError } from '../logic/errors.js';
+import type { SchemaProp, ReturnType } from '../logic/types.js';
 declare const __propDef: {
     props: {
-        schema?: string | undefined | null;
+        schema?: SchemaProp;
         error?: BaseError | undefined;
+        returnType?: ReturnType | undefined;
         id?: string | undefined;
     };
     events: {

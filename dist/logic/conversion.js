@@ -1,3 +1,5 @@
+import { createJSONObjectSchema, stringify } from './utils.js';
+//
 export function JSONObjectSchemaToPropertyList(schema) {
     const { properties, required: requiredProperties = [] } = schema;
     if (!properties)
@@ -25,4 +27,15 @@ export function propertyListToJSONObjectSchema(propertyList) {
             schema.required.push(name); // "!" is needed
     }
     return schema;
+}
+//
+export function schemaPropToString(schemaProp) {
+    if (!schemaProp)
+        return stringify(createJSONObjectSchema());
+    else if (typeof schemaProp === 'object')
+        return stringify(schemaProp);
+    else if (schemaProp.trim() === '')
+        return stringify(createJSONObjectSchema());
+    else
+        return schemaProp;
 }

@@ -1,11 +1,13 @@
 <script>import JSONSchemaBuilder from "../JSONSchemaBuilder/JSONSchemaBuilder.svelte";
 import JSONSchemaField from "../JSONSchemaField/JSONSchemaField.svelte";
-import ErrorBanner from "../ui/errorBanner.svelte";
-import { iconSize } from "../ui/settings.js";
 import { stringsStore } from "../ui/strings.js";
+import { iconSize } from "../ui/settings.js";
+import ErrorBanner from "../ui/errorBanner.svelte";
 import WarningBanner from "../ui/warningBanner.svelte";
 import ArrowRight from "svelte-heros-v2/ArrowRight.svelte";
-export let schema = void 0;
+import { createJSONObjectSchema } from "../logic/utils.js";
+export let schema = createJSONObjectSchema();
+export let returnType = "object";
 export let mode = "builder";
 export let label = void 0;
 function changeMode() {
@@ -32,10 +34,10 @@ let error = void 0;
 
 	{#if mode == 'builder'}
 		<div class="space-y-6">
-			<JSONSchemaBuilder bind:schema bind:error />
+			<JSONSchemaBuilder bind:schema bind:error {returnType} />
 		</div>
 	{:else}
-		<JSONSchemaField bind:schema bind:error />
+		<JSONSchemaField bind:schema bind:error {returnType} />
 	{/if}
 
 	<div class="space-y-2">

@@ -1,5 +1,4 @@
-import { Effect } from 'effect';
-import { pipe } from 'effect/Function';
+import { Effect, pipe } from 'effect';
 import { ErrorCode, BaseError } from './errors.js';
 import { Type as T } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
@@ -59,4 +58,4 @@ const JSONObjectSchemaSchema = T.Object({
     required: T.Optional(T.Array(T.String()))
 });
 //
-export const parseJSONObjectSchemaFromString = (string) => pipe(parseJSON(string), Effect.flatMap(parseObject), Effect.flatMap(parseJSONSchema), Effect.flatMap(parseJSONObjectSchema));
+export const parseJSONObjectSchemaFromString = (schemaString) => pipe(schemaString, parseJSON, Effect.flatMap(parseObject), Effect.flatMap(parseJSONSchema), Effect.flatMap(parseJSONObjectSchema));
