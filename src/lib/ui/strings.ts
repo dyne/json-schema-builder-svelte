@@ -14,6 +14,8 @@ export const strings = {
 	[UIPropertyTypeOption.float]: 'Decimal number',
 	[UIPropertyTypeOption.boolean]: 'Boolean',
 	[UIPropertyTypeOption.list]: 'List',
+	[UIPropertyTypeOption.date]: 'Date',
+	[UIPropertyTypeOption.datetime]: 'Date and time',
 
 	// Errors
 	[ErrorCode.InvalidJSONError]: 'Invalid JSON',

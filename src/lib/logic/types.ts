@@ -14,6 +14,11 @@ export enum JSONSchemaType {
 	null = 'null'
 }
 
+export enum JSONSchemaFormat {
+	date = 'date',
+	datetime = 'date-time'
+}
+
 export type Property = {
 	name: string;
 	definition: Exclude<JSONSchema7Definition, boolean>;
