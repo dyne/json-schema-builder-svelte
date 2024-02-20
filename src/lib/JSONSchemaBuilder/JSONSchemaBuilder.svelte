@@ -1,24 +1,30 @@
 <script lang="ts">
 	import { Effect, pipe } from 'effect';
 
+	import type { BaseError } from '$lib/logic/errors.js';
 	import {
 		JSONObjectSchemaToPropertyList,
 		propertyListToJSONObjectSchema
 	} from '$lib/logic/conversion.js';
-	import { validatePropertyListKeys } from '$lib/logic/validation.js';
 	import {
+		validatePropertyList,
+		validatePropertyListKeys,
+		validateSchema
+	} from '$lib/logic/validation.js';
+	import type { Property } from '$lib/logic/types.js';
+	import {
+		parseJSON,
 		parseJSONObjectSchema,
 		parseJSONObjectSchemaFromString,
-		parseJSONSchema
+		parseJSONSchema,
+		parseObject
 	} from '$lib/logic/parsing.js';
-	import type { Property } from '$lib/logic/types.js';
 	import {
 		convertEmptyStringToObjectSchema,
 		createJSONObjectSchema,
 		createStringProperty,
 		stringify
 	} from '$lib/logic/utils.js';
-	import type { BaseError } from '$lib/logic/errors.js';
 
 	import PropertyListEditor from '$lib/JSONSchemaBuilder/partials/propertyListEditor.svelte';
 	import ErrorBanner from '$lib/ui/errorBanner.svelte';
@@ -41,7 +47,6 @@
 	let propertyList = schemaToPropertyList(schema);
 	$: if (propertyList) updateSchema(propertyList);
 
-	// TODO - Make it more "effecty"
 	function schemaToPropertyList(schema: string): Property[] | undefined {
 		return Effect.runSync(
 			Effect.match(
@@ -49,7 +54,8 @@
 					schema,
 					convertEmptyStringToObjectSchema,
 					parseJSONObjectSchemaFromString,
-					Effect.map(JSONObjectSchemaToPropertyList)
+					Effect.map(JSONObjectSchemaToPropertyList),
+					Effect.flatMap(validatePropertyList)
 				),
 				{
 					onSuccess: (propertyList) => propertyList,
@@ -85,6 +91,7 @@
 	function resetSchema() {
 		schema = stringify(createJSONObjectSchema());
 		propertyList = schemaToPropertyList(schema);
+		propertyList = [...propertyList!, createStringProperty()];
 	}
 </script>
 

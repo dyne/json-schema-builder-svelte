@@ -1,9 +1,11 @@
 import { Effect, pipe } from 'effect';
+
 import {
 	JSONSchemaFormat,
+	type JSONSchema,
 	type JSONSchemaTypeName,
 	type Property,
-	type PropertyOption
+	type SchemaOption
 } from './types.js';
 import { ErrorCode, BaseError } from './errors.js';
 
@@ -24,11 +26,11 @@ class DuplicateKeysError extends BaseError {
 	readonly _tag = ErrorCode.DuplicateKeysError;
 }
 
-//
+/* Property validation */
 
-const NOT_SUPPORTED_PROPERTY_TYPES: JSONSchemaTypeName[] = ['object', 'array', 'null'];
-const SUPPORTED_PROPERTY_FORMATS: string[] = [JSONSchemaFormat.date, JSONSchemaFormat.datetime];
-const SUPPORTED_PROPERTY_OPTIONS: PropertyOption[] = [
+const NOT_SUPPORTED_SCHEMA_TYPES: JSONSchemaTypeName[] = ['object', 'array', 'null'];
+const SUPPORTED_SCHEMA_FORMATS: string[] = [JSONSchemaFormat.date, JSONSchemaFormat.datetime];
+const SUPPORTED_SCHEMA_OPTIONS: SchemaOption[] = [
 	'type',
 	'properties',
 	'required',
@@ -36,54 +38,66 @@ const SUPPORTED_PROPERTY_OPTIONS: PropertyOption[] = [
 	'enum'
 ];
 
-type PropertyValidationEffect = Effect.Effect<Property, InvalidPropertyError, never>;
+type SchemaValidationEffect<T extends JSONSchema = JSONSchema> = Effect.Effect<
+	T,
+	InvalidSchemaError,
+	never
+>;
 
-class InvalidPropertyError extends BaseError<string> {
-	readonly _tag = ErrorCode.InvalidPropertyError;
+class InvalidSchemaError extends BaseError<string> {
+	readonly _tag = ErrorCode.InvalidSchemaError;
 }
 
-export function validatePropertyType(property: Property): PropertyValidationEffect {
-	const { type } = property.definition;
+export function validateSchemaType<T extends JSONSchema>(schema: T): SchemaValidationEffect {
+	const { type } = schema;
 	if (!type) {
-		return Effect.fail(new InvalidPropertyError('Unexpected: Property type is undefined'));
+		return Effect.fail(new InvalidSchemaError('Unexpected: Schema type is undefined'));
 	} else if (Array.isArray(type)) {
-		return Effect.fail(new InvalidPropertyError('Unexpected: Property type is an Array'));
-	} else if (NOT_SUPPORTED_PROPERTY_TYPES.includes(type)) {
-		return Effect.fail(new InvalidPropertyError(`Property type "${type}" is not supported`));
+		return Effect.fail(new InvalidSchemaError('Unexpected: Schema type is an Array'));
+	} else if (NOT_SUPPORTED_SCHEMA_TYPES.includes(type)) {
+		return Effect.fail(new InvalidSchemaError(`Schema type "${type}" is not supported`));
 	} else {
-		return Effect.succeed(property);
+		return Effect.succeed(schema);
 	}
 }
 
-export function validatePropertyFormat(property: Property): PropertyValidationEffect {
-	const { format } = property.definition;
-	const isInvalidFormat = format && !SUPPORTED_PROPERTY_FORMATS.includes(format);
+export function validateSchemaFormat<T extends JSONSchema>(schema: T): SchemaValidationEffect {
+	const { format } = schema;
+	const isInvalidFormat = format && !SUPPORTED_SCHEMA_FORMATS.includes(format);
 	if (isInvalidFormat) {
-		return Effect.fail(new InvalidPropertyError(`Format "${format}" is not supported`));
+		return Effect.fail(new InvalidSchemaError(`Format "${format}" is not supported`));
 	} else {
-		return Effect.succeed(property);
+		return Effect.succeed(schema);
 	}
 }
 
-export function validatePropertyOptions(property: Property): PropertyValidationEffect {
-	const propertyOptions = Object.keys(property.definition) as PropertyOption[];
-	const invalidOptions = propertyOptions.filter(
-		(option) => !SUPPORTED_PROPERTY_OPTIONS.includes(option)
+export function validateSchemaOptions<T extends JSONSchema>(schema: T): SchemaValidationEffect {
+	const schemaOptions = Object.keys(schema) as SchemaOption[];
+	const invalidOptions = schemaOptions.filter(
+		(option) => !SUPPORTED_SCHEMA_OPTIONS.includes(option)
 	);
 	if (invalidOptions.length >= 1) {
-		return Effect.fail(
-			new InvalidPropertyError(`Some options are not supported: ${invalidOptions}`)
-		);
+		return Effect.fail(new InvalidSchemaError(`Some options are not supported: ${invalidOptions}`));
 	} else {
-		return Effect.succeed(property);
+		return Effect.succeed(schema);
 	}
 }
 
-export function validateProperty(property: Property): PropertyValidationEffect {
-	return pipe(
-		property,
-		validatePropertyType,
-		Effect.flatMap(validatePropertyFormat),
-		Effect.flatMap(validatePropertyOptions)
+//
+
+export const validateSchema = <T extends JSONSchema>(schema: T) =>
+	pipe(
+		schema,
+		validateSchemaType,
+		Effect.flatMap(validateSchemaFormat),
+		Effect.flatMap(validateSchemaOptions)
 	);
-}
+
+export const validatePropertyList = (propertyList: Property[]) =>
+	pipe(
+		Effect.all(propertyList.map((p) => validateSchema(p.definition))),
+		Effect.matchEffect({
+			onFailure: (cause) => Effect.fail(cause),
+			onSuccess: () => Effect.succeed(propertyList)
+		})
+	);

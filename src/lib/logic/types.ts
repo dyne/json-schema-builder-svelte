@@ -33,4 +33,4 @@ export type JSONObjectSchema = WithChanged<
 	{ type: 'object' }
 >;
 
-export type PropertyOption = keyof Partial<JSONSchema>;
+export type SchemaOption = keyof Partial<JSONSchema>;
