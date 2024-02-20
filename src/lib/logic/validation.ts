@@ -1,6 +1,6 @@
 import { Effect } from 'effect';
 import type { Property } from './types.js';
-import { BaseError } from './utils.js';
+import { ErrorCode, BaseError } from './errors.js';
 
 //
 
@@ -16,5 +16,5 @@ export const validatePropertyListKeys = (propertyList: Property[]) =>
 	});
 
 class DuplicateKeysError extends BaseError {
-	readonly _tag = 'DuplicateKeysError';
+	readonly _tag = ErrorCode.DuplicateKeysError;
 }

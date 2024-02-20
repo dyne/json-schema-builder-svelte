@@ -8,13 +8,6 @@ import type { JSONObjectSchema, Property } from './types.js';
 export type WithRequired<T, K extends keyof T> = T & { [P in K]-?: T[P] };
 export type WithChanged<T, K extends Partial<T>> = T & K;
 
-/* Classes */
-
-export abstract class BaseError<T = unknown> {
-	abstract readonly _tag: string;
-	constructor(public readonly detail?: T) {}
-}
-
 /* Functions */
 
 export function createStringProperty(): Property {

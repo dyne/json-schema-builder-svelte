@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { strings } from '$lib/ui/strings.js';
 	import { nanoid } from 'nanoid';
 
 	//
@@ -23,6 +24,6 @@
 	{id}
 	type="text"
 	bind:value={stringValue}
-	placeholder="Separate values by comma"
+	placeholder={strings.separate_values_by_comma}
 	required
 />

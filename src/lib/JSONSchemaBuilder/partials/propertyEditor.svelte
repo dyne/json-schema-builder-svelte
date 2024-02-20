@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Property } from '$lib/logic/types.js';
+	import { strings } from '$lib/ui/strings.js';
 	import ListEditor from './listEditor.svelte';
 	import PropertyTypeSelect from './propertyTypeSelect.svelte';
 
@@ -25,7 +26,7 @@
 		id={nameId}
 		type="text"
 		bind:value={property.name}
-		placeholder="Property name"
+		placeholder={strings.property_name}
 		required
 	/>
 
@@ -39,13 +40,13 @@
 			name={requiredId}
 			bind:checked={property.required}
 		/>
-		<span class="x-label">Required</span>
+		<span class="x-label">{strings.required}</span>
 	</label>
 </div>
 
 {#if property.definition.enum}
 	<div class="flex items-center gap-3">
-		<label for={enumID} class="x-label whitespace-nowrap">List values</label>
+		<label for={enumID} class="x-label whitespace-nowrap">{strings.list_values}</label>
 		<ListEditor id={enumID} bind:list={property.definition.enum} />
 	</div>
 {/if}

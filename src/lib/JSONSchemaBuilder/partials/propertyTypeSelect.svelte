@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-	enum UIPropertyTypeOption {
+	export enum UIPropertyTypeOption {
 		string = 'string',
 		integer = 'integer',
 		float = 'float',
@@ -27,6 +27,7 @@
 <script lang="ts">
 	import { nanoid } from 'nanoid';
 	import { type Property, JSONSchemaType } from '$lib/logic/types.js';
+	import { strings } from '$lib/ui/strings.js';
 
 	//
 
@@ -65,15 +66,14 @@
 	//
 
 	const typeValues = Object.values(UIPropertyTypeOption);
-	const typeLabels = Object.keys(UIPropertyTypeOption);
 
 	const name = id;
-	const placeholder = 'Select a type';
+	const placeholder = strings.select_a_type;
 </script>
 
 <select class="x-select" {placeholder} {name} {id} bind:value={UIPropertyType} required>
 	<option value={undefined} disabled>{placeholder}</option>
-	{#each typeValues as property, i (property)}
-		<option value={property}>{typeLabels[i]}</option>
+	{#each typeValues as property}
+		<option value={property}>{strings[property]}</option>
 	{/each}
 </select>

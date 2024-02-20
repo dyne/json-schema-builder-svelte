@@ -2,9 +2,9 @@
 	import { Effect, pipe } from 'effect';
 
 	import { parseJSONObjectSchemaFromString } from '$lib/logic/parsing.js';
+	import type { BaseError } from '$lib/logic/errors.js';
 	import {
 		stringify,
-		type BaseError,
 		createJSONObjectSchema,
 		convertEmptyStringToObjectSchema
 	} from '$lib/logic/utils.js';

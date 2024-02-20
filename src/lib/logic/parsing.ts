@@ -1,11 +1,12 @@
 import { Effect } from 'effect';
 import { pipe } from 'effect/Function';
+import { ErrorCode, BaseError } from './errors.js';
 
 import { Type as T } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
 
 import { JSONSchemaType, type JSONObjectSchema, type JSONSchema } from '$lib/logic/types.js';
-import { BaseError, createAjv } from '$lib/logic/utils.js';
+import { createAjv } from '$lib/logic/utils.js';
 
 //
 
@@ -15,8 +16,8 @@ export const parseJSON = (string: string) =>
 		catch: (e) => new InvalidJSONError((e as Error).message)
 	});
 
-class InvalidJSONError extends BaseError<string> {
-	readonly _tag = 'InvalidJSONError';
+export class InvalidJSONError extends BaseError<string> {
+	readonly _tag = ErrorCode.InvalidJSONError;
 }
 
 //
@@ -31,8 +32,8 @@ export const parseObject = (data: unknown) =>
 		catch: () => new NotObjectError()
 	});
 
-class NotObjectError extends BaseError {
-	readonly _tag = 'NotObjectError';
+export class NotObjectError extends BaseError {
+	readonly _tag = ErrorCode.NotObjectError;
 }
 
 //
@@ -47,8 +48,8 @@ export const parseJSONSchema = (object: object) =>
 		catch: (e) => new InvalidJSONSchemaError((e as Error).message)
 	});
 
-class InvalidJSONSchemaError extends BaseError {
-	readonly _tag = 'InvalidJSONSchemaError';
+export class InvalidJSONSchemaError extends BaseError {
+	readonly _tag = ErrorCode.InvalidJSONSchemaError;
 }
 
 //
@@ -63,8 +64,8 @@ export const parseJSONObjectSchema = (schema: JSONSchema) =>
 		catch: (e) => new InvalidJSONObjectSchemaError(e)
 	});
 
-class InvalidJSONObjectSchemaError extends BaseError {
-	readonly _tag = 'InvalidJSONObjectSchemaError';
+export class InvalidJSONObjectSchemaError extends BaseError {
+	readonly _tag = ErrorCode.InvalidJSONObjectSchemaError;
 }
 
 const JSONObjectSchemaSchema = T.Object({

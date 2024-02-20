@@ -8,6 +8,7 @@
 	import Plus from 'svelte-heros-v2/Plus.svelte';
 	import XMark from 'svelte-heros-v2/XMark.svelte';
 	import { iconSize } from '$lib/ui/settings.js';
+	import { strings } from '$lib/ui/strings.js';
 
 	//
 
@@ -52,6 +53,6 @@
 		id="property-add"
 		on:click={addProperty}
 	>
-		<Plus size={iconSize} /><span class="ml-1">Add property</span>
+		<Plus size={iconSize} /><span class="ml-1">{strings.add_property}</span>
 	</button>
 </div>

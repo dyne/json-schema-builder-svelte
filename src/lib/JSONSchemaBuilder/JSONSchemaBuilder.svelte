@@ -5,23 +5,24 @@
 		JSONObjectSchemaToPropertyList,
 		propertyListToJSONObjectSchema
 	} from '$lib/logic/conversion.js';
-	import type { Property } from '$lib/logic/types.js';
-	import {
-		BaseError,
-		convertEmptyStringToObjectSchema,
-		createJSONObjectSchema,
-		createStringProperty,
-		stringify
-	} from '$lib/logic/utils.js';
+	import { validatePropertyListKeys } from '$lib/logic/validation.js';
 	import {
 		parseJSONObjectSchema,
 		parseJSONObjectSchemaFromString,
 		parseJSONSchema
 	} from '$lib/logic/parsing.js';
-	import { validatePropertyListKeys } from '$lib/logic/validation.js';
+	import type { Property } from '$lib/logic/types.js';
+	import {
+		convertEmptyStringToObjectSchema,
+		createJSONObjectSchema,
+		createStringProperty,
+		stringify
+	} from '$lib/logic/utils.js';
+	import type { BaseError } from '$lib/logic/errors.js';
 
 	import PropertyListEditor from '$lib/JSONSchemaBuilder/partials/propertyListEditor.svelte';
 	import ErrorBanner from '$lib/ui/errorBanner.svelte';
+	import { strings } from '$lib/ui/strings.js';
 
 	//
 
@@ -91,10 +92,13 @@
 {#if propertyList}
 	<PropertyListEditor bind:propertyList />
 {/if}
-<ErrorBanner {error} />
-{#if error}
-	<div class="x-banner x-banner-warning flex justify-between">
-		<p>The schema seems to be invalid. Would you like to reset it?</p>
-		<button class="x-button" type="button" on:click={resetSchema}>Reset schema</button>
-	</div>
-{/if}
+
+<div class="space-y-2">
+	<ErrorBanner {error} />
+	{#if error}
+		<div class="x-banner x-banner-warning flex justify-between">
+			<p>{strings.the_schema_seems_to_be_invalid__would_you_like_to_reset_it}</p>
+			<button class="x-button" type="button" on:click={resetSchema}>{strings.reset_schema}</button>
+		</div>
+	{/if}
+</div>
