@@ -1,4 +1,4 @@
-import type { JSONSchema7Definition, JSONSchema7 } from 'json-schema';
+import type { JSONSchema7Definition, JSONSchema7, JSONSchema7TypeName } from 'json-schema';
 import type { WithChanged, WithRequired } from './utils.js';
 
 //
@@ -26,8 +26,11 @@ export type Property = {
 };
 
 export type JSONSchema = JSONSchema7;
+export type JSONSchemaTypeName = JSONSchema7TypeName;
 
 export type JSONObjectSchema = WithChanged<
 	WithRequired<JSONSchema, 'properties'>,
 	{ type: 'object' }
 >;
+
+export type PropertyOption = keyof Partial<JSONSchema>;

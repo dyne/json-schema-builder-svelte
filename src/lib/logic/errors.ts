@@ -3,7 +3,8 @@ export enum ErrorCode {
 	NotObjectError = 'NotObjectError',
 	InvalidJSONSchemaError = 'InvalidJSONSchemaError',
 	InvalidJSONObjectSchemaError = 'InvalidJSONObjectSchemaError',
-	DuplicateKeysError = 'DuplicateKeysError'
+	DuplicateKeysError = 'DuplicateKeysError',
+	InvalidPropertyError = 'InvalidPropertyError'
 }
 
 export abstract class BaseError<T = unknown> {
