@@ -20,20 +20,11 @@
 	} from '$lib/logic/utils.js';
 
 	import PropertyListEditor from '$lib/JSONSchemaBuilder/partials/propertyListEditor.svelte';
-	import ErrorBanner from '$lib/ui/errorBanner.svelte';
-	import OperationsBanner from '$lib/ui/operationsBanner.svelte';
 
 	//
 
 	export let schema: string = stringify(createJSONObjectSchema());
-
-	//
-
-	let error: BaseError | undefined = undefined;
-
-	function clearError() {
-		error = undefined;
-	}
+	export let error: BaseError | undefined = undefined;
 
 	//
 
@@ -81,23 +72,11 @@
 		);
 	}
 
-	//
-
-	function resetSchema() {
-		schema = stringify(createJSONObjectSchema());
-		restoreSchema();
-	}
-
-	function restoreSchema() {
-		propertyList = schemaToPropertyList(schema);
+	function clearError() {
+		error = undefined;
 	}
 </script>
 
 {#if propertyList}
 	<PropertyListEditor bind:propertyList />
 {/if}
-
-<div class="space-y-2">
-	<ErrorBanner {error} />
-	<OperationsBanner {error} on:reset={resetSchema} on:restore={restoreSchema} />
-</div>

@@ -8,6 +8,10 @@ export const strings = {
 	add_property: 'Add property',
 	select_a_type: 'Select a type',
 
+	// Editor modes
+	field: 'Plain text editor',
+	builder: 'UI editor',
+
 	// Data types
 	[UIPropertyTypeOption.string]: 'Text',
 	[UIPropertyTypeOption.integer]: 'Integer number',
@@ -24,9 +28,10 @@ export const strings = {
 	[ErrorCode.InvalidJSONSchemaError]: 'Invalid JSON Schema',
 	[ErrorCode.DuplicateKeysError]: 'Your schema contains duplicate property names',
 
-	the_schema_seems_to_be_invalid: 'The schema seems to be invalid',
+	the_schema_seems_to_be_invalid: 'The schema seems to be invalid.',
 	reset_schema: 'Reset schema',
 	restore_last_valid_state: 'Restore last valid state',
+	view_in_plain_text: 'View it in the plain text editor',
 
 	separate_values_by_comma: 'Separate values by comma'
 };

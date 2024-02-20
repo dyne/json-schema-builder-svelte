@@ -10,17 +10,15 @@
 	} from '$lib/logic/utils.js';
 
 	import { nanoid } from 'nanoid';
-	import ErrorBanner from '$lib/ui/errorBanner.svelte';
-	import OperationsBanner from '$lib/ui/operationsBanner.svelte';
 
 	//
 
 	export let schema: string = stringify(createJSONObjectSchema());
+	export let error: BaseError | undefined = undefined;
+
 	export let id = `json-schema-${nanoid(5)}`;
 
 	//
-
-	let error: BaseError | undefined = undefined;
 
 	let tempSchema = convertEmptyStringToObjectSchema(schema);
 	$: updateSchema(tempSchema);
@@ -35,19 +33,6 @@
 			})
 		);
 	}
-
-	function resetSchema() {
-		schema = stringify(createJSONObjectSchema());
-		restoreSchema();
-	}
-
-	function restoreSchema() {
-		tempSchema = convertEmptyStringToObjectSchema(schema);
-	}
 </script>
 
 <textarea class="x-textarea font-mono" rows="20" {id} name={id} bind:value={tempSchema} />
-<div class="space-y-2">
-	<ErrorBanner {error} />
-	<OperationsBanner {error} on:reset={resetSchema} on:restore={restoreSchema} />
-</div>
