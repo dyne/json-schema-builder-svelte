@@ -11,6 +11,7 @@
 
 	import { nanoid } from 'nanoid';
 	import ErrorBanner from '$lib/ui/errorBanner.svelte';
+	import OperationsBanner from '$lib/ui/operationsBanner.svelte';
 
 	//
 
@@ -34,7 +35,19 @@
 			})
 		);
 	}
+
+	function resetSchema() {
+		schema = stringify(createJSONObjectSchema());
+		restoreSchema();
+	}
+
+	function restoreSchema() {
+		tempSchema = convertEmptyStringToObjectSchema(schema);
+	}
 </script>
 
 <textarea class="x-textarea font-mono" rows="20" {id} name={id} bind:value={tempSchema} />
-<ErrorBanner bind:error />
+<div class="space-y-2">
+	<ErrorBanner {error} />
+	<OperationsBanner {error} on:reset={resetSchema} on:restore={restoreSchema} />
+</div>

@@ -24,9 +24,9 @@ export const strings = {
 	[ErrorCode.InvalidJSONSchemaError]: 'Invalid JSON Schema',
 	[ErrorCode.DuplicateKeysError]: 'Your schema contains duplicate property names',
 
-	the_schema_seems_to_be_invalid__would_you_like_to_reset_it:
-		'The schema seems to be invalid. Would you like to reset it?',
+	the_schema_seems_to_be_invalid: 'The schema seems to be invalid',
 	reset_schema: 'Reset schema',
+	restore_last_valid_state: 'Restore last valid state',
 
 	separate_values_by_comma: 'Separate values by comma'
 };
