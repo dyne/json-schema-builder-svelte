@@ -22,7 +22,7 @@ export const strings = {
 	[ErrorCode.InvalidJSONObjectSchemaError]: 'Invalid JSON Object Schema',
 	[ErrorCode.NotObjectError]: 'Data is not an Object',
 	[ErrorCode.InvalidJSONSchemaError]: 'Invalid JSON Schema',
-	[ErrorCode.DuplicateKeysError]: 'Your schema contains duplicate keys',
+	[ErrorCode.DuplicateKeysError]: 'Your schema contains duplicate property names',
 
 	the_schema_seems_to_be_invalid__would_you_like_to_reset_it:
 		'The schema seems to be invalid. Would you like to reset it?',
