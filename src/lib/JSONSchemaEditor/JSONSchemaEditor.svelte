@@ -57,7 +57,7 @@
 		{#if mode == 'builder'}
 			<WarningBanner {error}>
 				<svelte:fragment slot="right">
-					<button class="underline" on:click={changeMode}>
+					<button type="button" class="underline" on:click={changeMode}>
 						{$stringsStore.view_in_plain_text}
 					</button>
 				</svelte:fragment>
