@@ -21,7 +21,9 @@ export function createJSONObjectSchema() {
     };
 }
 export function createAjv() {
-    const ajv = new Ajv.default();
+    const ajv = new Ajv.default({
+        validateSchema: false
+    });
     addFormats.default(ajv);
     return ajv;
 }

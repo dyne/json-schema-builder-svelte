@@ -32,7 +32,9 @@ export function createJSONObjectSchema(): JSONObjectSchema {
 }
 
 export function createAjv(): Ajv.default {
-	const ajv = new Ajv.default();
+	const ajv = new Ajv.default({
+		validateSchema: false
+	});
 	addFormats.default(ajv);
 	return ajv;
 }
