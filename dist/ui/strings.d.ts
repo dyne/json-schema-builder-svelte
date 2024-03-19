@@ -23,6 +23,11 @@ export declare const strings: {
     the_schema_cannot_be_opened_in_the_gui: string;
     view_in_plain_text: string;
     separate_values_by_comma: string;
+    property_title: string;
+    full_property_name: string;
+    add_property_label: string;
+    property_id: string;
+    id: string;
 };
 export type StringResources = typeof strings;
 export declare const stringsStore: import("svelte/store").Writable<{
@@ -49,5 +54,10 @@ export declare const stringsStore: import("svelte/store").Writable<{
     the_schema_cannot_be_opened_in_the_gui: string;
     view_in_plain_text: string;
     separate_values_by_comma: string;
+    property_title: string;
+    full_property_name: string;
+    add_property_label: string;
+    property_id: string;
+    id: string;
 }>;
 export declare function setStrings(newStrings: Partial<StringResources>): void;
