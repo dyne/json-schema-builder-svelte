@@ -4,6 +4,7 @@ import ListEditor from "./listEditor.svelte";
 import PropertyTypeSelect from "./propertyTypeSelect.svelte";
 import { nanoid } from "nanoid";
 import { iconSize } from "../../ui/settings.js";
+import slugify from "slugify";
 export let property;
 export let id = nanoid(5);
 const nameId = `property-name-${id}`;
@@ -11,6 +12,16 @@ const requiredId = `property-required-${id}`;
 const selectId = `property-data-${id}`;
 const enumID = `property-enum-${id}`;
 const titleID = `property-title-${id}`;
+$:
+  slugifyName(property.name);
+function slugifyName(newName) {
+  property.name = slugify.default(newName, {
+    replacement: "_",
+    strict: true,
+    trim: false,
+    lower: true
+  }).trim();
+}
 function addTitle() {
   property.definition.title = "";
 }
