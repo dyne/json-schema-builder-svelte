@@ -8,6 +8,8 @@
 	import { nanoid } from 'nanoid';
 	import { iconSize } from '$lib/ui/settings.js';
 
+	import slugify from 'slugify';
+
 	//
 
 	export let property: Property;
@@ -20,6 +22,21 @@
 	const selectId = `property-data-${id}`;
 	const enumID = `property-enum-${id}`;
 	const titleID = `property-title-${id}`;
+
+	//
+
+	$: slugifyName(property.name);
+
+	function slugifyName(newName: string) {
+		property.name = slugify
+			.default(newName, {
+				replacement: '_',
+				strict: true,
+				trim: false,
+				lower: true
+			})
+			.trim();
+	}
 
 	//
 
