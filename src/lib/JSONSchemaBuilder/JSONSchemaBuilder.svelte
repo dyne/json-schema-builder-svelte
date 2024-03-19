@@ -31,43 +31,37 @@
 	$: if (propertyList) updateSchema(propertyList);
 
 	function schemaPropToPropertyList(schemaProp: SchemaProp): Property[] | undefined {
-		return Effect.runSync(
-			Effect.match(
-				pipe(
-					schemaProp,
-					schemaPropToString,
-					parseJSONObjectSchemaFromString,
-					Effect.map(JSONObjectSchemaToPropertyList),
-					Effect.flatMap(validatePropertyList)
-				),
-				{
-					onSuccess: (propertyList) => propertyList,
-					onFailure: (cause) => {
-						error = cause;
-						return undefined;
-					}
+		return pipe(
+			schemaProp,
+			schemaPropToString,
+			parseJSONObjectSchemaFromString,
+			Effect.map(JSONObjectSchemaToPropertyList),
+			Effect.flatMap(validatePropertyList),
+			Effect.match({
+				onSuccess: (propertyList) => propertyList,
+				onFailure: (cause) => {
+					error = cause;
+					return undefined;
 				}
-			)
+			}),
+			Effect.runSync
 		);
 	}
 
 	function updateSchema(propertyList: Property[]) {
 		clearError();
 
-		Effect.runSync(
-			Effect.match(
-				pipe(
-					propertyList,
-					validatePropertyListKeys,
-					Effect.map(propertyListToJSONObjectSchema),
-					Effect.flatMap(parseJSONSchema),
-					Effect.flatMap(parseJSONObjectSchema)
-				),
-				{
-					onSuccess: (newSchema) => (schema = returnSchema(newSchema, returnType)),
-					onFailure: (cause) => (error = cause)
-				}
-			)
+		pipe(
+			propertyList,
+			validatePropertyListKeys,
+			Effect.map(propertyListToJSONObjectSchema),
+			Effect.flatMap(parseJSONSchema),
+			Effect.flatMap(parseJSONObjectSchema),
+			Effect.match({
+				onSuccess: (newSchema) => (schema = returnSchema(newSchema, returnType)),
+				onFailure: (cause) => (error = cause)
+			}),
+			Effect.runSync
 		);
 	}
 

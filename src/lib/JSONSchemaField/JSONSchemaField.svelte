@@ -25,11 +25,14 @@
 	function updateSchema(schemaString: string) {
 		error = undefined;
 
-		Effect.runSync(
-			Effect.match(pipe(schemaString, parseJSONObjectSchemaFromString), {
+		pipe(
+			schemaString,
+			parseJSONObjectSchemaFromString,
+			Effect.match({
 				onSuccess: (newSchema) => (schema = returnSchema(newSchema, returnType)),
 				onFailure: (cause) => (error = cause)
-			})
+			}),
+			Effect.runSync
 		);
 	}
 </script>
