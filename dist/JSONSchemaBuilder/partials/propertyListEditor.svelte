@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import Plus from "svelte-heros-v2/Plus.svelte";
 import XMark from "svelte-heros-v2/XMark.svelte";
 import { iconSize } from "../../ui/settings.js";
-import { stringsStore } from "../../ui/strings.js";
+import { stringsStore as s } from "../../ui/strings.js";
 export let propertyList;
 export let requiredDefault = false;
 function addProperty() {
@@ -16,14 +16,21 @@ function removeProperty(p) {
 }
 </script>
 
-{#each propertyList as p, i (p)}
-	{@const id = nanoid(5)}
-	<div class="flex gap-6 items-start">
-		<div class="grow flex flex-col items-stretch gap-3">
-			<PropertyEditor bind:property={p} {id} {requiredDefault} />
-		</div>
-
-		<div class="pt-[24px]">
+<table class="w-full">
+	<tr>
+		<td><span class="x-label">{$s.id}</span></td>
+		<td class="flex">
+			<span class="x-label">{$s.full_property_name}</span>
+			<span class="x-label ml-2 opacity-30">(en-US)</span>
+		</td>
+		<td>
+			<span class="x-label">{$s.property_type}</span>
+		</td>
+		<td colspan="2"><span class="x-label">{$s.required}</span></td>
+	</tr>
+	{#each propertyList as p (p)}
+		{@const id = nanoid(5)}
+		<PropertyEditor bind:property={p} {id} {requiredDefault}>
 			<button
 				type="button"
 				class="x-button x-button-square"
@@ -34,9 +41,9 @@ function removeProperty(p) {
 			>
 				<XMark size={iconSize} />
 			</button>
-		</div>
-	</div>
-{/each}
+		</PropertyEditor>
+	{/each}
+</table>
 
 <button
 	type="button"
@@ -44,5 +51,11 @@ function removeProperty(p) {
 	id="property-add"
 	on:click={addProperty}
 >
-	<Plus size={iconSize} /><span class="ml-1">{$stringsStore.add_property}</span>
+	<Plus size={iconSize} /><span class="ml-1">{$s.add_property}</span>
 </button>
+
+<style>
+	td {
+    padding-right: 0.5rem
+}
+</style>
