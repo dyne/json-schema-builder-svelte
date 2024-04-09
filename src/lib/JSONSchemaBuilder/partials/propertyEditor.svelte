@@ -40,10 +40,8 @@
 	}
 </script>
 
-<div class="flex gap-4 items-end">
-	<div class="grow space-y-1">
-		<label class="x-label opacity-60" for={nameId}>{$s.id}</label>
-
+<tr>
+	<td class="td">
 		<input
 			class="x-input font-mono"
 			name={nameId}
@@ -53,14 +51,9 @@
 			placeholder={$s.property_id}
 			required
 		/>
-	</div>
+	</td>
 
-	<div class="grow space-y-1">
-		<div class="flex justify-between items-center">
-			<label class="x-label opacity-60" for={titleID}>{$s.full_property_name}</label>
-			<p class="x-label opacity-30">{$s.locale}: en-US</p>
-		</div>
-
+	<td class="td">
 		<input
 			class="x-input"
 			name={titleID}
@@ -70,29 +63,42 @@
 			placeholder={$s.full_property_name}
 			required
 		/>
-	</div>
+	</td>
 
-	<div class="space-y-1">
-		<label class="x-label opacity-60" for={selectId}>{$s.property_type}</label>
-
+	<td class="td w-[150px]">
 		<PropertyTypeSelect id={selectId} bind:property />
-	</div>
+	</td>
 
-	<label for={requiredId} class="x-input !flex !items-center !gap-2 !w-fit">
-		<input
-			type="checkbox"
-			class="x-checkbox"
-			id={requiredId}
-			name={requiredId}
-			bind:checked={property.required}
-		/>
-		<span class="x-label">{$s.required}</span>
-	</label>
-</div>
+	<td class="td w-[40px]">
+		<label class="x-input h-[40px]">
+			<input
+				type="checkbox"
+				class="x-checkbox"
+				id={requiredId}
+				name={requiredId}
+				bind:checked={property.required}
+			/>
+		</label>
+	</td>
+
+	<td class="td w-[40px] !pr-0">
+		<slot />
+	</td>
+</tr>
 
 {#if property.definition.enum}
-	<div class="flex items-center gap-3">
-		<label for={enumID} class="x-label whitespace-nowrap">{$s.list_values}</label>
-		<ListEditor id={enumID} bind:list={property.definition.enum} />
-	</div>
+	<tr>
+		<td colspan="4">
+			<div class="flex items-center gap-2 pt-2">
+				<label for={enumID} class="x-label whitespace-nowrap">{$s.list_values}</label>
+				<ListEditor id={enumID} bind:list={property.definition.enum} />
+			</div>
+		</td>
+	</tr>
 {/if}
+
+<style lang="postcss">
+	.td {
+		@apply pt-6 pr-2;
+	}
+</style>

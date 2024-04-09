@@ -9,7 +9,9 @@ declare const __propDef: {
     events: {
         [evt: string]: CustomEvent<any>;
     };
-    slots: {};
+    slots: {
+        default: {};
+    };
 };
 export type PropertyEditorProps = typeof __propDef.props;
 export type PropertyEditorEvents = typeof __propDef.events;
