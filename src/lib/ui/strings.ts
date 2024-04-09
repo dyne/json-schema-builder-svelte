@@ -37,10 +37,12 @@ export const strings = {
 	separate_values_by_comma: 'Separate values by comma',
 
 	property_title: 'Label',
-	full_property_name: 'Full property name',
+	full_property_name: 'Display name',
 	add_property_label: 'Add property label',
 	property_id: 'property_id',
-	id: 'ID'
+	id: 'ID',
+	property_type: 'Type',
+	locale: 'Locale'
 };
 
 export type StringResources = typeof strings;

@@ -1,12 +1,10 @@
 <script lang="ts">
 	import type { Property } from '$lib/logic/types.js';
 	import { stringsStore as s } from '$lib/ui/strings.js';
-	import { Minus } from 'svelte-heros-v2';
 	import ListEditor from './listEditor.svelte';
 	import PropertyTypeSelect from './propertyTypeSelect.svelte';
 
 	import { nanoid } from 'nanoid';
-	import { iconSize } from '$lib/ui/settings.js';
 
 	import slugify from 'slugify';
 
@@ -37,32 +35,45 @@
 			})
 			.trim();
 	}
-
-	//
-
-	function addTitle() {
-		property.definition.title = '';
-	}
-
-	function removeTitle() {
-		delete property.definition.title;
-		property = property;
-	}
 </script>
 
-<div class="flex gap-3 items-center">
-	<label for={nameId} class="x-label whitespace-nowrap">{$s.id}</label>
-	<input
-		class="x-input grow font-mono"
-		name={nameId}
-		id={nameId}
-		type="text"
-		bind:value={property.name}
-		placeholder={$s.property_id}
-		required
-	/>
+<div class="flex gap-4 items-end">
+	<div class="grow space-y-1">
+		<label class="x-label opacity-60" for={nameId}>{$s.id}</label>
 
-	<PropertyTypeSelect id={selectId} bind:property />
+		<input
+			class="x-input font-mono"
+			name={nameId}
+			id={nameId}
+			type="text"
+			bind:value={property.name}
+			placeholder={$s.property_id}
+			required
+		/>
+	</div>
+
+	<div class="grow space-y-1">
+		<div class="flex justify-between items-center">
+			<label class="x-label opacity-60" for={titleID}>{$s.full_property_name}</label>
+			<p class="x-label opacity-30">{$s.locale}: en-US</p>
+		</div>
+
+		<input
+			class="x-input"
+			name={titleID}
+			id={titleID}
+			type="text"
+			bind:value={property.definition.title}
+			placeholder={$s.full_property_name}
+			required
+		/>
+	</div>
+
+	<div class="space-y-1">
+		<label class="x-label opacity-60" for={selectId}>{$s.property_type}</label>
+
+		<PropertyTypeSelect id={selectId} bind:property />
+	</div>
 
 	<label for={requiredId} class="x-input !flex !items-center !gap-2 !w-fit">
 		<input
@@ -81,26 +92,4 @@
 		<label for={enumID} class="x-label whitespace-nowrap">{$s.list_values}</label>
 		<ListEditor id={enumID} bind:list={property.definition.enum} />
 	</div>
-{/if}
-
-{#if typeof property.definition.title == 'string'}
-	<div class="flex items-center gap-3">
-		<label for={titleID} class="x-label whitespace-nowrap">{$s.property_title}</label>
-		<input
-			class="x-input grow"
-			name={titleID}
-			id={titleID}
-			type="text"
-			bind:value={property.definition.title}
-			placeholder={$s.full_property_name}
-			required
-		/>
-		<button type="button" class="x-button x-button-square" on:click={removeTitle}>
-			<Minus size={iconSize} />
-		</button>
-	</div>
-{:else}
-	<button class="text-sm hover:underline self-start text-gray-500" on:click={addTitle}>
-		+ {$s.add_property_label}
-	</button>
 {/if}
