@@ -17,6 +17,7 @@
 
 	export let schema: SchemaProp = createJSONObjectSchema();
 	export let returnType: ReturnType = 'object';
+	export let requiredDefault = false;
 
 	export let mode: EditorMode = 'builder';
 	export let label: string | undefined = undefined;
@@ -53,7 +54,7 @@
 
 	{#if mode == 'builder'}
 		<div class="space-y-6">
-			<JSONSchemaBuilder bind:schema bind:error {returnType} />
+			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} />
 		</div>
 	{:else}
 		<JSONSchemaField bind:schema bind:error {returnType} />

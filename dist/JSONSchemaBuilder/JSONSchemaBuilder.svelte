@@ -15,6 +15,7 @@ import PropertyListEditor from "./partials/propertyListEditor.svelte";
 export let schema = createJSONObjectSchema();
 export let error = void 0;
 export let returnType = "object";
+export let requiredDefault = false;
 let propertyList = schemaPropToPropertyList(schema);
 $:
   if (propertyList)
@@ -63,5 +64,5 @@ function clearError() {
 </script>
 
 {#if propertyList}
-	<PropertyListEditor bind:propertyList />
+	<PropertyListEditor bind:propertyList {requiredDefault} />
 {/if}

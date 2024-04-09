@@ -13,6 +13,7 @@
 	//
 
 	export let propertyList: Property[];
+	export let requiredDefault = false;
 
 	//
 
@@ -30,7 +31,7 @@
 	{@const id = nanoid(5)}
 	<div class="flex gap-6 items-start">
 		<div class="grow flex flex-col items-stretch gap-3">
-			<PropertyEditor bind:property={p} {id} />
+			<PropertyEditor bind:property={p} {id} {requiredDefault} />
 		</div>
 
 		<div class="pt-[24px]">

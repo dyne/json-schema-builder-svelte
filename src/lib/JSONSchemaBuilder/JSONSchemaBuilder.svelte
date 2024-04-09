@@ -24,6 +24,7 @@
 	export let schema: SchemaProp = createJSONObjectSchema();
 	export let error: BaseError | undefined = undefined;
 	export let returnType: ReturnType = 'object';
+	export let requiredDefault = false;
 
 	//
 
@@ -77,5 +78,5 @@
 </script>
 
 {#if propertyList}
-	<PropertyListEditor bind:propertyList />
+	<PropertyListEditor bind:propertyList {requiredDefault} />
 {/if}

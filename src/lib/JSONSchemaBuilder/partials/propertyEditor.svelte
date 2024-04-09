@@ -12,6 +12,9 @@
 
 	export let property: Property;
 	export let id = nanoid(5);
+	export let requiredDefault = false;
+
+	$: if (requiredDefault) property.required = true;
 
 	//
 

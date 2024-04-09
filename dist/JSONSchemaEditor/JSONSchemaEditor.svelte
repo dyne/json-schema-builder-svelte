@@ -8,6 +8,7 @@ import ArrowRight from "svelte-heros-v2/ArrowRight.svelte";
 import { createJSONObjectSchema } from "../logic/utils.js";
 export let schema = createJSONObjectSchema();
 export let returnType = "object";
+export let requiredDefault = false;
 export let mode = "builder";
 export let label = void 0;
 function changeMode() {
@@ -34,7 +35,7 @@ let error = void 0;
 
 	{#if mode == 'builder'}
 		<div class="space-y-6">
-			<JSONSchemaBuilder bind:schema bind:error {returnType} />
+			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} />
 		</div>
 	{:else}
 		<JSONSchemaField bind:schema bind:error {returnType} />
