@@ -4,6 +4,7 @@ declare const __propDef: {
     props: {
         property: Property;
         id?: string | undefined;
+        requiredDefault?: boolean | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

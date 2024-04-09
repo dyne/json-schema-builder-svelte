@@ -3,6 +3,7 @@ import type { Property } from '../../logic/types.js';
 declare const __propDef: {
     props: {
         propertyList: Property[];
+        requiredDefault?: boolean | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

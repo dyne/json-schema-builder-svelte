@@ -5,6 +5,10 @@ import { nanoid } from "nanoid";
 import slugify from "slugify";
 export let property;
 export let id = nanoid(5);
+export let requiredDefault = false;
+$:
+  if (requiredDefault)
+    property.required = true;
 const nameId = `property-name-${id}`;
 const requiredId = `property-required-${id}`;
 const selectId = `property-data-${id}`;

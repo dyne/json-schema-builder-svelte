@@ -6,6 +6,7 @@ import XMark from "svelte-heros-v2/XMark.svelte";
 import { iconSize } from "../../ui/settings.js";
 import { stringsStore } from "../../ui/strings.js";
 export let propertyList;
+export let requiredDefault = false;
 function addProperty() {
   propertyList = [...propertyList, createStringProperty()];
 }
@@ -19,7 +20,7 @@ function removeProperty(p) {
 	{@const id = nanoid(5)}
 	<div class="flex gap-6 items-start">
 		<div class="grow flex flex-col items-stretch gap-3">
-			<PropertyEditor bind:property={p} {id} />
+			<PropertyEditor bind:property={p} {id} {requiredDefault} />
 		</div>
 
 		<div class="pt-[24px]">

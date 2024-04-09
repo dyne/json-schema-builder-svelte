@@ -7,6 +7,7 @@ declare const __propDef: {
         schema?: SchemaProp;
         error?: BaseError | undefined;
         returnType?: ReturnType | undefined;
+        requiredDefault?: boolean | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;
