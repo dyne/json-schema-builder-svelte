@@ -28,6 +28,8 @@ export declare const strings: {
     add_property_label: string;
     property_id: string;
     id: string;
+    property_type: string;
+    locale: string;
 };
 export type StringResources = typeof strings;
 export declare const stringsStore: import("svelte/store").Writable<{
@@ -59,5 +61,7 @@ export declare const stringsStore: import("svelte/store").Writable<{
     add_property_label: string;
     property_id: string;
     id: string;
+    property_type: string;
+    locale: string;
 }>;
 export declare function setStrings(newStrings: Partial<StringResources>): void;

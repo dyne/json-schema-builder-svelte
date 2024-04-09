@@ -15,23 +15,25 @@ function removeProperty(p) {
 }
 </script>
 
-{#each propertyList as p (p)}
+{#each propertyList as p, i (p)}
 	{@const id = nanoid(5)}
 	<div class="flex gap-6 items-start">
 		<div class="grow flex flex-col items-stretch gap-3">
 			<PropertyEditor bind:property={p} {id} />
 		</div>
 
-		<button
-			type="button"
-			class="x-button x-button-square"
-			id={`property-remove-${id}`}
-			on:click={() => {
-				removeProperty(p);
-			}}
-		>
-			<XMark size={iconSize} />
-		</button>
+		<div class="pt-[24px]">
+			<button
+				type="button"
+				class="x-button x-button-square"
+				id={`property-remove-${id}`}
+				on:click={() => {
+					removeProperty(p);
+				}}
+			>
+				<XMark size={iconSize} />
+			</button>
+		</div>
 	</div>
 {/each}
 
