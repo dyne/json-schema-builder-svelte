@@ -1,5 +1,6 @@
 import { Effect, pipe } from 'effect';
 
+import { BaseError, ErrorCode } from './errors.js';
 import {
 	JSONSchemaFormat,
 	type JSONSchema,
@@ -7,7 +8,6 @@ import {
 	type Property,
 	type SchemaOption
 } from './types.js';
-import { ErrorCode, BaseError } from './errors.js';
 
 //
 
@@ -32,6 +32,7 @@ const NOT_SUPPORTED_SCHEMA_TYPES: JSONSchemaTypeName[] = ['object', 'array', 'nu
 const SUPPORTED_SCHEMA_FORMATS: string[] = [JSONSchemaFormat.date, JSONSchemaFormat.datetime];
 const SUPPORTED_SCHEMA_OPTIONS: SchemaOption[] = [
 	'type',
+	'title',
 	'properties',
 	'required',
 	'format',
