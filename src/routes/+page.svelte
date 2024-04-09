@@ -10,7 +10,7 @@
 </script>
 
 <div class="space-y-4 p-4">
-	<JSONSchemaEditor bind:schema mode="builder" />
+	<JSONSchemaEditor bind:schema mode="builder" requiredDefault />
 	<pre>{debugSchema(schema)}</pre>
 </div>
 
