@@ -34,7 +34,13 @@ export const strings = {
 
 	the_schema_cannot_be_opened_in_the_gui: 'The schema cannot be opened in the visual editor.',
 	view_in_plain_text: 'View it in the plain text editor',
-	separate_values_by_comma: 'Separate values by comma'
+	separate_values_by_comma: 'Separate values by comma',
+
+	property_title: 'Label',
+	full_property_name: 'Full property name',
+	add_property_label: 'Add property label',
+	property_id: 'property_id',
+	id: 'ID'
 };
 
 export type StringResources = typeof strings;
