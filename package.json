@@ -1,6 +1,6 @@
 {
 	"name": "json-schema-builder-svelte",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && pnpm run package",
@@ -63,6 +63,7 @@
 		"ajv-formats": "^2.1.1",
 		"effect": "^2.3.6",
 		"nanoid": "^5.0.1",
+		"slugify": "^1.6.6",
 		"svelte-heros-v2": "^0.10.12"
 	}
 }
