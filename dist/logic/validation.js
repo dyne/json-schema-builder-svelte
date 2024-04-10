@@ -1,6 +1,6 @@
 import { Effect, pipe } from 'effect';
+import { BaseError, ErrorCode } from './errors.js';
 import { JSONSchemaFormat } from './types.js';
-import { ErrorCode, BaseError } from './errors.js';
 //
 export const validatePropertyListKeys = (propertyList) => Effect.try({
     try: () => {
@@ -21,6 +21,7 @@ const NOT_SUPPORTED_SCHEMA_TYPES = ['object', 'array', 'null'];
 const SUPPORTED_SCHEMA_FORMATS = [JSONSchemaFormat.date, JSONSchemaFormat.datetime];
 const SUPPORTED_SCHEMA_OPTIONS = [
     'type',
+    'title',
     'properties',
     'required',
     'format',
