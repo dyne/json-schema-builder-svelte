@@ -31,8 +31,8 @@ export function createJSONObjectSchema(): JSONObjectSchema {
 	};
 }
 
-export function createAjv(): Ajv.default {
-	const ajv = new Ajv.default({
+export function createAjv(): Ajv {
+	const ajv = new Ajv({
 		validateSchema: false
 	});
 	addFormats.default(ajv);

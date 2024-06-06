@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Effect, pipe } from 'effect';
-
 	import type { BaseError } from '$lib/logic/errors.js';
 	import {
 		JSONObjectSchemaToPropertyList,
@@ -15,7 +14,6 @@
 		parseJSONSchema
 	} from '$lib/logic/parsing.js';
 	import { createJSONObjectSchema, returnSchema } from '$lib/logic/utils.js';
-
 	import PropertyListEditor from '$lib/JSONSchemaBuilder/partials/propertyListEditor.svelte';
 	import type { SchemaProp } from '$lib/logic/types.js';
 
@@ -29,47 +27,56 @@
 
 	//
 
-	$: propertyList = schemaPropToPropertyList(schema);
-	$: if (propertyList) updateSchema(propertyList);
+	let propertyList: Property[] = [];
 
-	function schemaPropToPropertyList(schemaProp: SchemaProp): Property[] | undefined {
-		return Effect.runSync(
-			Effect.match(
-				pipe(
-					schemaProp,
-					schemaPropToString,
-					parseJSONObjectSchemaFromString,
-					Effect.map(JSONObjectSchemaToPropertyList),
-					Effect.flatMap(validatePropertyList)
-				),
-				{
-					onSuccess: (propertyList) => propertyList,
-					onFailure: (cause) => {
-						error = cause;
-						return undefined;
-					}
-				}
-			)
+	$: updatePropertyList(schema);
+	$: updateSchema(propertyList, returnType);
+
+	//
+
+	function schemaPropToPropertyList(schemaProp: SchemaProp) {
+		return pipe(
+			schemaProp,
+			schemaPropToString,
+			parseJSONObjectSchemaFromString,
+			Effect.map(JSONObjectSchemaToPropertyList),
+			Effect.flatMap(validatePropertyList)
 		);
 	}
 
-	function updateSchema(propertyList: Property[]) {
-		clearError();
+	function propertyListToSchema(propertyList: Property[], returnType: ReturnType) {
+		return pipe(
+			propertyList,
+			validatePropertyListKeys,
+			Effect.map(propertyListToJSONObjectSchema),
+			Effect.flatMap(parseJSONSchema),
+			Effect.flatMap(parseJSONObjectSchema),
+			Effect.map((schema) => returnSchema(schema, returnType))
+		);
+	}
 
-		Effect.runSync(
-			Effect.match(
-				pipe(
-					propertyList,
-					validatePropertyListKeys,
-					Effect.map(propertyListToJSONObjectSchema),
-					Effect.flatMap(parseJSONSchema),
-					Effect.flatMap(parseJSONObjectSchema)
-				),
-				{
-					onSuccess: (newSchema) => (schema = returnSchema(newSchema, returnType)),
-					onFailure: (cause) => (error = cause)
-				}
-			)
+	//
+
+	function updatePropertyList(schemaProp: SchemaProp) {
+		pipe(
+			schemaPropToPropertyList(schemaProp),
+			Effect.match({
+				onFailure: (e) => (error = e),
+				onSuccess: (v) => (propertyList = v)
+			}),
+			Effect.runSync
+		);
+	}
+
+	function updateSchema(propertyList: Property[], returnType: ReturnType) {
+		clearError();
+		pipe(
+			propertyListToSchema(propertyList, returnType),
+			Effect.match({
+				onFailure: (e) => (error = e),
+				onSuccess: (v) => (schema = v)
+			}),
+			Effect.runSync
 		);
 	}
 

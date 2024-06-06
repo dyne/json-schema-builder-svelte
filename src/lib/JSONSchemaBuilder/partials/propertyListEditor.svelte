@@ -12,7 +12,7 @@
 
 	//
 
-	export let propertyList: Property[];
+	export let propertyList: Property[] = [];
 	export let requiredDefault = false;
 	export let hideRequired = false;
 
@@ -24,7 +24,7 @@
 
 	function removeProperty(p: Property) {
 		propertyList.splice(propertyList.indexOf(p), 1);
-		propertyList = propertyList;
+		propertyList = [...propertyList];
 	}
 </script>
 

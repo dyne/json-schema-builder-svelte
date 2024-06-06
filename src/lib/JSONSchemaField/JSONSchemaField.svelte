@@ -19,17 +19,32 @@
 
 	//
 
-	$: tempSchema = schemaPropToString(schema);
-	$: updateSchema(tempSchema);
+	let tempSchema = '';
 
-	function updateSchema(schemaString: string) {
+	$: updateTempSchema(schema);
+	$: updateSchema(tempSchema, returnType);
+
+	function updateTempSchema(schema: SchemaProp) {
+		tempSchema = schemaPropToString(schema);
+	}
+
+	function updateSchema(schemaString: string, returnType: ReturnType) {
 		error = undefined;
+		pipe(
+			stringToSchemaProp(schemaString, returnType),
+			Effect.match({
+				onFailure: (e) => (error = e),
+				onSuccess: (v) => (schema = v)
+			}),
+			Effect.runSync
+		);
+	}
 
-		Effect.runSync(
-			Effect.match(pipe(schemaString, parseJSONObjectSchemaFromString), {
-				onSuccess: (newSchema) => (schema = returnSchema(newSchema, returnType)),
-				onFailure: (cause) => (error = cause)
-			})
+	function stringToSchemaProp(schemaString: string, returnType: ReturnType) {
+		return pipe(
+			schemaString,
+			parseJSONObjectSchemaFromString,
+			Effect.map((schema) => returnSchema(schema, returnType))
 		);
 	}
 </script>
