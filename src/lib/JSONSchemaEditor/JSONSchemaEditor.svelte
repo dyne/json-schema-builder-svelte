@@ -18,6 +18,7 @@
 	export let schema: SchemaProp = createJSONObjectSchema();
 	export let returnType: ReturnType = 'object';
 	export let requiredDefault = false;
+	export let hideRequired = false;
 
 	export let mode: EditorMode = 'builder';
 	export let label: string | undefined = undefined;
@@ -40,21 +41,8 @@
 </script>
 
 <div class="space-y-8">
-	<div class="flex justify-between items-center">
-		<p class="x-label">
-			{#if label}
-				{label}
-			{/if}
-		</p>
-		<button class="x-button flex items-center" type="button" on:click={changeMode}>
-			<ArrowRight size={iconSize} />
-			<span class="ml-1">{$stringsStore[getOtherMode(mode)]}</span>
-		</button>
-	</div>
-
 	{#if mode == 'builder'}
 		<div class="space-y-6">
-			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} />
 			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} {hideRequired} />
 		</div>
 	{:else}
@@ -73,5 +61,19 @@
 				</svelte:fragment>
 			</WarningBanner>
 		{/if}
+	</div>
+
+	<div class="flex justify-between items-center">
+		<p class="x-label">
+			{#if label}
+				{label}
+			{/if}
+		</p>
+		<button class="x-link" type="button" on:click={changeMode}>
+			<span class="ml-1 flex items-center gap-2">
+				<ArrowRight size={iconSize} />
+				{$stringsStore[getOtherMode(mode)]}
+			</span>
+		</button>
 	</div>
 </div>
