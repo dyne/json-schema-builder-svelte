@@ -40,7 +40,7 @@
 	let error: BaseError | undefined = undefined;
 </script>
 
-<div class="space-y-8">
+<div>
 	{#if mode == 'builder'}
 		<div class="space-y-6">
 			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} {hideRequired} />
@@ -49,21 +49,23 @@
 		<JSONSchemaField bind:schema bind:error {returnType} />
 	{/if}
 
-	<div class="space-y-2">
-		<ErrorBanner {error} />
+	{#if error}
+		<div class="space-y-2 mt-8 mb">
+			<ErrorBanner {error} />
 
-		{#if mode == 'builder'}
-			<WarningBanner {error}>
-				<svelte:fragment slot="right">
-					<button type="button" class="underline" on:click={changeMode}>
-						{$stringsStore.view_in_plain_text}
-					</button>
-				</svelte:fragment>
-			</WarningBanner>
-		{/if}
-	</div>
+			{#if mode == 'builder'}
+				<WarningBanner {error}>
+					<svelte:fragment slot="right">
+						<button type="button" class="underline" on:click={changeMode}>
+							{$stringsStore.view_in_plain_text}
+						</button>
+					</svelte:fragment>
+				</WarningBanner>
+			{/if}
+		</div>
+	{/if}
 
-	<div class="flex justify-between items-center">
+	<div class="flex justify-between items-center mt-4">
 		<p class="x-label">
 			{#if label}
 				{label}
