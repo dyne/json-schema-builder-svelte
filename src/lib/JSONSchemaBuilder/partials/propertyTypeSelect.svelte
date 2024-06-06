@@ -92,7 +92,7 @@
 	const placeholder = $stringsStore.select_a_type;
 </script>
 
-<select class="x-select" {placeholder} {name} {id} bind:value={UIPropertyType} required>
+<select class="x-select grow w-full" {placeholder} {name} {id} bind:value={UIPropertyType} required>
 	<option value={undefined} disabled>{placeholder}</option>
 	{#each typeValues as property}
 		<option value={property}>{$stringsStore[property]}</option>

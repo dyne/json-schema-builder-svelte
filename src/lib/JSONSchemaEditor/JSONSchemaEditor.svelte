@@ -1,3 +1,7 @@
+<script lang="ts" context="module">
+	import '../../app.postcss';
+</script>
+
 <script lang="ts">
 	import type { BaseError } from '$lib/logic/errors.js';
 	import type { SchemaProp, ReturnType } from '$lib/logic/types.js';
@@ -50,7 +54,7 @@
 	{/if}
 
 	{#if error}
-		<div class="space-y-2 mt-8 mb">
+		<div class="space-y-2 mt-8">
 			<ErrorBanner {error} />
 
 			{#if mode == 'builder'}

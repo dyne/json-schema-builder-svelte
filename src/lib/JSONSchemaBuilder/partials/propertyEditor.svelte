@@ -37,9 +37,14 @@
 			lower: true
 		}).trim();
 	}
+
+	//
+
+	let row: HTMLTableRowElement | undefined;
+	$: colspan = row?.cells.length ?? 4;
 </script>
 
-<tr>
+<tr bind:this={row}>
 	<td class="td">
 		<input
 			class="x-input font-mono"
@@ -64,13 +69,13 @@
 		/>
 	</td>
 
-	<td class="td w-[150px]">
+	<td class="td flex">
 		<PropertyTypeSelect id={selectId} bind:property />
 	</td>
 
 	{#if !hideRequired}
-		<td class="td w-[40px]">
-			<label class="x-input h-[40px]">
+		<td class="td">
+			<label class="x-input h-[40px] w-[40px]">
 				<input
 					type="checkbox"
 					class="x-checkbox"
@@ -82,14 +87,14 @@
 		</td>
 	{/if}
 
-	<td class="td w-[40px] !pr-0">
+	<td class="td !pr-0">
 		<slot />
 	</td>
 </tr>
 
 {#if property.definition.enum}
 	<tr>
-		<td colspan="4">
+		<td colspan={colspan - 1} class="!pr-2">
 			<div class="flex items-center gap-2 pt-2">
 				<label for={enumID} class="x-label whitespace-nowrap">{$s.list_values}</label>
 				<ListEditor id={enumID} bind:list={property.definition.enum} />
