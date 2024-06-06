@@ -14,7 +14,7 @@
 		parseJSONObjectSchemaFromString,
 		parseJSONSchema
 	} from '$lib/logic/parsing.js';
-	import { createJSONObjectSchema, returnSchema, stringify } from '$lib/logic/utils.js';
+	import { createJSONObjectSchema, returnSchema } from '$lib/logic/utils.js';
 
 	import PropertyListEditor from '$lib/JSONSchemaBuilder/partials/propertyListEditor.svelte';
 	import type { SchemaProp } from '$lib/logic/types.js';
@@ -29,7 +29,7 @@
 
 	//
 
-	let propertyList = schemaPropToPropertyList(schema);
+	$: propertyList = schemaPropToPropertyList(schema);
 	$: if (propertyList) updateSchema(propertyList);
 
 	function schemaPropToPropertyList(schemaProp: SchemaProp): Property[] | undefined {

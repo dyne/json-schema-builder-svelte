@@ -19,7 +19,7 @@
 
 	//
 
-	let tempSchema = schemaPropToString(schema);
+	$: tempSchema = schemaPropToString(schema);
 	$: updateSchema(tempSchema);
 
 	function updateSchema(schemaString: string) {
