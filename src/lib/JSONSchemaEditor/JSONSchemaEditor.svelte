@@ -55,6 +55,7 @@
 	{#if mode == 'builder'}
 		<div class="space-y-6">
 			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} />
+			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} {hideRequired} />
 		</div>
 	{:else}
 		<JSONSchemaField bind:schema bind:error {returnType} />

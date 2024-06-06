@@ -13,6 +13,7 @@
 	export let property: Property;
 	export let id = nanoid(5);
 	export let requiredDefault = false;
+	export let hideRequired = false;
 
 	$: if (requiredDefault) property.required = true;
 
@@ -29,14 +30,12 @@
 	$: slugifyName(property.name);
 
 	function slugifyName(newName: string) {
-		property.name = slugify
-			.default(newName, {
-				replacement: '_',
-				strict: true,
-				trim: false,
-				lower: true
-			})
-			.trim();
+		property.name = slugify(newName, {
+			replacement: '_',
+			strict: true,
+			trim: false,
+			lower: true
+		}).trim();
 	}
 </script>
 
@@ -69,17 +68,19 @@
 		<PropertyTypeSelect id={selectId} bind:property />
 	</td>
 
-	<td class="td w-[40px]">
-		<label class="x-input h-[40px]">
-			<input
-				type="checkbox"
-				class="x-checkbox"
-				id={requiredId}
-				name={requiredId}
-				bind:checked={property.required}
-			/>
-		</label>
-	</td>
+	{#if !hideRequired}
+		<td class="td w-[40px]">
+			<label class="x-input h-[40px]">
+				<input
+					type="checkbox"
+					class="x-checkbox"
+					id={requiredId}
+					name={requiredId}
+					bind:checked={property.required}
+				/>
+			</label>
+		</td>
+	{/if}
 
 	<td class="td w-[40px] !pr-0">
 		<slot />

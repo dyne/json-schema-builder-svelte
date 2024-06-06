@@ -25,6 +25,7 @@
 	export let error: BaseError | undefined = undefined;
 	export let returnType: ReturnType = 'object';
 	export let requiredDefault = false;
+	export let hideRequired = false;
 
 	//
 
@@ -78,5 +79,5 @@
 </script>
 
 {#if propertyList}
-	<PropertyListEditor bind:propertyList {requiredDefault} />
+	<PropertyListEditor bind:propertyList {requiredDefault} {hideRequired} />
 {/if}
