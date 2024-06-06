@@ -31,19 +31,22 @@ function removeProperty(p) {
 			<td colspan="2"><span class="x-label">{$s.required}</span></td>
 		{/if}
 	</tr>
+
 	{#each propertyList as p (p)}
 		{@const id = nanoid(5)}
 		<PropertyEditor bind:property={p} {id} {requiredDefault} {hideRequired}>
-			<button
-				type="button"
-				class="x-button x-button-square"
-				id={`property-remove-${id}`}
-				on:click={() => {
-					removeProperty(p);
-				}}
-			>
-				<XMark size={iconSize} />
-			</button>
+			<div class="pl-3">
+				<button
+					type="button"
+					class="x-button x-button-square"
+					id={`property-remove-${id}`}
+					on:click={() => {
+						removeProperty(p);
+					}}
+				>
+					<XMark size={iconSize} />
+				</button>
+			</div>
 		</PropertyEditor>
 	{/each}
 </table>

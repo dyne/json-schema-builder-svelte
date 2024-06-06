@@ -1,3 +1,6 @@
+<script context="module">import "../../app.postcss";
+</script>
+
 <script>import JSONSchemaBuilder from "../JSONSchemaBuilder/JSONSchemaBuilder.svelte";
 import JSONSchemaField from "../JSONSchemaField/JSONSchemaField.svelte";
 import { stringsStore } from "../ui/strings.js";
@@ -31,7 +34,7 @@ let error = void 0;
 	{/if}
 
 	{#if error}
-		<div class="space-y-2 mt-8 mb">
+		<div class="space-y-2 mt-8">
 			<ErrorBanner {error} />
 
 			{#if mode == 'builder'}
