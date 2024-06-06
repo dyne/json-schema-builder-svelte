@@ -7,6 +7,7 @@ import { iconSize } from "../../ui/settings.js";
 import { stringsStore as s } from "../../ui/strings.js";
 export let propertyList;
 export let requiredDefault = false;
+export let hideRequired = false;
 function addProperty() {
   propertyList = [...propertyList, createStringProperty()];
 }
@@ -26,11 +27,13 @@ function removeProperty(p) {
 		<td>
 			<span class="x-label">{$s.property_type}</span>
 		</td>
-		<td colspan="2"><span class="x-label">{$s.required}</span></td>
+		{#if !hideRequired}
+			<td colspan="2"><span class="x-label">{$s.required}</span></td>
+		{/if}
 	</tr>
 	{#each propertyList as p (p)}
 		{@const id = nanoid(5)}
-		<PropertyEditor bind:property={p} {id} {requiredDefault}>
+		<PropertyEditor bind:property={p} {id} {requiredDefault} {hideRequired}>
 			<button
 				type="button"
 				class="x-button x-button-square"

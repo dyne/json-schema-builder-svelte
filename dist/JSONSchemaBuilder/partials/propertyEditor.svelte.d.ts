@@ -5,6 +5,7 @@ declare const __propDef: {
         property: Property;
         id?: string | undefined;
         requiredDefault?: boolean | undefined;
+        hideRequired?: boolean | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

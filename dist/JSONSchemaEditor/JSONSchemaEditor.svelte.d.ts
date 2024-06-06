@@ -5,6 +5,7 @@ declare const __propDef: {
         schema?: SchemaProp;
         returnType?: ReturnType | undefined;
         requiredDefault?: boolean | undefined;
+        hideRequired?: boolean | undefined;
         mode?: ("field" | "builder") | undefined;
         label?: string | undefined;
     };
