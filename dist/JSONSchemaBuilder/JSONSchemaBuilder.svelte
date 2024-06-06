@@ -16,6 +16,7 @@ export let schema = createJSONObjectSchema();
 export let error = void 0;
 export let returnType = "object";
 export let requiredDefault = false;
+export let hideRequired = false;
 let propertyList = schemaPropToPropertyList(schema);
 $:
   if (propertyList)
@@ -64,5 +65,5 @@ function clearError() {
 </script>
 
 {#if propertyList}
-	<PropertyListEditor bind:propertyList {requiredDefault} />
+	<PropertyListEditor bind:propertyList {requiredDefault} {hideRequired} />
 {/if}

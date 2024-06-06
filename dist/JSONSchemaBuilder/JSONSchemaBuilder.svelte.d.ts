@@ -8,6 +8,7 @@ declare const __propDef: {
         error?: BaseError | undefined;
         returnType?: ReturnType | undefined;
         requiredDefault?: boolean | undefined;
+        hideRequired?: boolean | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

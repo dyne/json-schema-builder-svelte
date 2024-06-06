@@ -6,6 +6,7 @@ import slugify from "slugify";
 export let property;
 export let id = nanoid(5);
 export let requiredDefault = false;
+export let hideRequired = false;
 $:
   if (requiredDefault)
     property.required = true;
@@ -17,7 +18,7 @@ const titleID = `property-title-${id}`;
 $:
   slugifyName(property.name);
 function slugifyName(newName) {
-  property.name = slugify.default(newName, {
+  property.name = slugify(newName, {
     replacement: "_",
     strict: true,
     trim: false,
@@ -55,17 +56,19 @@ function slugifyName(newName) {
 		<PropertyTypeSelect id={selectId} bind:property />
 	</td>
 
-	<td class="td w-[40px]">
-		<label class="x-input h-[40px]">
-			<input
-				type="checkbox"
-				class="x-checkbox"
-				id={requiredId}
-				name={requiredId}
-				bind:checked={property.required}
-			/>
-		</label>
-	</td>
+	{#if !hideRequired}
+		<td class="td w-[40px]">
+			<label class="x-input h-[40px]">
+				<input
+					type="checkbox"
+					class="x-checkbox"
+					id={requiredId}
+					name={requiredId}
+					bind:checked={property.required}
+				/>
+			</label>
+		</td>
+	{/if}
 
 	<td class="td w-[40px] !pr-0">
 		<slot />
