@@ -1,7 +1,3 @@
-<script lang="ts" context="module">
-	import '../../app.postcss';
-</script>
-
 <script lang="ts">
 	import type { BaseError } from '$lib/logic/errors.js';
 	import type { SchemaProp, ReturnType } from '$lib/logic/types.js';

@@ -1,6 +1,3 @@
-<script context="module">import "../../app.postcss";
-</script>
-
 <script>import JSONSchemaBuilder from "../JSONSchemaBuilder/JSONSchemaBuilder.svelte";
 import JSONSchemaField from "../JSONSchemaField/JSONSchemaField.svelte";
 import { stringsStore } from "../ui/strings.js";

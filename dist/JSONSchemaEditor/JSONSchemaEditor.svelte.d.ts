@@ -1,5 +1,4 @@
 import { SvelteComponent } from "svelte";
-import '../../app.postcss';
 import type { SchemaProp, ReturnType } from '../logic/types.js';
 declare const __propDef: {
     props: {
