@@ -2,7 +2,7 @@ import { SvelteComponent } from "svelte";
 import type { Property } from '../../logic/types.js';
 declare const __propDef: {
     props: {
-        propertyList: Property[];
+        propertyList?: Property[] | undefined;
         requiredDefault?: boolean | undefined;
         hideRequired?: boolean | undefined;
     };

@@ -5,7 +5,7 @@ import Plus from "svelte-heros-v2/Plus.svelte";
 import XMark from "svelte-heros-v2/XMark.svelte";
 import { iconSize } from "../../ui/settings.js";
 import { stringsStore as s } from "../../ui/strings.js";
-export let propertyList;
+export let propertyList = [];
 export let requiredDefault = false;
 export let hideRequired = false;
 function addProperty() {
@@ -13,7 +13,7 @@ function addProperty() {
 }
 function removeProperty(p) {
   propertyList.splice(propertyList.indexOf(p), 1);
-  propertyList = propertyList;
+  propertyList = [...propertyList];
 }
 </script>
 
