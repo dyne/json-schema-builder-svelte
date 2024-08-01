@@ -4,10 +4,15 @@ import { ErrorCode, BaseError } from './errors.js';
 import { Type as T } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
 
-import { JSONSchemaType, type JSONObjectSchema, type JSONSchema } from '$lib/logic/types.js';
-import { createAjv } from '$lib/logic/utils.js';
+import { createAjv } from '$lib/utils/index.js';
+import type { JsonSchema7 } from '@effect/schema/JSONSchema';
 
-//
+/* Main */
+
+export const parseJSONSchemaFromString = (schemaString: string) =>
+	pipe(schemaString, parseJSON, Effect.flatMap(parseRecord), Effect.flatMap(parseJSONSchema));
+
+/* Parts */
 
 export const parseJSON = (string: string) =>
 	Effect.try({
@@ -21,18 +26,14 @@ export class InvalidJSONError extends BaseError<string> {
 
 //
 
-export const parseObject = (data: unknown) =>
+export const parseRecord = (data: unknown) =>
 	Effect.try({
-		try: () => {
-			const errors = Value.Errors(T.Object({}), data);
-			if (errors) return data as object;
-			else throw new Error();
-		},
-		catch: () => new NotObjectError()
+		try: () => Value.Decode(T.Record(T.String(), T.Unknown()), data),
+		catch: () => new NotRecordError()
 	});
 
-export class NotObjectError extends BaseError {
-	readonly _tag = ErrorCode.NotObjectError;
+export class NotRecordError {
+	readonly _tag = 'NotRecordError';
 }
 
 //
@@ -42,44 +43,11 @@ export const parseJSONSchema = (object: object) =>
 		try: () => {
 			const ajv = createAjv();
 			ajv.compile(object);
-			return object as JSONSchema;
+			return object as JsonSchema7;
 		},
 		catch: (e) => new InvalidJSONSchemaError((e as Error).message)
 	});
 
-export class InvalidJSONSchemaError extends BaseError {
-	readonly _tag = ErrorCode.InvalidJSONSchemaError;
+export class InvalidJSONSchemaError extends Error {
+	readonly _tag = 'InvalidJSONSchemaError';
 }
-
-//
-
-export const parseJSONObjectSchema = (schema: JSONSchema) =>
-	Effect.try({
-		try: () => {
-			const isJSONObjectSchema = Value.Check(JSONObjectSchemaSchema, schema);
-			if (isJSONObjectSchema) return schema as JSONObjectSchema;
-			else throw new Error();
-		},
-		catch: (e) => new InvalidJSONObjectSchemaError(e)
-	});
-
-export class InvalidJSONObjectSchemaError extends BaseError {
-	readonly _tag = ErrorCode.InvalidJSONObjectSchemaError;
-}
-
-const JSONObjectSchemaSchema = T.Object({
-	properties: T.Record(T.String(), T.Unknown()),
-	type: T.Literal(JSONSchemaType.object),
-	required: T.Optional(T.Array(T.String()))
-});
-
-//
-
-export const parseJSONObjectSchemaFromString = (schemaString: string) =>
-	pipe(
-		schemaString,
-		parseJSON,
-		Effect.flatMap(parseObject),
-		Effect.flatMap(parseJSONSchema),
-		Effect.flatMap(parseJSONObjectSchema)
-	);

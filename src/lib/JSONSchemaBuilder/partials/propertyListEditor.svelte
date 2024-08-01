@@ -1,7 +1,5 @@
 <script lang="ts">
-	import type { Property } from '$lib/logic/types.js';
-	import { createStringProperty } from '$lib/logic/utils.js';
-
+	import type { Property } from '../logic/types.js';
 	import PropertyEditor from '$lib/JSONSchemaBuilder/partials/propertyEditor.svelte';
 
 	import { nanoid } from 'nanoid';
@@ -25,6 +23,16 @@
 	function removeProperty(p: Property) {
 		propertyList.splice(propertyList.indexOf(p), 1);
 		propertyList = [...propertyList];
+	}
+
+	function createStringProperty(): Property {
+		return {
+			name: '',
+			definition: {
+				type: 'string'
+			},
+			required: false
+		};
 	}
 </script>
 

@@ -33,8 +33,11 @@ export const strings = {
 	[ErrorCode.InvalidSchemaError]: 'Invalid schema or properties',
 
 	the_schema_cannot_be_opened_in_the_gui: 'The schema cannot be opened in the visual editor.',
+	if_you_use_gui_all_the_data_will_be_lost: 'If you continue, all your data will be lost!',
 	view_in_plain_text: 'View it in the plain text editor',
 	separate_values_by_comma: 'Separate values by comma',
+	warning: 'Warning',
+	use_the_editor_and_delete_the_data: 'Use the visual editor and delete the data',
 
 	property_title: 'Label',
 	full_property_name: 'Display name',

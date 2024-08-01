@@ -1,7 +1,6 @@
-import Ajv from 'ajv';
-import addFormats from 'ajv-formats';
-
-import type { JSONObjectSchema, Property, ReturnType } from './types.js';
+import type { JsonSchema7Object } from '@effect/schema/JSONSchema';
+import type { JSONObjectSchema } from './types.js';
+import type { ReturnType } from '$lib/types/components.js';
 
 /* Types */
 
@@ -10,33 +9,16 @@ export type WithChanged<T, K extends Partial<T>> = T & K;
 
 /* Functions */
 
-export function createStringProperty(): Property {
-	return {
-		name: '',
-		definition: {
-			type: 'string'
-		},
-		required: false
-	};
-}
-
-export function createJSONObjectSchema(): JSONObjectSchema {
+export function createJSONObjectSchema(): JsonSchema7Object {
 	return {
 		type: 'object',
 		properties: {
 			'': {
 				type: 'string'
 			}
-		}
+		},
+		required: []
 	};
-}
-
-export function createAjv(): Ajv {
-	const ajv = new Ajv({
-		validateSchema: false
-	});
-	addFormats.default(ajv);
-	return ajv;
 }
 
 export function stringify(data: unknown): string {

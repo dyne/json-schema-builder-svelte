@@ -7,7 +7,9 @@
 
 {#if error && error._tag != ErrorCode.DuplicateKeysError}
 	<div class="x-banner x-banner-warning justify-between">
-		<p>{$stringsStore.the_schema_cannot_be_opened_in_the_gui}</p>
+		<slot>
+			<p>{$stringsStore.the_schema_cannot_be_opened_in_the_gui}</p>
+		</slot>
 		<slot name="right" />
 	</div>
 {/if}

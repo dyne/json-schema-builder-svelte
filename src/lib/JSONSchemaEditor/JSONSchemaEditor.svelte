@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { BaseError } from '$lib/logic/errors.js';
-	import type { SchemaProp, ReturnType } from '$lib/logic/types.js';
+	import type { SchemaProp, ReturnType } from '$lib/types/components.js';
 
 	import JSONSchemaBuilder from '$lib/JSONSchemaBuilder/JSONSchemaBuilder.svelte';
 	import JSONSchemaField from '$lib/JSONSchemaField/JSONSchemaField.svelte';

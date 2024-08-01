@@ -4,7 +4,7 @@ export enum ErrorCode {
 	InvalidJSONSchemaError = 'InvalidJSONSchemaError',
 	InvalidJSONObjectSchemaError = 'InvalidJSONObjectSchemaError',
 	DuplicateKeysError = 'DuplicateKeysError',
-	InvalidSchemaError = 'InvalidSchemaError'
+	InvalidSchemaTypeError = 'InvalidSchemaError'
 }
 
 export abstract class BaseError<T = unknown> {
