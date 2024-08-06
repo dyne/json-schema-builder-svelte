@@ -1,5 +1,6 @@
 import { pipe, Array as A, Effect } from 'effect';
 import type { Property } from './types.js';
+import type { BaseError } from '$lib/utils/types.js';
 
 /* Duplicate keys */
 
@@ -16,6 +17,6 @@ export function validatePropertyListKeys(propertyList: Property[]) {
 	});
 }
 
-class DuplicateKeysError {
+class DuplicateKeysError implements BaseError {
 	readonly _tag = 'DuplicateKeysError';
 }

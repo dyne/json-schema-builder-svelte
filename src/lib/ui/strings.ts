@@ -1,5 +1,4 @@
-import { ErrorCode } from '$lib/logic/errors.js';
-import { UIPropertyTypeOption } from '$lib/JSONSchemaBuilder/partials/propertyTypeSelect.svelte';
+import { UIPropertyTypeOption } from '$lib/JSONSchemaBuilder/partials/propertySchemaSelect.svelte';
 import { writable } from 'svelte/store';
 
 //
@@ -25,19 +24,20 @@ export const strings = {
 	[UIPropertyTypeOption.datetime]: 'Date and time',
 
 	// Errors
-	[ErrorCode.InvalidJSONError]: 'Invalid JSON',
-	[ErrorCode.InvalidJSONObjectSchemaError]: 'Invalid JSON Object Schema',
-	[ErrorCode.NotObjectError]: 'Data is not an Object',
-	[ErrorCode.InvalidJSONSchemaError]: 'Invalid JSON Schema',
-	[ErrorCode.DuplicateKeysError]: 'Your schema contains duplicate property names',
-	[ErrorCode.InvalidSchemaError]: 'Invalid schema or properties',
+	// [ErrorCode.InvalidJSONError]: 'Invalid JSON',
+	// [ErrorCode.InvalidJSONObjectSchemaError]: 'Invalid JSON Object Schema',
+	// [ErrorCode.NotObjectError]: 'Data is not an Object',
+	// [ErrorCode.InvalidJSONSchemaError]: 'Invalid JSON Schema',
+	// [ErrorCode.DuplicateKeysError]: 'Your schema contains duplicate property names',
 
 	the_schema_cannot_be_opened_in_the_gui: 'The schema cannot be opened in the visual editor.',
 	if_you_use_gui_all_the_data_will_be_lost: 'If you continue, all your data will be lost!',
 	view_in_plain_text: 'View it in the plain text editor',
 	separate_values_by_comma: 'Separate values by comma',
 	warning: 'Warning',
-	use_the_editor_and_delete_the_data: 'Use the visual editor and delete the data',
+	use_the_editor_and_delete_the_data:
+		'If you want to use the visual editor, all the data will be lost.',
+	continue_and_delete: 'Continue and delete data',
 
 	property_title: 'Label',
 	full_property_name: 'Display name',

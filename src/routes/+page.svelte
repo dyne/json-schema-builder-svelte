@@ -1,14 +1,17 @@
 <script lang="ts">
 	// import JSONSchemaEditor from '$lib/JSONSchemaEditor/JSONSchemaEditor.svelte';
 	import JsonSchemaBuilder from '$lib/JSONSchemaBuilder/JSONSchemaBuilder.svelte';
+	import JsonSchemaField from '$lib/JSONSchemaField/JSONSchemaField.svelte';
+	import type { JsonSchema7Object } from '@effect/schema/JSONSchema';
 	// import type { JSONObjectSchema } from '$lib/logic/types.js';
 	// import { createJSONObjectSchema, debugSchema } from '$lib/logic/utils.js';
 	// import { setStrings } from '$lib/ui/strings.js';
 
-	// const schema_1: JSONObjectSchema = {
-	// 	type: 'object',
-	// 	properties: { ok: { type: 'string' }, no: { type: 'integer' } }
-	// };
+	let schema_1: JsonSchema7Object = {
+		type: 'object',
+		properties: { ok: { type: 'string' }, no: { type: 'integer' } },
+		required: []
+	};
 
 	// function setSchema() {
 	// 	schema = schema_1;
@@ -56,4 +59,18 @@
 	<pre>{debugSchema(schema)}</pre>
 </div> -->
 
-<JsonSchemaBuilder bind:schema returnType="string" />
+<div class="p-4">
+	<JsonSchemaBuilder bind:schema returnType="string" />
+</div>
+
+<hr class="my-20" />
+
+<div class="p-4">
+	<JsonSchemaBuilder bind:schema={schema_1} returnType="object" />
+</div>
+
+<div class="p-4">
+	<JsonSchemaField bind:schema={schema_1} />
+</div>
+
+<pre>{JSON.stringify(schema_1, null, 2)}</pre>

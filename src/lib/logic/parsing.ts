@@ -1,5 +1,5 @@
 import { Effect, pipe } from 'effect';
-import { ErrorCode, BaseError } from './errors.js';
+import type { BaseError } from '$lib/utils/types.js';
 
 import { Type as T } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
@@ -20,8 +20,9 @@ export const parseJSON = (string: string) =>
 		catch: (e) => new InvalidJSONError((e as Error).message)
 	});
 
-export class InvalidJSONError extends BaseError<string> {
-	readonly _tag = ErrorCode.InvalidJSONError;
+export class InvalidJSONError implements BaseError {
+	readonly _tag = 'InvalidJSONError';
+	constructor(readonly message: string) {}
 }
 
 //

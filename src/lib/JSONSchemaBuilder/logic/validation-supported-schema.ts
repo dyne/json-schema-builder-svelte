@@ -2,13 +2,14 @@ import { Array, Effect, pipe } from 'effect';
 import type { JsonSchema7 } from '@effect/schema/JSONSchema';
 import type { JSONSchema7TypeName } from 'json-schema';
 import type { Property } from './types.js';
+import type { BaseError } from '$lib/utils/types.js';
 
 /* Main */
 
 export function validateSupportedProperty(property: Property) {
 	return pipe(
-		validateSupportedSchema(property.definition),
-		Effect.map((supportedSchema) => ({ ...property, definition: supportedSchema } as Property))
+		validateSupportedSchema(property.schema),
+		Effect.map((supportedSchema) => ({ ...property, schema: supportedSchema } satisfies Property))
 	);
 }
 
@@ -37,7 +38,7 @@ export function validateSchemaType<T extends JsonSchema7>(
 	}
 }
 
-export class InvalidSchemaTypeError {
+export class InvalidSchemaTypeError implements BaseError {
 	readonly _tag = 'InvalidSchemaTypeError';
 	constructor(public readonly type: string | undefined) {}
 }
@@ -59,7 +60,7 @@ export function validateSchemaFormat<T extends JsonSchema7>(
 	else return succeed;
 }
 
-export class InvalidSchemaFormatError {
+export class InvalidSchemaFormatError implements BaseError {
 	readonly _tag = 'InvalidSchemaFormatError';
 	constructor(public readonly format: unknown) {}
 }
@@ -79,7 +80,7 @@ export function validateSchemaAttributes<T extends JsonSchema7>(schema: T) {
 	});
 }
 
-export class InvalidSchemaAttributesError {
+export class InvalidSchemaAttributesError implements BaseError {
 	public readonly _tag = 'InvalidSchemaAttributesError';
 	constructor(public readonly attributes: string[] = []) {}
 }

@@ -7,6 +7,7 @@
 	import XMark from 'svelte-heros-v2/XMark.svelte';
 	import { iconSize } from '$lib/ui/settings.js';
 	import { stringsStore as s } from '$lib/ui/strings.js';
+	import { createStringProperty } from '../utils/index.js';
 
 	//
 
@@ -24,60 +25,52 @@
 		propertyList.splice(propertyList.indexOf(p), 1);
 		propertyList = [...propertyList];
 	}
-
-	function createStringProperty(): Property {
-		return {
-			name: '',
-			definition: {
-				type: 'string'
-			},
-			required: false
-		};
-	}
 </script>
 
-<table class="w-full">
-	<tr>
-		<td><span class="x-label">{$s.id}</span></td>
-		<td class="flex">
-			<span class="x-label">{$s.full_property_name}</span>
-			<span class="x-label ml-2 opacity-30">(en-US)</span>
-		</td>
-		<td>
-			<span class="x-label">{$s.property_type}</span>
-		</td>
-		{#if !hideRequired}
-			<td colspan="2"><span class="x-label">{$s.required}</span></td>
-		{/if}
-	</tr>
+<div class="space-y-6">
+	<table class="w-full">
+		<tr>
+			<td><span class="x-label">{$s.id}</span></td>
+			<td class="flex">
+				<span class="x-label">{$s.full_property_name}</span>
+				<span class="x-label ml-2 opacity-30">(en-US)</span>
+			</td>
+			<td>
+				<span class="x-label">{$s.property_type}</span>
+			</td>
+			{#if !hideRequired}
+				<td colspan="2"><span class="x-label">{$s.required}</span></td>
+			{/if}
+		</tr>
 
-	{#each propertyList as p (p)}
-		{@const id = nanoid(5)}
-		<PropertyEditor bind:property={p} {id} {requiredDefault} {hideRequired}>
-			<div class="pl-3">
-				<button
-					type="button"
-					class="x-button x-button-square"
-					id={`property-remove-${id}`}
-					on:click={() => {
-						removeProperty(p);
-					}}
-				>
-					<XMark size={iconSize} />
-				</button>
-			</div>
-		</PropertyEditor>
-	{/each}
-</table>
+		{#each propertyList as p (p)}
+			{@const id = nanoid(5)}
+			<PropertyEditor bind:property={p} {id} {requiredDefault} {hideRequired}>
+				<div class="pl-3 flex justify-end">
+					<button
+						type="button"
+						class="x-button x-button-square"
+						id={`property-remove-${id}`}
+						on:click={() => {
+							removeProperty(p);
+						}}
+					>
+						<XMark size={iconSize} />
+					</button>
+				</div>
+			</PropertyEditor>
+		{/each}
+	</table>
 
-<button
-	type="button"
-	class="x-button flex items-center justify-center w-full"
-	id="property-add"
-	on:click={addProperty}
->
-	<Plus size={iconSize} /><span class="ml-1">{$s.add_property}</span>
-</button>
+	<button
+		type="button"
+		class="x-button flex items-center justify-center w-full"
+		id="property-add"
+		on:click={addProperty}
+	>
+		<Plus size={iconSize} /><span class="ml-1">{$s.add_property}</span>
+	</button>
+</div>
 
 <style lang="postcss">
 	td {

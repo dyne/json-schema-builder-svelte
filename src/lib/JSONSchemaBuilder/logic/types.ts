@@ -1,7 +1,7 @@
-import type { JsonSchema7 } from '@effect/schema/JSONSchema';
+import type { JsonSchema } from '$lib/types/json-schema.js';
 
 export type Property = {
 	name: string;
-	definition: JsonSchema7;
+	schema: JsonSchema;
 	required: boolean;
 };

@@ -1,8 +1,26 @@
-import { JsonSchema7 } from '@effect/schema/JSONSchema';
+import type { JsonSchema7, JsonSchema7String } from '@effect/schema/JSONSchema';
 
 // -- Main
 
-export type JsonSchema7Type = HasTypeAttribute<JsonSchema7>['type'];
+export type JsonSchema = JsonSchema7 | JsonSchemaDate | JsonSchemaDateTime | JsonSchemaStringEnum;
+export type JsonSchemaType = HasTypeAttribute<JsonSchema>['type'];
+
+export enum JsonSchemaFormat {
+	date = 'date',
+	datetime = 'date-time'
+}
+
+export type JsonSchemaDate = JsonSchema7String & {
+	format: JsonSchemaFormat.date;
+};
+
+export type JsonSchemaDateTime = JsonSchema7String & {
+	format: JsonSchemaFormat.datetime;
+};
+
+export type JsonSchemaStringEnum = JsonSchema7String & {
+	enum: string[];
+};
 
 // -- Utils
 

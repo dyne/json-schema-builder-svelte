@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { stringsStore } from '$lib/ui/strings.js';
 	import { nanoid } from 'nanoid';
+	import { pipe, String as S, Array as A, Effect } from 'effect';
 
 	//
 
@@ -12,10 +13,17 @@
 	const SEPARATOR = ',';
 
 	let stringValue = list.join(`${SEPARATOR} `);
-	$: list = stringValue
-		.split(SEPARATOR)
-		.map((s) => s.trim())
-		.filter((s) => s);
+	$: list = pipe(
+		stringValue,
+		S.split(SEPARATOR),
+		A.map(S.trim),
+		A.filter(Boolean),
+		A.dedupe,
+		(items) => {
+			if (items.length == 0) return [''];
+			else return items;
+		}
+	);
 </script>
 
 <input

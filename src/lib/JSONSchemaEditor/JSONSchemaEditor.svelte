@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { BaseError } from '$lib/logic/errors.js';
+	import type { BaseError } from '$lib/utils/types.js';
 	import type { SchemaProp, ReturnType } from '$lib/types/components.js';
 
 	import JSONSchemaBuilder from '$lib/JSONSchemaBuilder/JSONSchemaBuilder.svelte';
@@ -43,7 +43,8 @@
 <div>
 	{#if mode == 'builder'}
 		<div class="space-y-6">
-			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} {hideRequired} />
+			<!-- TODO - bind error -->
+			<JSONSchemaBuilder bind:schema {returnType} {requiredDefault} {hideRequired} />
 		</div>
 	{:else}
 		<JSONSchemaField bind:schema bind:error {returnType} />

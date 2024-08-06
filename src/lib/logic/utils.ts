@@ -1,6 +1,6 @@
 import type { JsonSchema7Object } from '@effect/schema/JSONSchema';
-import type { JSONObjectSchema } from './types.js';
 import type { ReturnType } from '$lib/types/components.js';
+import type { JsonSchema } from '$lib/types/json-schema.js';
 
 /* Types */
 
@@ -25,7 +25,7 @@ export function stringify(data: unknown): string {
 	return JSON.stringify(data, null, 2);
 }
 
-export function returnSchema(schema: JSONObjectSchema, returnType: ReturnType = 'object') {
+export function returnSchema(schema: JsonSchema, returnType: ReturnType = 'object') {
 	return returnType == 'object' ? schema : stringify(schema);
 }
 
