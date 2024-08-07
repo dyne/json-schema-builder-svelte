@@ -52,7 +52,8 @@ function updatePropertyList(schemaProp) {
   );
 }
 function updateSchema(propertyList2, returnType2) {
-  clearError();
+  if (error)
+    return;
   pipe(
     propertyListToSchema(propertyList2, returnType2),
     Effect.match({
