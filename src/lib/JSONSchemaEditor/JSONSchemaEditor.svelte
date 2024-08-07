@@ -12,6 +12,12 @@
 	import WarningBanner from '$lib/ui/warningBanner.svelte';
 	import ArrowRight from 'svelte-heros-v2/ArrowRight.svelte';
 	import { createJSONObjectSchema } from '$lib/logic/utils.js';
+	import { Effect, pipe } from 'effect';
+	import { schemaPropToPropertyList } from '$lib/JSONSchemaBuilder/logic/conversion.js';
+	import { onMount } from 'svelte';
+	import { schemaPropToString } from '$lib/logic/conversion.js';
+	import { parseJSON, parseJSONSchema, parseJSONSchemaFromString } from '$lib/logic/parsing.js';
+	import { parseJSONObjectSchema } from '$lib/JSONSchemaBuilder/logic/parsing.js';
 
 	//
 
@@ -37,34 +43,56 @@
 
 	//
 
-	let error: BaseError | undefined = undefined;
+	onMount(() =>
+		pipe(
+			isSchemaSupportedByBuilder(schema),
+			Effect.tap((isSupported) => {
+				if (!isSupported) mode = 'field';
+			}),
+			Effect.runSync
+		)
+	);
+
+	function isSchemaSupportedByBuilder(schemaProp: SchemaProp) {
+		return pipe(
+			schemaPropToPropertyList(schemaProp),
+			Effect.match({
+				onFailure: () => false,
+				onSuccess: () => true
+			})
+		);
+	}
+
+	//
+
+	// let error: BaseError | undefined = undefined;
+	// $: validateSchema(schema);
+
+	// function validateSchema(schema: SchemaProp) {
+	// 	pipe(
+	// 		schema,
+	// 		schemaPropToString,
+	// 		parseJSONSchemaFromString,
+	// 		Effect.flatMap(parseJSONObjectSchema),
+	// 		Effect.match({
+	// 			onFailure: (e) => (error = e),
+	// 			onSuccess: () => {}
+	// 		}),
+	// 		Effect.runSync
+	// 	);
+	// }
 </script>
 
 <div>
 	{#if mode == 'builder'}
-		<div class="space-y-6">
-			<!-- TODO - bind error -->
-			<JSONSchemaBuilder bind:schema {returnType} {requiredDefault} {hideRequired} />
-		</div>
+		<JSONSchemaBuilder bind:schema {returnType} {requiredDefault} {hideRequired} />
 	{:else}
-		<JSONSchemaField bind:schema bind:error {returnType} />
+		<JSONSchemaField bind:schema {returnType} />
 	{/if}
 
-	{#if error}
-		<div class="space-y-2 mt-8">
-			<ErrorBanner {error} />
-
-			{#if mode == 'builder'}
-				<WarningBanner {error}>
-					<svelte:fragment slot="right">
-						<button type="button" class="underline" on:click={changeMode}>
-							{$stringsStore.view_in_plain_text}
-						</button>
-					</svelte:fragment>
-				</WarningBanner>
-			{/if}
-		</div>
-	{/if}
+	<!-- {#if error}
+		<ErrorBanner {error} />
+	{/if} -->
 
 	<div class="flex justify-between items-center mt-4">
 		<p class="x-label">

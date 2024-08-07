@@ -44,7 +44,8 @@
 	$: updateSchema(propertyList, returnType);
 
 	function updateSchema(propertyList: Property[], returnType: ReturnType) {
-		return pipe(
+		if (parseError) return;
+		pipe(
 			propertyList,
 			propertyListToJSONSchema7Object,
 			(schema) => returnSchema(schema, returnType),

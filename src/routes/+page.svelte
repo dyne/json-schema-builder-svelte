@@ -1,8 +1,9 @@
 <script lang="ts">
-	// import JSONSchemaEditor from '$lib/JSONSchemaEditor/JSONSchemaEditor.svelte';
+	import JSONSchemaEditor from '$lib/JSONSchemaEditor/JSONSchemaEditor.svelte';
 	import JsonSchemaBuilder from '$lib/JSONSchemaBuilder/JSONSchemaBuilder.svelte';
 	import JsonSchemaField from '$lib/JSONSchemaField/JSONSchemaField.svelte';
 	import type { JsonSchema7Object } from '@effect/schema/JSONSchema';
+	import { debugSchema } from '$lib/logic/utils.js';
 	// import type { JSONObjectSchema } from '$lib/logic/types.js';
 	// import { createJSONObjectSchema, debugSchema } from '$lib/logic/utils.js';
 	// import { setStrings } from '$lib/ui/strings.js';
@@ -49,17 +50,18 @@
 
 <!-- <button class="x-button" on:click={setSchema}>set</button> -->
 
-<!-- <div class="space-y-4 p-4">
+<div class="space-y-4 p-4">
 	<JSONSchemaEditor bind:schema mode="builder" requiredDefault hideRequired />
 	<pre>{debugSchema(schema)}</pre>
-</div> -->
+</div>
 
 <!-- <div class="space-y-4 p-4">
 	<JSONSchemaEditor bind:schema mode="field" />
 	<pre>{debugSchema(schema)}</pre>
 </div> -->
+<!-- 
 
-<div class="p-4">
+<!-- <div class="p-4">
 	<JsonSchemaBuilder bind:schema returnType="string" />
 </div>
 
@@ -73,4 +75,4 @@
 	<JsonSchemaField bind:schema={schema_1} />
 </div>
 
-<pre>{JSON.stringify(schema_1, null, 2)}</pre>
+<pre>{JSON.stringify(schema_1, null, 2)}</pre> -->
