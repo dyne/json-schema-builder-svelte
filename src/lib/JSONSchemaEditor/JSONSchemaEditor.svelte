@@ -12,6 +12,10 @@
 	import WarningBanner from '$lib/ui/warningBanner.svelte';
 	import ArrowRight from 'svelte-heros-v2/ArrowRight.svelte';
 	import { createJSONObjectSchema } from '$lib/logic/utils.js';
+	import { onMount } from 'svelte';
+	import { Effect, pipe } from 'effect';
+	import { schemaPropToString } from '$lib/logic/conversion.js';
+	import { parseJSONObjectSchemaFromString } from '$lib/logic/parsing.js';
 
 	//
 
@@ -38,6 +42,10 @@
 	//
 
 	let error: BaseError | undefined = undefined;
+
+	onMount(() => {
+		if (error) mode = 'field';
+	});
 </script>
 
 <div>

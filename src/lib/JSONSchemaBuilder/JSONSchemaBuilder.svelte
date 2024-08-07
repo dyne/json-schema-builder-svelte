@@ -69,7 +69,7 @@
 	}
 
 	function updateSchema(propertyList: Property[], returnType: ReturnType) {
-		clearError();
+		if (error) return;
 		pipe(
 			propertyListToSchema(propertyList, returnType),
 			Effect.match({
