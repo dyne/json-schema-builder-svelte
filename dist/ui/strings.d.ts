@@ -23,6 +23,8 @@ export declare const strings: {
     the_schema_cannot_be_opened_in_the_gui: string;
     view_in_plain_text: string;
     separate_values_by_comma: string;
+    delete_schema_and_edit: string;
+    otherwise: string;
     property_title: string;
     full_property_name: string;
     add_property_label: string;
@@ -56,6 +58,8 @@ export declare const stringsStore: import("svelte/store").Writable<{
     the_schema_cannot_be_opened_in_the_gui: string;
     view_in_plain_text: string;
     separate_values_by_comma: string;
+    delete_schema_and_edit: string;
+    otherwise: string;
     property_title: string;
     full_property_name: string;
     add_property_label: string;

@@ -1,6 +1,6 @@
 {
 	"name": "json-schema-builder-svelte",
-	"version": "0.1.14",
+	"version": "0.1.15",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && pnpm run package",

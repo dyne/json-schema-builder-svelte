@@ -8,7 +8,7 @@ declare const __propDef: {
         [evt: string]: CustomEvent<any>;
     };
     slots: {
-        right: {};
+        default: {};
     };
 };
 export type WarningBannerProps = typeof __propDef.props;
