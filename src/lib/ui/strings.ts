@@ -35,6 +35,8 @@ export const strings = {
 	the_schema_cannot_be_opened_in_the_gui: 'The schema cannot be opened in the visual editor.',
 	view_in_plain_text: 'View it in the plain text editor',
 	separate_values_by_comma: 'Separate values by comma',
+	delete_schema_and_edit: 'Delete schema and use visual editor anyway',
+	otherwise: 'Otherwise',
 
 	property_title: 'Label',
 	full_property_name: 'Display name',

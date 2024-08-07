@@ -11,11 +11,8 @@
 	import ErrorBanner from '$lib/ui/errorBanner.svelte';
 	import WarningBanner from '$lib/ui/warningBanner.svelte';
 	import ArrowRight from 'svelte-heros-v2/ArrowRight.svelte';
-	import { createJSONObjectSchema } from '$lib/logic/utils.js';
+	import { createJSONObjectSchema, returnSchema } from '$lib/logic/utils.js';
 	import { onMount } from 'svelte';
-	import { Effect, pipe } from 'effect';
-	import { schemaPropToString } from '$lib/logic/conversion.js';
-	import { parseJSONObjectSchemaFromString } from '$lib/logic/parsing.js';
 
 	//
 
@@ -46,6 +43,13 @@
 	onMount(() => {
 		if (error) mode = 'field';
 	});
+
+	//
+
+	function clearSchema() {
+		schema = returnSchema(createJSONObjectSchema(), returnType);
+		error = undefined;
+	}
 </script>
 
 <div>
@@ -63,11 +67,18 @@
 
 			{#if mode == 'builder'}
 				<WarningBanner {error}>
-					<svelte:fragment slot="right">
+					<div>
+						<p>{$stringsStore.the_schema_cannot_be_opened_in_the_gui}</p>
 						<button type="button" class="underline" on:click={changeMode}>
 							{$stringsStore.view_in_plain_text}
 						</button>
-					</svelte:fragment>
+					</div>
+					<div>
+						<p>{$stringsStore.otherwise}</p>
+						<button type="button" class="underline" on:click={clearSchema}>
+							{$stringsStore.delete_schema_and_edit}
+						</button>
+					</div>
 				</WarningBanner>
 			{/if}
 		</div>
