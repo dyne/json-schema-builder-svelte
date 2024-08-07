@@ -6,6 +6,10 @@ import ErrorBanner from "../ui/errorBanner.svelte";
 import WarningBanner from "../ui/warningBanner.svelte";
 import ArrowRight from "svelte-heros-v2/ArrowRight.svelte";
 import { createJSONObjectSchema } from "../logic/utils.js";
+import { onMount } from "svelte";
+import { Effect, pipe } from "effect";
+import { schemaPropToString } from "../logic/conversion.js";
+import { parseJSONObjectSchemaFromString } from "../logic/parsing.js";
 export let schema = createJSONObjectSchema();
 export let returnType = "object";
 export let requiredDefault = false;
@@ -19,6 +23,10 @@ function getOtherMode(mode2) {
   return mode2 == "field" ? "builder" : "field";
 }
 let error = void 0;
+onMount(() => {
+  if (error)
+    mode = "field";
+});
 </script>
 
 <div>
