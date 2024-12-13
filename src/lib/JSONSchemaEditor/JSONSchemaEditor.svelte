@@ -2,7 +2,7 @@
 	import type { BaseError } from '$lib/logic/errors.js';
 	import type { SchemaProp, ReturnType } from '$lib/logic/types.js';
 
-	import JSONSchemaBuilder from '$lib/JSONSchemaBuilder/JSONSchemaBuilder.svelte';
+	// import JSONSchemaBuilder from '$lib/JSONSchemaBuilder/JSONSchemaBuilder.svelte';
 	import JSONSchemaField from '$lib/JSONSchemaField/JSONSchemaField.svelte';
 
 	import { stringsStore } from '$lib/ui/strings.js';
@@ -18,8 +18,8 @@
 
 	export let schema: SchemaProp = createJSONObjectSchema();
 	export let returnType: ReturnType = 'object';
-	export let requiredDefault = false;
-	export let hideRequired = false;
+	// export let requiredDefault = false;
+	// export let hideRequired = false;
 
 	export let mode: EditorMode = 'builder';
 	export let label: string | undefined = undefined;
@@ -55,14 +55,14 @@
 <div>
 	{#if mode == 'builder'}
 		<div class="space-y-6">
-			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} {hideRequired} />
+			<!-- <JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} {hideRequired} /> -->
 		</div>
 	{:else}
 		<JSONSchemaField bind:schema bind:error {returnType} />
 	{/if}
 
 	{#if error}
-		<div class="space-y-2 mt-8">
+		<div class="mt-8 space-y-2">
 			<ErrorBanner {error} />
 
 			{#if mode == 'builder'}
@@ -84,7 +84,7 @@
 		</div>
 	{/if}
 
-	<div class="flex justify-between items-center mt-4">
+	<div class="mt-4 flex items-center justify-between">
 		<p class="x-label">
 			{#if label}
 				{label}

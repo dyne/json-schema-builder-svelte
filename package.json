@@ -60,8 +60,15 @@
 		"vitest": "^2.0.4"
 	},
 	"dependencies": {
+		"@effect/schema": "^0.75.5",
 		"@tailwindcss/container-queries": "^0.1.1",
 		"@tailwindcss/forms": "^0.5.9",
-		"@tailwindcss/typography": "^0.5.15"
+		"@tailwindcss/typography": "^0.5.15",
+		"@types/json-schema": "^7.0.15",
+		"ajv": "^8.17.1",
+		"ajv-keywords": "^5.1.0",
+		"effect": "^3.11.6",
+		"nanoid": "^5.0.9",
+		"svelte-heros-v2": "^2.0.1"
 	}
 }

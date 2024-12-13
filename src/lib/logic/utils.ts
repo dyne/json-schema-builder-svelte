@@ -1,5 +1,5 @@
-import Ajv from 'ajv';
-import addFormats from 'ajv-formats';
+import { Ajv } from 'ajv';
+import addKeywords from 'ajv-keywords';
 
 import type { JSONObjectSchema, Property, ReturnType } from './types.js';
 
@@ -35,7 +35,7 @@ export function createAjv(): Ajv {
 	const ajv = new Ajv({
 		validateSchema: false
 	});
-	addFormats.default(ajv);
+	addKeywords.default(ajv);
 	return ajv;
 }
 

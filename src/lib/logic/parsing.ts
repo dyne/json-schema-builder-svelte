@@ -1,8 +1,6 @@
 import { Effect, pipe } from 'effect';
 import { ErrorCode, BaseError } from './errors.js';
-
-import { Type as T } from '@sinclair/typebox';
-import { Value } from '@sinclair/typebox/value';
+import { Schema as S } from '@effect/schema';
 
 import { JSONSchemaType, type JSONObjectSchema, type JSONSchema } from '$lib/logic/types.js';
 import { createAjv } from '$lib/logic/utils.js';
@@ -23,11 +21,7 @@ export class InvalidJSONError extends BaseError<string> {
 
 export const parseObject = (data: unknown) =>
 	Effect.try({
-		try: () => {
-			const errors = Value.Errors(T.Object({}), data);
-			if (errors) return data as object;
-			else throw new Error();
-		},
+		try: () => S.decodeUnknownSync(S.Object)(data),
 		catch: () => new NotObjectError()
 	});
 
@@ -55,11 +49,7 @@ export class InvalidJSONSchemaError extends BaseError {
 
 export const parseJSONObjectSchema = (schema: JSONSchema) =>
 	Effect.try({
-		try: () => {
-			const isJSONObjectSchema = Value.Check(JSONObjectSchemaSchema, schema);
-			if (isJSONObjectSchema) return schema as JSONObjectSchema;
-			else throw new Error();
-		},
+		try: () => S.decodeUnknownSync(JSONObjectSchemaSchema)(schema) as JSONObjectSchema,
 		catch: (e) => new InvalidJSONObjectSchemaError(e)
 	});
 
@@ -67,10 +57,10 @@ export class InvalidJSONObjectSchemaError extends BaseError {
 	readonly _tag = ErrorCode.InvalidJSONObjectSchemaError;
 }
 
-const JSONObjectSchemaSchema = T.Object({
-	properties: T.Record(T.String(), T.Unknown()),
-	type: T.Literal(JSONSchemaType.object),
-	required: T.Optional(T.Array(T.String()))
+const JSONObjectSchemaSchema = S.Struct({
+	properties: S.Record({ key: S.String, value: S.Unknown }),
+	type: S.Literal(JSONSchemaType.object),
+	required: S.optional(S.Array(S.String))
 });
 
 //

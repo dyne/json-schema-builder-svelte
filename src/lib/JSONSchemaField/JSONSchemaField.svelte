@@ -49,4 +49,4 @@
 	}
 </script>
 
-<textarea class="x-textarea font-mono" rows="20" {id} name={id} bind:value={tempSchema} />
+<textarea class="x-textarea font-mono" rows="20" {id} name={id} bind:value={tempSchema}></textarea>
