@@ -16,8 +16,7 @@
 
 	//
 
-	export let schema: SchemaProp = createJSONObjectSchema();
-	export let returnType: ReturnType = 'object';
+	export let schema: object = createJSONObjectSchema();
 	export let requiredDefault = false;
 	export let hideRequired = false;
 
@@ -47,7 +46,7 @@
 	//
 
 	function clearSchema() {
-		schema = returnSchema(createJSONObjectSchema(), returnType);
+		schema = createJSONObjectSchema();
 		error = undefined;
 	}
 </script>
@@ -55,13 +54,12 @@
 <div>
 	{#if mode == 'builder'}
 		<div class="space-y-6">
-			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} {hideRequired} />
+			<JSONSchemaBuilder bind:schema bind:error {requiredDefault} {hideRequired} />
 		</div>
 	{:else}
 		<JSONSchemaField
 			bind:schema
 			bind:error
-			{returnType}
 			ajvOptions={{ allowedFormats: ['radio'], allowedKeywords: ['options'] }}
 		/>
 	{/if}

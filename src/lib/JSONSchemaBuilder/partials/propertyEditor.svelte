@@ -96,7 +96,7 @@
 
 	{#if !hideRequired}
 		<td class="td">
-			<label class="x-input h-[40px] w-[40px]">
+			<label class="x-input flex h-[40px] w-[40px] items-center justify-center">
 				<input
 					type="checkbox"
 					class="x-checkbox"

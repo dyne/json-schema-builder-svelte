@@ -10,7 +10,7 @@
 	//
 
 	type Props = {
-		schema: SchemaProp;
+		schema: object;
 		error: BaseError | undefined;
 		returnType: ReturnType;
 		ajvOptions: CreateAjvOptions;
@@ -20,19 +20,17 @@
 	let {
 		schema = $bindable(createJSONObjectSchema()),
 		error = $bindable(),
-		returnType = 'object',
 		ajvOptions = {},
 		id = `json-schema-${nanoid(5)}`
 	}: Partial<Props> = $props();
 
 	//
 
-	function updateSchema(schemaString: string, returnType: ReturnType) {
+	function updateSchema(schemaString: string) {
 		error = undefined;
 		pipe(
 			schemaString,
 			parseJSONObjectSchemaFromString,
-			Effect.map((schema) => returnSchema(schema, returnType)),
 			Effect.match({
 				onFailure: (e) => (error = e),
 				onSuccess: (v) => (schema = v)
@@ -49,5 +47,5 @@
 	{id}
 	name={id}
 	value={schemaPropToString(schema)}
-	oninput={(e) => updateSchema(e.currentTarget.value, returnType)}
+	oninput={(e) => updateSchema(e.currentTarget.value)}
 ></textarea>

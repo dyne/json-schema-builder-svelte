@@ -34,9 +34,15 @@
 		hideRequired = false
 	}: Partial<Props> = $props();
 
+	let propertyList = $state<Property[]>(schemaToPropertyList(schema));
+	$effect(() => {
+		propertyListToSchema(propertyList);
+	});
+
 	//
 
 	function schemaToPropertyList(obj: object) {
+		error = undefined;
 		return pipe(
 			obj,
 			parseJSONSchema,
@@ -45,6 +51,7 @@
 			Effect.flatMap(validatePropertyList),
 			Effect.match({
 				onFailure: (e) => {
+					error = e;
 					throw e;
 				},
 				onSuccess: (v) => v
@@ -55,7 +62,8 @@
 	}
 
 	function propertyListToSchema(propertyList: Property[]) {
-		return pipe(
+		error = undefined;
+		pipe(
 			propertyList,
 			validatePropertyListKeys,
 			Effect.map(propertyListToJSONObjectSchema),
@@ -63,9 +71,11 @@
 			Effect.flatMap(parseJSONObjectSchema),
 			Effect.match({
 				onFailure: (e) => {
-					throw e;
+					error = e;
 				},
-				onSuccess: (v) => v
+				onSuccess: (v) => {
+					schema = v;
+				}
 			}),
 			Effect.provideService(AjvOptions, {}),
 			Effect.runSync
@@ -96,8 +106,4 @@
 	// }
 </script>
 
-<PropertyListEditor
-	bind:propertyList={() => schemaToPropertyList(schema), (v) => (schema = propertyListToSchema(v))}
-	{requiredDefault}
-	{hideRequired}
-/>
+<PropertyListEditor bind:propertyList {requiredDefault} {hideRequired} />
