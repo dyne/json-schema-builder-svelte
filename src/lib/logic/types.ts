@@ -1,4 +1,4 @@
-import type { JSONSchema7Definition, JSONSchema7, JSONSchema7TypeName } from 'json-schema';
+import type { JSONSchema7, JSONSchema7TypeName } from 'json-schema';
 
 import type { WithChanged, WithRequired } from './utils.js';
 
@@ -20,13 +20,17 @@ export enum JSONSchemaFormat {
 	datetime = 'date-time'
 }
 
+//
+
+export type JSONSchema = JSONSchema7;
+
 export type Property = {
 	name: string;
-	definition: Exclude<JSONSchema7Definition, boolean>;
+	title?: string;
+	definition: JSONSchema;
 	required: boolean;
 };
 
-export type JSONSchema = JSONSchema7;
 export type JSONSchemaTypeName = JSONSchema7TypeName;
 
 export type JSONObjectSchema = WithChanged<

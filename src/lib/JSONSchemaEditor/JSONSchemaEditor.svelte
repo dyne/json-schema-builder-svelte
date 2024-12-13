@@ -2,7 +2,7 @@
 	import type { BaseError } from '$lib/logic/errors.js';
 	import type { SchemaProp, ReturnType } from '$lib/logic/types.js';
 
-	// import JSONSchemaBuilder from '$lib/JSONSchemaBuilder/JSONSchemaBuilder.svelte';
+	import JSONSchemaBuilder from '$lib/JSONSchemaBuilder/JSONSchemaBuilder.svelte';
 	import JSONSchemaField from '$lib/JSONSchemaField/JSONSchemaField.svelte';
 
 	import { stringsStore } from '$lib/ui/strings.js';
@@ -18,8 +18,8 @@
 
 	export let schema: SchemaProp = createJSONObjectSchema();
 	export let returnType: ReturnType = 'object';
-	// export let requiredDefault = false;
-	// export let hideRequired = false;
+	export let requiredDefault = false;
+	export let hideRequired = false;
 
 	export let mode: EditorMode = 'builder';
 	export let label: string | undefined = undefined;
@@ -55,7 +55,7 @@
 <div>
 	{#if mode == 'builder'}
 		<div class="space-y-6">
-			<!-- <JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} {hideRequired} /> -->
+			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} {hideRequired} />
 		</div>
 	{:else}
 		<JSONSchemaField

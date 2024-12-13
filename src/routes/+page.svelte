@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { JSONSchemaBuilder } from '$lib/index.js';
 	import JSONSchemaEditor from '$lib/JSONSchemaEditor/JSONSchemaEditor.svelte';
 	import type { JSONObjectSchema } from '$lib/logic/types.js';
 	import { createJSONObjectSchema, debugSchema } from '$lib/logic/utils.js';
@@ -37,10 +38,13 @@
 	// setStrings({ view_in_plain_text: 'Ciao' });
 </script>
 
+<JSONSchemaBuilder />
+
 <button class="x-button" on:click={setSchema}>set</button>
 
 <div class="space-y-4 p-4">
-	<JSONSchemaEditor bind:schema mode="field" />
+	<JSONSchemaEditor bind:schema mode="builder" />
+
 	<pre>{debugSchema(schema)}</pre>
 </div>
 

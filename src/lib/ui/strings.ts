@@ -1,5 +1,5 @@
+import { UIPropertyTypeOption } from '$lib/JSONSchemaBuilder/partials/propertyDefinitionEditor.js';
 import { ErrorCode } from '$lib/logic/errors.js';
-// import { UIPropertyTypeOption } from '$lib/JSONSchemaBuilder/partials/propertyTypeSelect.svelte';
 import { writable } from 'svelte/store';
 
 //
@@ -16,13 +16,13 @@ export const strings = {
 	builder: 'UI editor',
 
 	// Data types
-	// [UIPropertyTypeOption.string]: 'Text',
-	// [UIPropertyTypeOption.integer]: 'Integer number',
-	// [UIPropertyTypeOption.float]: 'Decimal number',
-	// [UIPropertyTypeOption.boolean]: 'Boolean',
-	// [UIPropertyTypeOption.list]: 'List',
-	// [UIPropertyTypeOption.date]: 'Date',
-	// [UIPropertyTypeOption.datetime]: 'Date and time',
+	[UIPropertyTypeOption.string]: 'Text',
+	[UIPropertyTypeOption.integer]: 'Integer number',
+	[UIPropertyTypeOption.float]: 'Decimal number',
+	[UIPropertyTypeOption.boolean]: 'Boolean',
+	[UIPropertyTypeOption.list]: 'List',
+	[UIPropertyTypeOption.date]: 'Date',
+	[UIPropertyTypeOption.datetime]: 'Date and time',
 
 	// Errors
 	[ErrorCode.InvalidJSONError]: 'Invalid JSON',

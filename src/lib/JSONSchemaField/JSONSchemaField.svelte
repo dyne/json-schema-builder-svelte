@@ -9,33 +9,36 @@
 
 	//
 
-	export let schema: SchemaProp = createJSONObjectSchema();
-	export let error: BaseError | undefined = undefined;
-	export let returnType: ReturnType = 'object';
-	export let ajvOptions: CreateAjvOptions = {};
+	type Props = {
+		schema: SchemaProp;
+		error: BaseError | undefined;
+		returnType: ReturnType;
+		ajvOptions: CreateAjvOptions;
+		id: string;
+	};
 
-	export let id = `json-schema-${nanoid(5)}`;
+	let {
+		schema = $bindable(createJSONObjectSchema()),
+		error = $bindable(),
+		returnType = 'object',
+		ajvOptions = {},
+		id = `json-schema-${nanoid(5)}`
+	}: Partial<Props> = $props();
 
 	//
 
 	function updateSchema(schemaString: string, returnType: ReturnType) {
 		error = undefined;
 		pipe(
-			stringToSchemaProp(schemaString, returnType),
+			schemaString,
+			parseJSONObjectSchemaFromString,
+			Effect.map((schema) => returnSchema(schema, returnType)),
 			Effect.match({
 				onFailure: (e) => (error = e),
 				onSuccess: (v) => (schema = v)
 			}),
 			Effect.provideService(AjvOptions, ajvOptions),
 			Effect.runSync
-		);
-	}
-
-	function stringToSchemaProp(schemaString: string, returnType: ReturnType) {
-		return pipe(
-			schemaString,
-			parseJSONObjectSchemaFromString,
-			Effect.map((schema) => returnSchema(schema, returnType))
 		);
 	}
 </script>

@@ -11,11 +11,16 @@
 
 	const SEPARATOR = ',';
 
-	let stringValue = list.join(`${SEPARATOR} `);
-	$: list = stringValue
-		.split(SEPARATOR)
-		.map((s) => s.trim())
-		.filter((s) => s);
+	function getValue(list: unknown[]) {
+		return list.join(`${SEPARATOR} `);
+	}
+
+	function updateList(stringValue: string) {
+		list = stringValue
+			.split(SEPARATOR)
+			.map((s) => s.trim())
+			.filter((s) => s);
+	}
 </script>
 
 <input
@@ -23,7 +28,8 @@
 	name={id}
 	{id}
 	type="text"
-	bind:value={stringValue}
+	value={getValue(list)}
+	oninput={(e) => updateList(e.currentTarget.value)}
 	placeholder={$stringsStore.separate_values_by_comma}
 	required
 />

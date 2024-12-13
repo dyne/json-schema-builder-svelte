@@ -13,6 +13,7 @@ export function JSONObjectSchemaToPropertyList(schema: JSONObjectSchema): Array<
 		return {
 			name,
 			definition,
+			title: definition.title,
 			required: requiredProperties.includes(name)
 		};
 	});
@@ -27,8 +28,8 @@ export function propertyListToJSONObjectSchema(propertyList: Array<Property>): J
 		required: []
 	};
 
-	for (const { name, definition, required } of propertyList) {
-		schema.properties[name] = definition;
+	for (const { name, definition, required, title } of propertyList) {
+		schema.properties[name] = { ...definition, title: title ?? name };
 		if (required) schema.required!.push(name); // "!" is needed
 	}
 
