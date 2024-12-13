@@ -66,6 +66,9 @@ importers:
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.0(eslint@9.16.0(jiti@1.21.6))
+      eslint-plugin-perfectionist:
+        specifier: ^4.3.0
+        version: 4.3.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
       eslint-plugin-svelte:
         specifier: ^2.36.0
         version: 2.46.1(eslint@9.16.0(jiti@1.21.6))(svelte@5.12.0)
@@ -984,6 +987,12 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
+  eslint-plugin-perfectionist@4.3.0:
+    resolution: {integrity: sha512-8tQ/wn1dFelul2WoXL/NQOEwvWO8H4Vjmsqpt3fDQrfgybr8kQ5Vgb9BQyVRB33ywQqjUApsiwi5Ci7grMPPRA==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      eslint: '>=8.0.0'
+
   eslint-plugin-svelte@2.46.1:
     resolution: {integrity: sha512-7xYr2o4NID/f9OEYMqxsEQsCsj4KaMy4q5sANaKkAb6/QeCjYFxRmDm2S3YC3A3pl1kyPZ/syOx/i7LcWYSbIw==}
     engines: {node: ^14.17.0 || >=16.0.0}
@@ -1357,6 +1366,10 @@ packages:
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
+
+  natural-orderby@5.0.0:
+    resolution: {integrity: sha512-kKHJhxwpR/Okycz4HhQKKlhWe4ASEfPgkSWNmKFHd7+ezuQlxkA5cM3+XkBPvm1gmHen3w53qsYAv+8GwRrBlg==}
+    engines: {node: '>=18'}
 
   no-case@3.0.4:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
@@ -2751,6 +2764,16 @@ snapshots:
     dependencies:
       eslint: 9.16.0(jiti@1.21.6)
 
+  eslint-plugin-perfectionist@4.3.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2):
+    dependencies:
+      '@typescript-eslint/types': 8.18.0
+      '@typescript-eslint/utils': 8.18.0(eslint@9.16.0(jiti@1.21.6))(typescript@5.7.2)
+      eslint: 9.16.0(jiti@1.21.6)
+      natural-orderby: 5.0.0
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+
   eslint-plugin-svelte@2.46.1(eslint@9.16.0(jiti@1.21.6))(svelte@5.12.0):
     dependencies:
       '@eslint-community/eslint-utils': 4.4.1(eslint@9.16.0(jiti@1.21.6))
@@ -3115,6 +3138,8 @@ snapshots:
   nanoid@5.0.9: {}
 
   natural-compare@1.4.0: {}
+
+  natural-orderby@5.0.0: {}
 
   no-case@3.0.4:
     dependencies:

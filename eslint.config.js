@@ -1,6 +1,7 @@
-import prettier from 'eslint-config-prettier';
-import js from '@eslint/js';
 import { includeIgnoreFile } from '@eslint/compat';
+import js from '@eslint/js';
+import prettier from 'eslint-config-prettier';
+import perfectionist from 'eslint-plugin-perfectionist';
 import svelte from 'eslint-plugin-svelte';
 import globals from 'globals';
 import { fileURLToPath } from 'node:url';
@@ -29,6 +30,12 @@ export default ts.config(
 			parserOptions: {
 				parser: ts.parser
 			}
+		}
+	},
+	{
+		plugins: { perfectionist },
+		rules: {
+			'perfectionist/sort-imports': 'error'
 		}
 	}
 );

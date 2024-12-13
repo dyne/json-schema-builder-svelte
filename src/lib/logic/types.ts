@@ -1,4 +1,5 @@
 import type { JSONSchema7Definition, JSONSchema7, JSONSchema7TypeName } from 'json-schema';
+
 import type { WithChanged, WithRequired } from './utils.js';
 
 //

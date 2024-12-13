@@ -1,4 +1,5 @@
 import type { JSONObjectSchema, Property, SchemaProp } from './types.js';
+
 import { createJSONObjectSchema, stringify } from './utils.js';
 
 //
