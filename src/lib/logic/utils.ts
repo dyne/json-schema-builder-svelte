@@ -1,5 +1,5 @@
 import { Ajv } from 'ajv';
-import addKeywords from 'ajv-keywords';
+import addFormats from 'ajv-formats';
 
 import type { JSONObjectSchema, Property, ReturnType } from './types.js';
 
@@ -31,11 +31,22 @@ export function createJSONObjectSchema(): JSONObjectSchema {
 	};
 }
 
-export function createAjv(): Ajv {
+export type CreateAjvOptions = {
+	allowedKeywords?: string[];
+	allowedFormats?: string[];
+};
+
+export function createAjv(options: CreateAjvOptions = {}): Ajv {
+	const { allowedFormats = [], allowedKeywords = [] } = options;
+
 	const ajv = new Ajv({
 		validateSchema: false
 	});
-	addKeywords.default(ajv);
+
+	addFormats.default(ajv);
+	allowedKeywords.forEach((k) => ajv.addKeyword(k));
+	allowedFormats.forEach((f) => ajv.addFormat(f, { validate: () => true }));
+
 	return ajv;
 }
 

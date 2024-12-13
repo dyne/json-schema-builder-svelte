@@ -58,7 +58,12 @@
 			<!-- <JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} {hideRequired} /> -->
 		</div>
 	{:else}
-		<JSONSchemaField bind:schema bind:error {returnType} />
+		<JSONSchemaField
+			bind:schema
+			bind:error
+			{returnType}
+			ajvOptions={{ allowedFormats: ['radio'], allowedKeywords: ['options'] }}
+		/>
 	{/if}
 
 	{#if error}
