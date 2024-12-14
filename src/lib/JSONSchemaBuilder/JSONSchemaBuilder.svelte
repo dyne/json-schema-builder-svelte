@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Effect, pipe } from 'effect';
+	import { Effect, Option, pipe } from 'effect';
 	import type { BaseError } from '$lib/logic/errors.js';
 	import {
 		JSONObjectSchemaToPropertyList,
@@ -34,32 +34,12 @@
 		hideRequired = false
 	}: Partial<Props> = $props();
 
-	let propertyList = $state<Property[]>(schemaToPropertyList(schema));
-	$effect(() => {
-		propertyListToSchema(propertyList);
-	});
-
 	//
 
-	function schemaToPropertyList(obj: object) {
-		error = undefined;
-		return pipe(
-			obj,
-			parseJSONSchema,
-			Effect.flatMap(parseJSONObjectSchema),
-			Effect.map(JSONObjectSchemaToPropertyList),
-			Effect.flatMap(validatePropertyList),
-			Effect.match({
-				onFailure: (e) => {
-					error = e;
-					throw e;
-				},
-				onSuccess: (v) => v
-			}),
-			Effect.provideService(AjvOptions, {}),
-			Effect.runSync
-		);
-	}
+	// const propertyList = $derived();
+	// error = $derived(propertyList.pipe(Effect.option, Option.getOrUndefined));
+
+	//
 
 	function propertyListToSchema(propertyList: Property[]) {
 		error = undefined;
@@ -72,6 +52,7 @@
 			Effect.match({
 				onFailure: (e) => {
 					error = e;
+					throw e;
 				},
 				onSuccess: (v) => {
 					schema = v;
@@ -106,4 +87,8 @@
 	// }
 </script>
 
-<PropertyListEditor bind:propertyList {requiredDefault} {hideRequired} />
+<!-- <PropertyListEditor
+	bind:propertyList={() => propertyList, (v) => propertyListToSchema(v)}
+	{requiredDefault}
+	{hideRequired}
+/> -->
