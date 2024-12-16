@@ -3,10 +3,10 @@
 	import PropertyDefinitionEditorTest from '$lib/JSONSchemaBuilder/partials/propertyDefinitionEditorTest.svelte';
 	import PropertyEditorTest from '$lib/JSONSchemaBuilder/partials/propertyEditorTest.svelte';
 	import PropertyListEditorTest from '$lib/JSONSchemaBuilder/partials/propertyListEditorTest.svelte';
-	import JsonSchemaEditor from '$lib/JSONSchemaEditor/JSONSchemaEditor.svelte';
+	import JsonSchemaEditorTest from '$lib/JSONSchemaEditor/JSONSchemaEditorTest.svelte';
 
 	const components = {
-		JsonSchemaEditor,
+		JsonSchemaEditorTest,
 		JsonSchemaBuilderTest,
 		PropertyListEditorTest,
 		PropertyEditorTest,

@@ -20,45 +20,36 @@
 
 	//
 
-	export let schema: object = createJSONObjectSchema();
-	export let error: BaseError | undefined = undefined;
-	export let requiredDefault = false;
-	export let hideRequired = false;
+	type Props = {
+		schema: object;
+		error: BaseError | undefined;
+		requiredDefault: boolean;
+		hideRequired: boolean;
+	};
+
+	let {
+		schema = $bindable(createJSONObjectSchema()),
+		error = $bindable(),
+		requiredDefault = false,
+		hideRequired = false
+	}: Partial<Props> = $props();
 
 	//
 
-	let propertyList: Property[] = [];
+	let propertyList: Property[] = $state([]);
+	updatePropertyList(schema);
 
-	$: updatePropertyList(schema);
-	$: updateSchema(propertyList);
-
-	//
-
-	function schemaPropToPropertyList(schemaProp: SchemaProp) {
-		return pipe(
-			schemaProp,
-			schemaPropToString,
-			parseJSONObjectSchemaFromString,
-			Effect.map(JSONObjectSchemaToPropertyList),
-			Effect.flatMap(validatePropertyList)
-		);
-	}
-
-	function propertyListToSchema(propertyList: Property[]) {
-		return pipe(
-			propertyList,
-			validatePropertyListKeys,
-			Effect.map(propertyListToJSONObjectSchema),
-			Effect.flatMap(parseJSONSchema),
-			Effect.flatMap(parseJSONObjectSchema)
-		);
-	}
+	$effect(() => updateSchema(propertyList));
 
 	//
 
 	function updatePropertyList(schemaProp: SchemaProp) {
 		pipe(
-			schemaPropToPropertyList(schemaProp),
+			schemaProp,
+			schemaPropToString,
+			parseJSONObjectSchemaFromString,
+			Effect.map(JSONObjectSchemaToPropertyList),
+			Effect.flatMap(validatePropertyList),
 			Effect.match({
 				onFailure: (e) => (error = e),
 				onSuccess: (v) => (propertyList = v)
@@ -69,9 +60,14 @@
 	}
 
 	function updateSchema(propertyList: Property[]) {
-		if (error) return;
+		if (error && propertyList.length == 0) return;
+		error = undefined;
 		pipe(
-			propertyListToSchema(propertyList),
+			propertyList,
+			validatePropertyListKeys,
+			Effect.map(propertyListToJSONObjectSchema),
+			Effect.flatMap(parseJSONSchema),
+			Effect.flatMap(parseJSONObjectSchema),
 			Effect.match({
 				onFailure: (e) => (error = e),
 				onSuccess: (v) => (schema = v)
