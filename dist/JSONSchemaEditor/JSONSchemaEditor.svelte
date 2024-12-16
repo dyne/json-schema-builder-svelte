@@ -13,6 +13,7 @@ export let requiredDefault = false;
 export let hideRequired = false;
 export let mode = "builder";
 export let label = void 0;
+export let ajvOptions = {};
 function changeMode() {
   mode = getOtherMode(mode);
 }
@@ -33,10 +34,17 @@ function clearSchema() {
 <div>
 	{#if mode == 'builder'}
 		<div class="space-y-6">
-			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} {hideRequired} />
+			<JSONSchemaBuilder
+				bind:schema
+				bind:error
+				{ajvOptions}
+				{returnType}
+				{requiredDefault}
+				{hideRequired}
+			/>
 		</div>
 	{:else}
-		<JSONSchemaField bind:schema bind:error {returnType} />
+		<JSONSchemaField bind:schema bind:error {ajvOptions} {returnType} />
 	{/if}
 
 	{#if error}

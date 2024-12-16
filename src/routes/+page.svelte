@@ -40,7 +40,13 @@
 <button class="x-button" on:click={setSchema}>set</button>
 
 <div class="space-y-4 p-4">
-	<JSONSchemaEditor bind:schema mode="builder" requiredDefault hideRequired />
+	<JSONSchemaEditor
+		bind:schema
+		mode="builder"
+		requiredDefault
+		hideRequired
+		ajvOptions={{ allowedKeywords: ['options'], allowedFormats: ['radio'] }}
+	/>
 	<pre>{debugSchema(schema)}</pre>
 </div>
 

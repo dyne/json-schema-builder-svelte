@@ -1,12 +1,13 @@
 <script>import { Effect, pipe } from "effect";
-import { stringify, createJSONObjectSchema, returnSchema } from "../logic/utils.js";
-import { parseJSONObjectSchemaFromString } from "../logic/parsing.js";
+import { createJSONObjectSchema, returnSchema } from "../logic/utils.js";
+import { AjvOptions, parseJSONObjectSchemaFromString } from "../logic/parsing.js";
 import { nanoid } from "nanoid";
 import { schemaPropToString } from "../logic/conversion.js";
 export let schema = createJSONObjectSchema();
 export let error = void 0;
 export let returnType = "object";
 export let id = `json-schema-${nanoid(5)}`;
+export let ajvOptions = {};
 let tempSchema = "";
 $:
   updateTempSchema(schema);
@@ -23,6 +24,7 @@ function updateSchema(schemaString, returnType2) {
       onFailure: (e) => error = e,
       onSuccess: (v) => schema = v
     }),
+    Effect.provideService(AjvOptions, ajvOptions),
     Effect.runSync
   );
 }

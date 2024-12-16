@@ -11,7 +11,7 @@
 	import ErrorBanner from '$lib/ui/errorBanner.svelte';
 	import WarningBanner from '$lib/ui/warningBanner.svelte';
 	import ArrowRight from 'svelte-heros-v2/ArrowRight.svelte';
-	import { createJSONObjectSchema, returnSchema } from '$lib/logic/utils.js';
+	import { type CreateAjvOptions, createJSONObjectSchema, returnSchema } from '$lib/logic/utils.js';
 	import { onMount } from 'svelte';
 
 	//
@@ -23,6 +23,7 @@
 
 	export let mode: EditorMode = 'builder';
 	export let label: string | undefined = undefined;
+	export let ajvOptions: CreateAjvOptions = {};
 
 	//
 
@@ -55,10 +56,17 @@
 <div>
 	{#if mode == 'builder'}
 		<div class="space-y-6">
-			<JSONSchemaBuilder bind:schema bind:error {returnType} {requiredDefault} {hideRequired} />
+			<JSONSchemaBuilder
+				bind:schema
+				bind:error
+				{ajvOptions}
+				{returnType}
+				{requiredDefault}
+				{hideRequired}
+			/>
 		</div>
 	{:else}
-		<JSONSchemaField bind:schema bind:error {returnType} />
+		<JSONSchemaField bind:schema bind:error {ajvOptions} {returnType} />
 	{/if}
 
 	{#if error}

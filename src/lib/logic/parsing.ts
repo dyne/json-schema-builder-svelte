@@ -1,11 +1,11 @@
-import { Effect, pipe } from 'effect';
+import { Effect, pipe, Context } from 'effect';
 import { ErrorCode, BaseError } from './errors.js';
 
 import { Type as T } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
 
 import { JSONSchemaType, type JSONObjectSchema, type JSONSchema } from '$lib/logic/types.js';
-import { createAjv } from '$lib/logic/utils.js';
+import { createAjv, type CreateAjvOptions } from './utils.js';
 
 //
 
@@ -37,15 +37,21 @@ export class NotObjectError extends BaseError {
 
 //
 
+export class AjvOptions extends Context.Tag('AjvContext')<AjvOptions, CreateAjvOptions>() {}
+
 export const parseJSONSchema = (object: object) =>
-	Effect.try({
-		try: () => {
-			const ajv = createAjv();
-			ajv.compile(object);
-			return object as JSONSchema;
-		},
-		catch: (e) => new InvalidJSONSchemaError((e as Error).message)
-	});
+	AjvOptions.pipe(
+		Effect.andThen((options) =>
+			Effect.try({
+				try: () => {
+					const ajv = createAjv(options);
+					ajv.compile(object);
+					return object as JSONSchema;
+				},
+				catch: (e) => new InvalidJSONSchemaError((e as Error).message)
+			})
+		)
+	);
 
 export class InvalidJSONSchemaError extends BaseError {
 	readonly _tag = ErrorCode.InvalidJSONSchemaError;

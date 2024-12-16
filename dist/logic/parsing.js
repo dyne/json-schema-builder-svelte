@@ -1,4 +1,4 @@
-import { Effect, pipe } from 'effect';
+import { Effect, pipe, Context } from 'effect';
 import { ErrorCode, BaseError } from './errors.js';
 import { Type as T } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
@@ -27,14 +27,16 @@ export class NotObjectError extends BaseError {
     _tag = ErrorCode.NotObjectError;
 }
 //
-export const parseJSONSchema = (object) => Effect.try({
+export class AjvOptions extends Context.Tag('AjvContext')() {
+}
+export const parseJSONSchema = (object) => AjvOptions.pipe(Effect.andThen((options) => Effect.try({
     try: () => {
-        const ajv = createAjv();
+        const ajv = createAjv(options);
         ajv.compile(object);
         return object;
     },
     catch: (e) => new InvalidJSONSchemaError(e.message)
-});
+})));
 export class InvalidJSONSchemaError extends BaseError {
     _tag = ErrorCode.InvalidJSONSchemaError;
 }

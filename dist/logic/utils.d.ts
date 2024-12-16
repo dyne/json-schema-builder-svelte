@@ -6,7 +6,11 @@ export type WithRequired<T, K extends keyof T> = T & {
 export type WithChanged<T, K extends Partial<T>> = T & K;
 export declare function createStringProperty(): Property;
 export declare function createJSONObjectSchema(): JSONObjectSchema;
-export declare function createAjv(): Ajv;
+export type CreateAjvOptions = {
+    allowedKeywords?: string[];
+    allowedFormats?: string[];
+};
+export declare function createAjv(options?: CreateAjvOptions): Ajv;
 export declare function stringify(data: unknown): string;
 export declare function returnSchema(schema: JSONObjectSchema, returnType?: ReturnType): string | JSONObjectSchema;
 export declare function debugSchema(schema: string | object): string;

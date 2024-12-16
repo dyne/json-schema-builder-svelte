@@ -9,11 +9,12 @@
 	import { validatePropertyList, validatePropertyListKeys } from '$lib/logic/validation.js';
 	import type { Property, ReturnType } from '$lib/logic/types.js';
 	import {
+		AjvOptions,
 		parseJSONObjectSchema,
 		parseJSONObjectSchemaFromString,
 		parseJSONSchema
 	} from '$lib/logic/parsing.js';
-	import { createJSONObjectSchema, returnSchema } from '$lib/logic/utils.js';
+	import { type CreateAjvOptions, createJSONObjectSchema, returnSchema } from '$lib/logic/utils.js';
 	import PropertyListEditor from '$lib/JSONSchemaBuilder/partials/propertyListEditor.svelte';
 	import type { SchemaProp } from '$lib/logic/types.js';
 
@@ -24,6 +25,7 @@
 	export let returnType: ReturnType = 'object';
 	export let requiredDefault = false;
 	export let hideRequired = false;
+	export let ajvOptions: CreateAjvOptions = {};
 
 	//
 
@@ -34,57 +36,40 @@
 
 	//
 
-	function schemaPropToPropertyList(schemaProp: SchemaProp) {
-		return pipe(
+	function updatePropertyList(schemaProp: SchemaProp) {
+		pipe(
 			schemaProp,
 			schemaPropToString,
 			parseJSONObjectSchemaFromString,
 			Effect.map(JSONObjectSchemaToPropertyList),
-			Effect.flatMap(validatePropertyList)
-		);
-	}
-
-	function propertyListToSchema(propertyList: Property[], returnType: ReturnType) {
-		return pipe(
-			propertyList,
-			validatePropertyListKeys,
-			Effect.map(propertyListToJSONObjectSchema),
-			Effect.flatMap(parseJSONSchema),
-			Effect.flatMap(parseJSONObjectSchema),
-			Effect.map((schema) => returnSchema(schema, returnType))
-		);
-	}
-
-	//
-
-	function updatePropertyList(schemaProp: SchemaProp) {
-		pipe(
-			schemaPropToPropertyList(schemaProp),
+			Effect.flatMap(validatePropertyList),
 			Effect.match({
 				onFailure: (e) => (error = e),
 				onSuccess: (v) => (propertyList = v)
 			}),
+			Effect.provideService(AjvOptions, ajvOptions),
 			Effect.runSync
 		);
 	}
 
 	function updateSchema(propertyList: Property[], returnType: ReturnType) {
-		if (error) return;
+		if (error && propertyList.length == 0) return;
+		error = undefined;
 		pipe(
-			propertyListToSchema(propertyList, returnType),
+			propertyList,
+			validatePropertyListKeys,
+			Effect.map(propertyListToJSONObjectSchema),
+			Effect.flatMap(parseJSONSchema),
+			Effect.flatMap(parseJSONObjectSchema),
+			Effect.map((schema) => returnSchema(schema, returnType)),
 			Effect.match({
 				onFailure: (e) => (error = e),
 				onSuccess: (v) => (schema = v)
 			}),
+			Effect.provideService(AjvOptions, ajvOptions),
 			Effect.runSync
 		);
 	}
-
-	function clearError() {
-		error = undefined;
-	}
 </script>
 
-{#if propertyList}
-	<PropertyListEditor bind:propertyList {requiredDefault} {hideRequired} />
-{/if}
+<PropertyListEditor bind:propertyList {requiredDefault} {hideRequired} />

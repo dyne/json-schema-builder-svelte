@@ -6,6 +6,7 @@ import {
 } from "../logic/conversion.js";
 import { validatePropertyList, validatePropertyListKeys } from "../logic/validation.js";
 import {
+  AjvOptions,
   parseJSONObjectSchema,
   parseJSONObjectSchemaFromString,
   parseJSONSchema
@@ -17,57 +18,46 @@ export let error = void 0;
 export let returnType = "object";
 export let requiredDefault = false;
 export let hideRequired = false;
+export let ajvOptions = {};
 let propertyList = [];
 $:
   updatePropertyList(schema);
 $:
   updateSchema(propertyList, returnType);
-function schemaPropToPropertyList(schemaProp) {
-  return pipe(
+function updatePropertyList(schemaProp) {
+  pipe(
     schemaProp,
     schemaPropToString,
     parseJSONObjectSchemaFromString,
     Effect.map(JSONObjectSchemaToPropertyList),
-    Effect.flatMap(validatePropertyList)
+    Effect.flatMap(validatePropertyList),
+    Effect.match({
+      onFailure: (e) => error = e,
+      onSuccess: (v) => propertyList = v
+    }),
+    Effect.provideService(AjvOptions, ajvOptions),
+    Effect.runSync
   );
 }
-function propertyListToSchema(propertyList2, returnType2) {
-  return pipe(
+function updateSchema(propertyList2, returnType2) {
+  if (error && propertyList2.length == 0)
+    return;
+  error = void 0;
+  pipe(
     propertyList2,
     validatePropertyListKeys,
     Effect.map(propertyListToJSONObjectSchema),
     Effect.flatMap(parseJSONSchema),
     Effect.flatMap(parseJSONObjectSchema),
-    Effect.map((schema2) => returnSchema(schema2, returnType2))
-  );
-}
-function updatePropertyList(schemaProp) {
-  pipe(
-    schemaPropToPropertyList(schemaProp),
-    Effect.match({
-      onFailure: (e) => error = e,
-      onSuccess: (v) => propertyList = v
-    }),
-    Effect.runSync
-  );
-}
-function updateSchema(propertyList2, returnType2) {
-  if (error)
-    return;
-  pipe(
-    propertyListToSchema(propertyList2, returnType2),
+    Effect.map((schema2) => returnSchema(schema2, returnType2)),
     Effect.match({
       onFailure: (e) => error = e,
       onSuccess: (v) => schema = v
     }),
+    Effect.provideService(AjvOptions, ajvOptions),
     Effect.runSync
   );
 }
-function clearError() {
-  error = void 0;
-}
 </script>
 
-{#if propertyList}
-	<PropertyListEditor bind:propertyList {requiredDefault} {hideRequired} />
-{/if}
+<PropertyListEditor bind:propertyList {requiredDefault} {hideRequired} />

@@ -2,9 +2,9 @@
 	import { Effect, pipe } from 'effect';
 
 	import type { BaseError } from '$lib/logic/errors.js';
-	import { stringify, createJSONObjectSchema, returnSchema } from '$lib/logic/utils.js';
+	import { createJSONObjectSchema, returnSchema, type CreateAjvOptions } from '$lib/logic/utils.js';
 	import type { SchemaProp, ReturnType } from '$lib/logic/types.js';
-	import { parseJSONObjectSchemaFromString } from '$lib/logic/parsing.js';
+	import { AjvOptions, parseJSONObjectSchemaFromString } from '$lib/logic/parsing.js';
 
 	import { nanoid } from 'nanoid';
 	import { schemaPropToString } from '$lib/logic/conversion.js';
@@ -16,6 +16,7 @@
 	export let returnType: ReturnType = 'object';
 
 	export let id = `json-schema-${nanoid(5)}`;
+	export let ajvOptions: CreateAjvOptions = {};
 
 	//
 
@@ -36,6 +37,7 @@
 				onFailure: (e) => (error = e),
 				onSuccess: (v) => (schema = v)
 			}),
+			Effect.provideService(AjvOptions, ajvOptions),
 			Effect.runSync
 		);
 	}

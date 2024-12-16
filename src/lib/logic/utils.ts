@@ -31,11 +31,22 @@ export function createJSONObjectSchema(): JSONObjectSchema {
 	};
 }
 
-export function createAjv(): Ajv {
+export type CreateAjvOptions = {
+	allowedKeywords?: string[];
+	allowedFormats?: string[];
+};
+
+export function createAjv(options: CreateAjvOptions = {}): Ajv {
+	const { allowedFormats = [], allowedKeywords = [] } = options;
+
 	const ajv = new Ajv({
 		validateSchema: false
 	});
+
 	addFormats.default(ajv);
+	allowedKeywords.forEach((k) => ajv.addKeyword(k));
+	allowedFormats.forEach((f) => ajv.addFormat(f, { validate: () => true }));
+
 	return ajv;
 }
 

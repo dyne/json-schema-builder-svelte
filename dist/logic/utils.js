@@ -20,11 +20,14 @@ export function createJSONObjectSchema() {
         }
     };
 }
-export function createAjv() {
+export function createAjv(options = {}) {
+    const { allowedFormats = [], allowedKeywords = [] } = options;
     const ajv = new Ajv({
         validateSchema: false
     });
     addFormats.default(ajv);
+    allowedKeywords.forEach((k) => ajv.addKeyword(k));
+    allowedFormats.forEach((f) => ajv.addFormat(f, { validate: () => true }));
     return ajv;
 }
 export function stringify(data) {

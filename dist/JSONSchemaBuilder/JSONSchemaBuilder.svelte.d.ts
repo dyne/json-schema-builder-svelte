@@ -1,6 +1,7 @@
 import { SvelteComponent } from "svelte";
 import type { BaseError } from '../logic/errors.js';
 import type { ReturnType } from '../logic/types.js';
+import { type CreateAjvOptions } from '../logic/utils.js';
 import type { SchemaProp } from '../logic/types.js';
 declare const __propDef: {
     props: {
@@ -9,6 +10,7 @@ declare const __propDef: {
         returnType?: ReturnType | undefined;
         requiredDefault?: boolean | undefined;
         hideRequired?: boolean | undefined;
+        ajvOptions?: CreateAjvOptions | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;
