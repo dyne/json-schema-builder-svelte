@@ -20,75 +20,66 @@
 
 	//
 
-	type Props = {
-		schema: object;
-		error: BaseError | undefined;
-		requiredDefault: boolean;
-		hideRequired: boolean;
-	};
-
-	let {
-		schema = $bindable(createJSONObjectSchema()),
-		error = $bindable(),
-		requiredDefault = false,
-		hideRequired = false
-	}: Partial<Props> = $props();
+	export let schema: object = createJSONObjectSchema();
+	export let error: BaseError | undefined = undefined;
+	export let requiredDefault = false;
+	export let hideRequired = false;
 
 	//
 
-	// const propertyList = $derived();
-	// error = $derived(propertyList.pipe(Effect.option, Option.getOrUndefined));
+	let propertyList: Property[] = [];
+
+	$: updatePropertyList(schema);
+	$: updateSchema(propertyList);
 
 	//
+
+	function schemaPropToPropertyList(schemaProp: SchemaProp) {
+		return pipe(
+			schemaProp,
+			schemaPropToString,
+			parseJSONObjectSchemaFromString,
+			Effect.map(JSONObjectSchemaToPropertyList),
+			Effect.flatMap(validatePropertyList)
+		);
+	}
 
 	function propertyListToSchema(propertyList: Property[]) {
-		error = undefined;
-		pipe(
+		return pipe(
 			propertyList,
 			validatePropertyListKeys,
 			Effect.map(propertyListToJSONObjectSchema),
 			Effect.flatMap(parseJSONSchema),
-			Effect.flatMap(parseJSONObjectSchema),
+			Effect.flatMap(parseJSONObjectSchema)
+		);
+	}
+
+	//
+
+	function updatePropertyList(schemaProp: SchemaProp) {
+		pipe(
+			schemaPropToPropertyList(schemaProp),
 			Effect.match({
-				onFailure: (e) => {
-					error = e;
-					throw e;
-				},
-				onSuccess: (v) => {
-					schema = v;
-				}
+				onFailure: (e) => (error = e),
+				onSuccess: (v) => (propertyList = v)
 			}),
 			Effect.provideService(AjvOptions, {}),
 			Effect.runSync
 		);
 	}
 
-	// //
-
-	// function getPropertyList(schemaProp: SchemaProp) {
-	// 	return pipe(
-	// 		schemaPropToPropertyList(schemaProp),
-	// 		Effect.provideService(AjvOptions, {}),
-	// 		Effect.runSync
-	// 	);
-	// }
-
-	// function updateSchema(propertyList: Property[], returnType: ReturnType) {
-	// 	if (error) return;
-	// 	return pipe(
-	// 		propertyListToSchema(propertyList, returnType),
-	// 		Effect.match({
-	// 			onFailure: (e) => (error = e),
-	// 			onSuccess: (v) => (schema = v)
-	// 		}),
-	// 		Effect.provideService(AjvOptions, {}),
-	// 		Effect.runSync
-	// 	);
-	// }
+	function updateSchema(propertyList: Property[]) {
+		if (error) return;
+		pipe(
+			propertyListToSchema(propertyList),
+			Effect.match({
+				onFailure: (e) => (error = e),
+				onSuccess: (v) => (schema = v)
+			}),
+			Effect.provideService(AjvOptions, {}),
+			Effect.runSync
+		);
+	}
 </script>
 
-<!-- <PropertyListEditor
-	bind:propertyList={() => propertyList, (v) => propertyListToSchema(v)}
-	{requiredDefault}
-	{hideRequired}
-/> -->
+<PropertyListEditor bind:propertyList {requiredDefault} {hideRequired} />
